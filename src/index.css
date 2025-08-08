@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+@media (min-width: 270px) {
+  .wrapper {
+      padding-left: 12px;
+      padding-right: 12px;
+  }
+  .logoSearchWrapper{
+    display: block;
+  }
+  .search{
+    margin-top: 5px;
+    width: calc(100% - 67px);
+    
+  }
+  .searchForm{
+    width: 100%;
+  }
+  .adSection{
+    display: none;
+  }
+  .derivery_msg, .price_subtitle {
+    display: none;
+  }
+  .cartItem {
+    gap: 8px;
+  }
+  .cartItem .price_title {
+    flex-direction: column;
+    /* gap: 1rem /* 16px */; 
+  }
+  .artItem{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 450px) {
+  .cartItem {
+    gap: 16px;
+  }
+  .cartItem, .cartItem .price_title{
+    flex-direction: row;
+  }
+  .derivery_msg, .price_subtitle{
+    display: block;
+  }
+   
+}
+
+@media (min-width: 540px) {
+  .logoSearchWrapper{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .searchForm{
+    width: auto;
+  }
+  .adSection{
+    display: block;
+  }
+  .artItem{
+    flex-direction: row;
+    gap: 40px;
+  }
+  
+}
+@media (min-width: 875px) {
+  .search {
+      width: 384px;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem 
+  }
+  .searchBtn{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem 
+  }
+}
+
+/* .profile-login{
+  display: none;
+}
+
+.profile-wrapper:hover .profile-login{
+  display: block;
+} */
