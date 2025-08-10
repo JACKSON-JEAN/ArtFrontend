@@ -1,16 +1,11 @@
-import React from "react";
 import CartItem from "../components/CartItem";
 import cartImage from "../images/img2.jpeg";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import Products from "../components/Products";
-import { getUserEmail, getUserId } from "../utils/decodeToken";
-import { useQuery } from "@apollo/client";
-import { GET_CLIENT_CART } from "../graphql/cart";
 
 const Cart = () => {
   const { cart, total } = useCart();
-  const userId = getUserId()
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -32,8 +27,9 @@ const Cart = () => {
                     <CartItem
                       key={item.id}
                       id={item.id}
-                      image={cartImage}
+                      image={item.image? item.image: cartImage}
                       description={item.title}
+                      category={item.category}
                       widthCm={item.widthCm}
                       heightCm={item.heightCm}
                       quantity={item.quantity}

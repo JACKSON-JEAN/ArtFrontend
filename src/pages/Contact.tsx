@@ -1,5 +1,3 @@
-import React from "react";
-import image from "../images/painter.jpg"
 
 const Contact = () => {
   return (

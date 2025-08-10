@@ -28,7 +28,7 @@ const Categories = () => {
           <section>
             <img
               src={img1}
-              alt="category image"
+              alt="category"
               className=" rounded-sm h-40 w-full object-cover"
             />
           </section>
@@ -38,7 +38,7 @@ const Categories = () => {
           <section className="">
             <img
               src={img2}
-              alt="category image"
+              alt="Sculptures"
               className=" rounded-sm h-40 w-full object-cover"
             />
           </section>
@@ -48,7 +48,7 @@ const Categories = () => {
           <section>
             <img
               src={img3}
-              alt="category image"
+              alt="Textiles"
               className=" rounded-sm h-40 w-full object-cover"
             />
           </section>
@@ -58,7 +58,7 @@ const Categories = () => {
           <section>
             <img
               src={img4}
-              alt="category image"
+              alt="Jewelry"
               className=" rounded-sm h-40 w-full object-cover"
             />
           </section>

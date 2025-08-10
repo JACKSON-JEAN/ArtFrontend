@@ -20,6 +20,11 @@ export const GET_CLIENT_CART = gql`
         title
         heightCm
         widthCm
+        category
+        media{
+          id
+          url
+        }
       }
     }
   }

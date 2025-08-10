@@ -88,13 +88,13 @@ const Signin = () => {
 
   return (
     <div className=" w-full flex justify-center px-10 sm:px-20 min-h-screen py-4 bg-slate-50">
-      <div>
+      <div className=' flex items-center flex-col'>
         <p className=" w-[400px] text-center mb-2">
           <Link to="/" className='text-xl text-red-950 hover:text-red-900 font-semibold'>ZubArt</Link>
         </p>
         <form
           onSubmit={submitHandler}
-          className=" bg-white max-w-[450px] py-2 px-3 border rounded-sm"
+          className={` ${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm`}
         >
           <p className=" text-lg text-red-950 font-semibold mb-3">
             Sign in

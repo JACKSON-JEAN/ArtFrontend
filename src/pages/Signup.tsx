@@ -93,8 +93,8 @@ const Signup = () => {
 
   return (
     <div className="w-full flex justify-center px-10 sm:px-20 min-h-screen py-4 bg-slate-50">
-      <div>
-        <p className="w-[400px] text-center mb-2">
+      <div className=' flex items-center flex-col'>
+        <p className={` w-[400px] text-center mb-2`}>
           <Link
             to="/"
             className="text-xl text-red-950 hover:text-red-900 font-semibold"
@@ -104,7 +104,7 @@ const Signup = () => {
         </p>
         <form
           onSubmit={submitHandler}
-          className="bg-white max-w-[450px] py-2 px-3 border rounded-sm relative"
+          className={`${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm relative`}
         >
           <p className="text-lg text-red-950 font-semibold mb-3">
             Create account
@@ -122,7 +122,7 @@ const Signup = () => {
             />
           </div>
 
-          <div className="flex gap-3">
+          
             <div className="flex-1 flex flex-col mb-3">
               <label htmlFor="email">Email</label>
               <input
@@ -145,7 +145,6 @@ const Signup = () => {
                 onChange={(e) => changeHandler("telephone", e.target.value)}
               />
             </div>
-          </div>
 
           <div className="flex-1 flex flex-col mb-3">
             <label htmlFor="password">Password</label>

@@ -15,7 +15,7 @@ type ProductsProps = {
   onFilter?: (category: string) => void;
 };
 
-const Products: React.FC<ProductsProps> = ({ limit, subTitle, onFilter }) => {
+const Products: React.FC<ProductsProps> = ({ limit, subTitle }) => {
   const [categoryFilter, setCategoryFilter] = useState<string>("");
   const [displayFilter, setDisplayFilter] = useState<boolean>(false);
 
@@ -50,10 +50,6 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle, onFilter }) => {
 
     return item.category?.toUpperCase() === categoryFilter?.toUpperCase();
   });
-
-  const filterHandler = (category: string) => {
-    setCategoryFilter(category);
-  };
 
   const isCollectionPage = location.pathname === "/collection";
 
@@ -135,6 +131,7 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle, onFilter }) => {
             key={item.id}
             media={item.media || img1}
             title={item.title}
+            category={item.category}
             widthCm={item.widthCm}
             heightCm={item.heightCm}
             isFeatured={item.isFeatured}

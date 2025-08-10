@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React from "react";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { useSearch } from "../context/search.context";
 import { Artwork } from "../types/artwork";
-import ProductItem from "../components/ProductItem";
-import img1 from "../images/art1.jpg";
 
 type ProductsProps = {
   limit?: number;
@@ -15,16 +13,9 @@ type ProductsProps = {
 
 const ArtworkManagement: React.FC<ProductsProps> = ({
   limit,
-  subTitle,
-  onFilter,
+  categoryFilter
 }) => {
-  const [categoryFilter, setCategoryFilter] = useState<string>("");
-  const [displayFilter, setDisplayFilter] = useState<boolean>(false);
-
-  const handleSelectCategory = (category: string) => {
-    setCategoryFilter(category);
-    setDisplayFilter(false);
-  };
+  // const [categoryFilter, setCategoryFilter] = useState<string>("");
 
   const { query } = useSearch();
   const { loading, error, data } = useQuery(GET_ARTWORK, {
@@ -45,9 +36,6 @@ const ArtworkManagement: React.FC<ProductsProps> = ({
     return item.category?.toUpperCase() === categoryFilter?.toUpperCase();
   });
 
-  const filterHandler = (category: string) => {
-    setCategoryFilter(category);
-  };
 
   if (loading) return <p>Loading</p>;
   if (error)

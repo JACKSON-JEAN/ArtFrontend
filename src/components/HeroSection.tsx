@@ -32,7 +32,6 @@ const HeroSection = () => {
   return (
     <div className="bg-gradient-to-r from-red-950 to-red-900 p-[3px] rounded-md mb-4 overflow-hidden">
       <div className="flex flex-col sm:flex-row w-full min-h-[200px] md:min-h-[300px] rounded-md">
-        {/* Text Section */}
         <section className="flex-1 flex items-center py-6">
           <div className="px-4">
             <p className="text-base font-light capitalize text-amber-50">
@@ -47,7 +46,6 @@ const HeroSection = () => {
           </div>
         </section>
 
-        {/* Carousel Section */}
         <section className=" hidden sm:block flex-1 bg-amber-50 border-2 border-amber-50 rounded-r-md overflow-hidden">
           <Slider {...settings}>
             {images.map(({ src, alt }, idx) => (

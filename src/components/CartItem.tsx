@@ -6,6 +6,7 @@ interface cartItemProps {
   id: number;
   image: string;
   description: string;
+  category: string;
   heightCm?: number
   widthCm?: number
   quantity: number;
@@ -16,6 +17,7 @@ const CartItem: React.FC<cartItemProps> = ({
   id,
   image,
   description,
+  category,
   heightCm,
   widthCm,
   quantity,
@@ -44,12 +46,13 @@ const CartItem: React.FC<cartItemProps> = ({
             <p>{description}</p>
             <p className=" font-semibold">${(price * quantity).toFixed(2)}</p>
           </div>
+          <p><span className=" font-semibold">Category:</span> <span className=" text-slate-400 capitalize">{category.toLowerCase()}</span></p>
           {heightCm &&<p>
             Size: <span className=" font-light">{heightCm} x {widthCm}</span>
           </p>}
-          <p className={`${"derivery_msg"} mb-1 text-green-600`}>Delivery by jun 6th. Money back guarantee.</p>
+          <p className={`${"derivery_msg"} mb-1 text-green-600`}>Delivered with in 7 days. Money back guarantee.</p>
           <div className=" flex justify-between">
-            <p onClick={() => removeFromCart(id)} className=" text-red-600 hover:text-red-700 cursor-pointer text-sm">Delete</p>
+            <p onClick={() => removeFromCart(id)} className=" text-red-600 hover:text-red-700 cursor-pointer text-sm flex gap-0.5 items-center"><span><DeleteIcon/></span> Remove</p>
             <div className=" w-24 flex justify-between items-center px-2 rounded-full border-2 border-red-950">
               <p onClick={() =>decreaseQuantity(id)} className=" text-sm cursor-pointer">{quantity < 2 ? <DeleteIcon/> : <MinusIcon/>}</p>
               <p>{quantity}</p>

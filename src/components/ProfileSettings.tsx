@@ -29,7 +29,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
     return () =>{
         document.removeEventListener("mousedown", handleClickOutside)
     }
-  },[])
+  },[onClose])
 
   const logoutHandler = async () => {
     const refreshToken = localStorage.getItem("refreshToken");

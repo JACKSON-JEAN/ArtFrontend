@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import img3 from "../images/img3.jpeg";
 import { Artwork } from "../types/artwork";
 import ProductItem from "../components/ProductItem";
-import { useSearch } from "../context/search.context";
 import { useQuery } from "@apollo/client";
-import { GET_ARTWORK, GET_NEW_ARRIVALS } from "../graphql/artwork";
+import { GET_NEW_ARRIVALS } from "../graphql/artwork";
 import {IoIosArrowForward} from "react-icons/io"
 
 const NewArrivals = () => {
@@ -13,7 +12,6 @@ const NewArrivals = () => {
       React.SVGProps<SVGSVGElement>
     >;
 
-  const { query } = useSearch();
   const { loading, error, data } = useQuery(GET_NEW_ARRIVALS);
   const artwork = data?.getNewArrivals;
 
@@ -37,6 +35,7 @@ const NewArrivals = () => {
               key={item.id}
               media={item.media || img3}
               title={item.title}
+              category={item.category}
               widthCm={item.widthCm}
               heightCm={item.heightCm}
               isFeatured={item.isFeatured}

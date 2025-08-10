@@ -67,6 +67,12 @@ code {
   }
    
 }
+@media (min-width: 512px) {
+  .auth{
+    width: 450px;
+  }
+   
+}
 
 @media (min-width: 540px) {
   .logoSearchWrapper{

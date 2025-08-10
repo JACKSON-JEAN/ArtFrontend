@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import img4 from "../images/img4.jpeg";
-import img3 from "../images/img3.jpeg";
-import img2 from "../images/img2.jpeg";
 import img1 from "../images/img1.jpeg";
 import { Artwork } from "../types/artwork";
 import ProductItem from "./ProductItem";
@@ -49,6 +46,7 @@ const FeaturedArtwork = () => {
               key={item.id}
               media={item.media || img1}
               title={item.title}
+              category={item.category}
               widthCm={item.widthCm}
               heightCm={item.heightCm}
               isFeatured={item.isFeatured}

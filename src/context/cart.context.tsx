@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { useApolloClient, useMutation, useLazyQuery, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useLazyQuery } from "@apollo/client";
 import { getUserId } from "../utils/decodeToken";
 import {
   GET_CLIENT_CART,
@@ -13,6 +13,7 @@ export type CartItem = {
   id: number;
   image: string;
   title: string;
+  category: string
   heightCm?: number;
   widthCm?: number;
   artworkId: number
@@ -45,8 +46,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (data?.getClientCart?.items) {
         const serverCart: CartItem[] = data.getClientCart.items.map((item: any) => ({
           id: item.id,
-          image: item.artwork.image,
+          image: item.artwork.media[0]?.url,
           title: item.artwork.title,
+          category: item.artwork.category,
           heightCm: item.artwork.heightCm,
           widthCm: item.artwork.widthCm,
           artworkId: item.artwork.id,
@@ -87,7 +89,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     }
-  }, [userId]);
+  }, [userId, fetchCart]);
 
   // Keep localStorage for guests
   useEffect(() => {
@@ -118,9 +120,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                   (srv: any) => srv.artwork.id === guestItem.id
                 );
                 if (match) {
-                //   for (let i = 0; i < guestItem.quantity; i++) {
-                //     incrementItem({ variables: { itemId: match.id, clientId: userId } });
-                //   }
                   incrementItem({ variables: { itemId: match.id, clientId: userId } });
                 } else {
                   addCartItem({
@@ -146,7 +145,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     }
-  }, [userId]);
+  }, [userId, addCartItem, client, fetchCart, incrementItem]);
 
   // Cart actions
   const addToCart = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
