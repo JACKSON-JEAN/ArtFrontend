@@ -68,9 +68,15 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
           </button>
         )}
         {!userEmail && (
-          <Link to="/signin" className=" hover:text-blue-600 text-sm w-full inline-block">
+          <div>
+            <Link to="/signin" className=" bg-blue-600 text-center py-1 rounded-sm shadow-sm text-white hover:bg-blue-700 text-sm w-full inline-block">
             Sign In
-          </Link>
+            </Link>
+            <p className=" mt-1 text-xs text-center">New customer?
+              {" "}
+              <Link to="/signup" className=" text-blue-700 hover:underline">create account</Link>
+            </p>
+          </div>
         )}
         <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -top-[6px] left-[98px] z-20"></div>
       </div>
