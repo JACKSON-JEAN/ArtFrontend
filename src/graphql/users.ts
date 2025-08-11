@@ -25,3 +25,24 @@ mutation Logout($refreshToken: String!) {
   }
 }
 `
+
+export const GET_USERS = gql`
+query Get_users($searchInput: SearchUsersInput!){
+  getUsers(searchInput: $searchInput){
+    id
+    fullName
+    email
+    phone
+    role
+    isActive
+  }
+}
+`
+
+export const UPDATE_USER = gql`
+mutation UpdateUser($userId: Float!, $updateInput: UpdateUserInput!){
+  updateUser(userId: $userId, updateInput: $updateInput){
+    role
+  }
+}
+`

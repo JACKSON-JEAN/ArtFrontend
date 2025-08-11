@@ -1,8 +1,12 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
+import React, { useState } from "react";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { useSearch } from "../context/search.context";
 import { Artwork } from "../types/artwork";
+import img1 from "../images/art1.jpg";
+import AddArtwork from "../components/AddProduct";
+import { Link } from "react-router-dom";
+import AddImage from "../dashboard/components/AddImage";
 
 type ProductsProps = {
   limit?: number;
@@ -11,12 +15,10 @@ type ProductsProps = {
   onFilter?: (category: string) => void;
 };
 
-const ArtworkManagement: React.FC<ProductsProps> = ({
-  limit,
-  categoryFilter
-}) => {
-  // const [categoryFilter, setCategoryFilter] = useState<string>("");
-
+const ArtworkManagement: React.FC<ProductsProps> = () => {
+  const [addNew, setAddNew] = useState(false)
+  const [addImage, setAddImage] = useState(false)
+  const [selectedId, setSelectedId] = useState<number>()
   const { query } = useSearch();
   const { loading, error, data } = useQuery(GET_ARTWORK, {
     variables: {
@@ -26,16 +28,19 @@ const ArtworkManagement: React.FC<ProductsProps> = ({
     },
   });
   const artwork = data?.getArtwork || [];
-  const displayedArtwork = limit ? artwork.slice(0, limit) : artwork;
 
-  const filteredCategory = displayedArtwork.filter((item: Artwork) => {
-    if (categoryFilter === "") {
-      return displayedArtwork;
-    }
+  const addHandler = () =>{
+    setAddNew(true)
+  }
 
-    return item.category?.toUpperCase() === categoryFilter?.toUpperCase();
-  });
+  const editHandler = (editId: number) => {
+    setSelectedId(editId);
+    setAddImage(true);
+  };
 
+  const handleCloseAdd = () =>{
+    setAddNew(false)
+  }
 
   if (loading) return <p>Loading</p>;
   if (error)
@@ -44,30 +49,26 @@ const ArtworkManagement: React.FC<ProductsProps> = ({
     <div
       className={`${"wrapper "} w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50`}
     >
-      <h1>Artwork</h1>
-      {/* <div className=" w-full pb-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filteredCategory.map((item: Artwork) => (
-          <ProductItem
-            id={item.id}
-            key={item.id}
-            image={img1}
-            title={item.title}
-            widthCm={item.widthCm}
-            heightCm={item.heightCm}
-            isFeatured={item.isFeatured}
-            artworkId={item.id}
-            price={item.price}
-            showButton={true}
-          />
-        ))}
-      </div> */}
+      {addNew && < AddArtwork onClose={handleCloseAdd}/>}
+      {addImage && <AddImage editId={Number(selectedId)} onclose={() =>setAddImage(false)}/>}
+      <div className=" flex gap-10 mb-4">
+        <h1>Artwork</h1>
+        <button onClick={addHandler} className=" bg-blue-600 text-white cursor-pointer">Add Artwork</button>
+        <Link to="users" className=" text-blue-600">Clients</Link>
+      </div>
       <table>
         <tbody>
-          {filteredCategory.map((item: Artwork) => (
-            <tr className=" border">
+          {artwork.map((item: Artwork, index: number) => (
+            <tr key={item.id} className=" border">
+              <td className=" border px-1.5">{index + 1}</td>
+              <td><img src={item?.media[0]?.url || img1} 
+              alt="" 
+              className=" w-12"
+              /></td>
               <td className=" border px-1.5">{item.title}</td>
-              <td className=" border px-1.5">{item.description}</td>
+              <td className=" border px-1.5 capitalize">{item.category.toLowerCase()}</td>
               <td className=" border px-1.5">{item.price}</td>
+              <td><p onClick={() =>editHandler(Number(item.id))} className=" text-xs cursor-pointer text-blue-600">Add Image</p></td>
             </tr>
           ))}
         </tbody>

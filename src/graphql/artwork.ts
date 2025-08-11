@@ -4,6 +4,9 @@ export const ADD_ARTWORK = gql`
 mutation AddArtwork($addArtworkInput: AddArtworkInput!) {
   addArtwork(addArtworkInput: $addArtworkInput){
     id
+    title
+    description
+    price
   }
 }
 `

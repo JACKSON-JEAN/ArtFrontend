@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { SIGN_IN_MUTATION } from '../graphql/users';
 import { GET_CLIENT_CART } from '../graphql/cart';
-import { getUserId } from '../utils/decodeToken';
+import { getUserId, getUserRole } from '../utils/decodeToken';
 
 const Signin = () => {
   const [userInput, setUserInput] = useState({
@@ -17,6 +17,7 @@ const Signin = () => {
   });
 
   const userId = getUserId()
+  const role = getUserRole()
   const navigate = useNavigate();
 
   const [signIn, {loading}] = useMutation(SIGN_IN_MUTATION,{
@@ -24,7 +25,8 @@ const Signin = () => {
       const {accessToken, refreshToken} = data.signIn
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      navigate("/")
+      role ==="CUSTOMER" && navigate("/")
+      role ==="ADMIN" && navigate("/dashboard")
 
       setError({
         isError: false,

@@ -8,13 +8,20 @@ import Signup from "../pages/Signup";
 import Signin from "../pages/Signin";
 import Cart from "../pages/Cart";
 import Collection from "../pages/Collection";
-import UploadArtworkMedia from "../components/UploadArtworkMedia";
 import ArtItem from "../pages/ArtItem";
 import ArtworkManagement from "../pages/ArtworkManagement";
+import Users from "../components/pages/Users";
 
 export const router = createBrowserRouter([
   { path: "signup", element: <Signup /> },
   { path: "signin", element: <Signin /> },
+  {
+    path: "dashboard",
+    children: [
+      {index: true, element: <ArtworkManagement/>},
+      {path: "users", element: <Users/>}
+    ]
+  },
   {
     path: "/",
     element: <Layout />,
@@ -30,7 +37,6 @@ export const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
       { path: "artwork", element: <ArtworkManagement/> },
-      { path: "addMedia", element: <UploadArtworkMedia /> },
     ],
   },
 ]);

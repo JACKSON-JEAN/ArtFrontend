@@ -27,25 +27,14 @@ const Contact = () => {
       <section className=" flex-1">
         <p className=" mb-2 font-light">Or, send us a message directly.</p>
         <form className=" bg-white py-2 px-3 border" action="">
-          <div className=" flex gap-3">
-            <div className=" flex-1 flex flex-col mb-3">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                id="firstName"
-                className=" border outline-blue-500 rounded-sm pl-2 py-1"
-                type="text"
-                placeholder="FirstName..."
-              />
-            </div>
-            <div className=" flex-1 flex flex-col mb-3">
-              <label htmlFor="lastname">Last Name</label>
-              <input
-                id="lastname"
-                className=" border outline-blue-500 rounded-sm pl-2 py-1"
-                type="text"
-                placeholder="LastName..."
-              />
-            </div>
+        <div className=" flex flex-col mb-3">
+            <label htmlFor="fullName">Full Name</label>
+            <input
+              id="fullName"
+              className=" border outline-blue-500 rounded-sm pl-2 py-1"
+              type="text"
+              placeholder="Full Name..."
+            />
           </div>
           <div className=" flex flex-col mb-3">
             <label htmlFor="email">Email</label>
