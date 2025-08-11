@@ -21,10 +21,18 @@ const Footer = () => {
         <section className=" mb-4 sm:mb-0">
           <p className=" capitalize text-base font-semibold">Social handles</p>
           <ul>
-            <li className=" mt-1"><Link to="#" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Email</Link></li>
-            <li className=" mt-1"><Link to="#" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Twitter</Link></li>
-            <li className=" mt-1"><Link to="#" className=" text-base py-1 font-thin capitalize hover:text-slate-200">FaceBook</Link></li>
-            <li className=" mt-1"><Link to="#" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Instagram</Link></li>
+            <li className=" mt-1">
+              <a href="mailto:zubart716@gmail.com" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Email</a>
+            </li>
+            <li className=" mt-1">
+              <a href="https://x.com/zubart716" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Twitter</a>
+            </li>
+            <li className=" mt-1">
+              <a href="https://www.facebook.com/share/1BEZ86baZB/" className=" text-base py-1 font-thin capitalize hover:text-slate-200">FaceBook</a>
+            </li>
+            <li className=" mt-1">
+              <a href="https://www.instagram.com/zubart29" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Instagram</a>
+            </li>
           </ul>
         </section>
 
