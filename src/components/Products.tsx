@@ -58,7 +58,7 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle }) => {
     return <p>There was an error when fetching data. {error.message}</p>;
 
   return (
-    <div className=" w-full">
+    <div className=" w-full mb-10">
       {displayedArtwork.length > 0 && (
         <div className=" flex justify-between items-center mb-2">
           <p className=" text-xl text-red-950 font-semibold mb-1">{subTitle}</p>

@@ -25,9 +25,9 @@ code {
       padding-left: 12px;
       padding-right: 12px;
   }
-  .logoSearchWrapper{
+  /* .logoSearchWrapper{
     display: block;
-  }
+  } */
   .search{
     margin-top: 5px;
     width: calc(100% - 67px);
@@ -53,6 +53,34 @@ code {
     flex-direction: column;
     gap: 10px;
   }
+  /* .navigation{
+    position: absolute;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    border-left-width: 1px;
+    background-color: aliceblue;
+
+  }
+  .navigation nav{
+    flex-direction: column;
+  }
+  .navigation nav .navLink{
+    padding-left: 10px;
+    border-bottom-width: 1px;
+    transition: all .2s ease-in-out;
+  }
+  .navigation nav .navLink:hover{
+    padding-left: 12px;
+  }
+  .menu{
+    border-top-width: 1px;
+    background-color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    border-bottom-width: 1px;
+  } */
 }
 
 @media (min-width: 450px) {
@@ -75,11 +103,11 @@ code {
 }
 
 @media (min-width: 540px) {
-  .logoSearchWrapper{
+  /* .logoSearchWrapper{
     display: flex;
     align-items: center;
-    gap: 30px;
-  }
+    gap: 15px;
+  } */
   .searchForm{
     width: auto;
   }
@@ -89,6 +117,37 @@ code {
   .artItem{
     flex-direction: row;
     gap: 40px;
+  }
+  
+}
+@media (min-width: 700px) {
+  .navigation{
+    position: relative;
+    background-color: white;
+    height: auto;
+    border-left: none;
+
+  }
+  .navigation nav{
+    flex-direction: row;
+    gap: 40px;
+  }
+  .navigation nav .navLink{
+    padding-left: 0;
+    border-bottom-width: 2px;
+    transition: all .2s ease-in-out;
+    border-color: transparent;
+  }
+  .navigation nav .navLink:hover{
+    padding-left: 0;
+    color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+    border-color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+  } 
+  .menu{
+    display: none;
+  }
+  .open-menu{
+    display: none;
   }
   
 }
@@ -103,11 +162,3 @@ code {
     padding-bottom: 0.5rem 
   }
 }
-
-/* .profile-login{
-  display: none;
-}
-
-.profile-wrapper:hover .profile-login{
-  display: block;
-} */

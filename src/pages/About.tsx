@@ -1,24 +1,40 @@
 import React from "react";
-import painterImg from "../images/painter.jpg"
+import image1 from "../images/david.jpg";
+import image2 from "../images/Doug.jpg";
+import image3 from "../images/jackson.jpg";
 
 const About = () => {
   return (
-    <div className={`${"wrapper"} w-full flex flex-col md:flex-row md:gap-3 px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}>
+    <div
+      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
+    >
       <section className=" flex-1">
         <div className=" mb-2">
           <p className=" text-lg text-red-950 font-semibold">Our story</p>
-          <p className=" font-light">
-            After witnessing the skills of talented African artisans, we founded
-            ZubArt to bridge continents througth art.
+          <p className=" font-light mb-4">
+            ZubArt was born from a deep friendship between U.S. Christian
+            businessmen and Jackson Uwizeye, their Ugandan partner. They met
+            Jackson as a bright young boy in a Ugandan village, his passion for
+            learning inspiring their support through a sponsorship program from
+            age 10 until his university graduation. United by a love for
+            original art, Jackson now leads this Kampala-based, locally owned
+            online business. Together, they curate unique, authentic Ugandan
+            art—distinct from mainstream offerings—sourced at fair trade prices.
+            Our values of Quality Art, Reliable Service, Fair Trading, and
+            Guaranteed Satisfaction ensure every customer is delighted with
+            their treasure. ZubArt ships globally via DHL within 72 hours of
+            receiving the order and the customer will receive a tracking email
+            alert. Most importantly, ZubArt payments are secured by
+            Flutterwave’s world-class, PCI DSS-compliant processing.
           </p>
-          <p>
+          <p className="mb-2">
             <span>Mission:</span>{" "}
             <span className=" font-light">
               "To empower African artisans by giving them a global platform
               while preserving cultural helitage."
             </span>
           </p>
-          <p>
+          <p className=" mb-2">
             <span>Name meaning:</span>{" "}
             <span className=" font-light">
               "Zuba" means "sun" symbolising how we illuminate Africa's
@@ -29,17 +45,48 @@ const About = () => {
         <div className=" mb-4">
           <p className=" text-lg text-red-950 font-semibold">How we work</p>
           <p>Direct partnerships</p>
-          <p className=" font-light">We travel to villages, build relationships with artists, and negotiate fair prices directly with no middlemen involved.</p>
+          <p className=" font-light mb-2">
+            We travel to villages, build relationships with artists, and
+            negotiate fair prices directly with no middlemen involved.
+          </p>
           <p>Cultural preservation</p>
-          <p className=" font-light">We document stories and traditions behind each art form to educate buyers.</p>
+          <p className=" font-light mb-2">
+            We document stories and traditions behind each art form to educate
+            buyers.
+          </p>
         </div>
       </section>
-      <section className=" flex-1">
-        <div className=" bg-white border p-2">
-            <img src={painterImg} alt="" />
+      <p className=" text-lg text-red-950 font-semibold mb-2">Meet our team.</p>
+      <section className=" grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="">
+          <img src={image3} alt="" />
+          <div>
+            <p className=" text-red-950">Owner and President</p>
+            <p className=" font-light">Uwizeye Jackon</p>
+          </div>
         </div>
-        <p className=" text-red-950">Celebrating African Artistry, one story at a time.</p>
-        <p className=" font-light">From village hands to global hearts - meet the people behind your art.</p>
+        <div>
+          <img src={image2} alt="" />
+          <div>
+            <p className=" text-red-950">US Founder.</p>
+            <p className=" font-light">Mr. Doug Harris</p>
+          </div>
+        </div>
+        <div>
+          <img src={image1} alt="" />
+          <div>
+            <p className=" text-red-950">US Founder.</p>
+            <p className=" font-light">Mr. David Ragland</p>
+          </div>
+        </div>
+        <div>
+          <img src={image1} alt="" />
+          <div>
+            <p className=" text-red-950">Curator.</p>
+            <p className=" font-light">Janie Bianconi</p>
+          </div>
+        </div>
+        
       </section>
     </div>
   );

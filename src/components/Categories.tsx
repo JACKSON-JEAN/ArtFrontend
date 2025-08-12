@@ -1,8 +1,5 @@
 import React from "react";
-import img4 from "../images/img4.jpeg";
 import img3 from "../images/img3.jpeg";
-import img2 from "../images/img2.jpeg";
-import img1 from "../images/img1.jpeg";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -12,9 +9,11 @@ const Categories = () => {
   >;
 
   return (
-    <div className=" mb-6">
+    <div className=" mb-10">
       <div className=" flex justify-between items-center">
-        <p className=" text-xl text-red-950 font-semibold mb-1">Our Categories</p>
+        <p className=" text-2xl text-red-950 font-semibold pb-3">
+          Our Categories
+        </p>
         <Link
           className=" text-blue-600 text-sm flex items-center gap-1"
           to="collection"
@@ -23,13 +22,55 @@ const Categories = () => {
           <MoreIcon />
         </Link>
       </div>
-      <div className=" bg-white border shadow-sm grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 rounded-sm gap-3 px-3 py-3">
-        <div className=" bg-white">
+      <div className=" flex">
+        {/* <div>
+          <img
+            src={img4}
+            alt="Jewelry"
+            className=" rounded-sm w-full object-cover"
+          />
+        </div> */}
+        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className=" flex-1">
+            <img
+              src={img3}
+              alt="Jewelry"
+              className=" rounded-sm w-full object-cover"
+            />
+            <p className=" text-xl">Paintings</p>
+          </div>
+          <div className=" flex-1">
+            <img
+              src={img3}
+              alt="Jewelry"
+              className=" rounded-sm w-full object-cover"
+            />
+            <p className=" text-xl">Sculptures</p>
+          </div>
+          <div className=" flex-1">
+            <img
+              src={img3}
+              alt="Jewelry"
+              className=" rounded-sm w-full object-cover"
+            />
+            <p className=" text-xl">Textile</p>
+          </div>
+          
+          <div className=" flex-1">
+            <img
+              src={img3}
+              alt="Jewelry"
+              className=" rounded-sm w-full object-cover"
+            />
+            <p className=" text-xl">Jewelry</p>
+          </div>
+        </div>
+        {/* <div className=" bg-white">
           <section>
             <img
               src={img1}
               alt="category"
-              className=" rounded-sm h-40 w-full object-cover"
+              className=" rounded-sm w-full object-cover"
             />
           </section>
           <p className=" text-base">Paintings</p>
@@ -39,7 +80,7 @@ const Categories = () => {
             <img
               src={img2}
               alt="Sculptures"
-              className=" rounded-sm h-40 w-full object-cover"
+              className=" rounded-sm w-full object-cover"
             />
           </section>
           <p className=" text-base">Sculptures</p>
@@ -49,7 +90,7 @@ const Categories = () => {
             <img
               src={img3}
               alt="Textiles"
-              className=" rounded-sm h-40 w-full object-cover"
+              className=" rounded-sm w-full object-cover"
             />
           </section>
           <p className=" text-base">Textiles</p>
@@ -59,11 +100,11 @@ const Categories = () => {
             <img
               src={img4}
               alt="Jewelry"
-              className=" rounded-sm h-40 w-full object-cover"
+              className=" rounded-sm w-full object-cover"
             />
           </section>
           <p className=" text-base">Jewelry</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

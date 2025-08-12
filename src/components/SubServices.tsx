@@ -1,67 +1,47 @@
 import React from 'react'
-import { PiPackageLight } from "react-icons/pi";
-import { CiWallet, CiHeadphones } from "react-icons/ci";
+import { BsPatchCheck } from "react-icons/bs";
+import {FaRegThumbsUp} from "react-icons/fa"
+import {LuHandHelping} from "react-icons/lu"
 
 const SubServices = () => {
-    const PackageIcon = PiPackageLight as React.ComponentType<
+    const PeaceIcon = FaRegThumbsUp as React.ComponentType<
         React.SVGProps<SVGSVGElement>
       >;
-      const PaymentIcon = CiWallet as React.ComponentType<
+      const OriginalIcon = BsPatchCheck as React.ComponentType<
         React.SVGProps<SVGSVGElement>
       >;
-      const SupportIcon = CiHeadphones as React.ComponentType<
+      const SupportIcon = LuHandHelping as React.ComponentType<
         React.SVGProps<SVGSVGElement>
       >;
   return (
-    <div className=" w-full rounded-sm hidden sm:flex justify-betweenpx-3 justify-between mb-4">
-        <div className=" flex gap-2 items-center relative">
-          <div className=" w-6 h-6 rounded-full bottom-0 left-2 bg-amber-100 absolute"></div>
-          <div className=" z-10">
-            <p className=" text-3xl text-red-950">
-              <PackageIcon />
-            </p>
+    <div className=" w-full rounded-sm mb-10">
+      <p className=" text-2xl text-red-950 font-semibold pb-3">Why Buy From ZubArt?</p>
+      <div className=' w-full grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 justify-between'>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+          <div className=' flex items-center gap-1'>
+            <p className=' text-2xl'><PeaceIcon/></p>
+            <p className=" text-xl font-semibold mb-1">Peace of Mind.</p>
           </div>
-          <div>
-            <p className=" text-red-950 font-semibold leading-tight">
-              Free shipping
-            </p>
-            <p className=" font-light leading-tight">
-              Free shipping for order above $500
-            </p>
-          </div>
+          <p>Free returns within 14 days of derivery.</p>
+          <p>Secure chechout.</p>
         </div>
-        <div className=" flex gap-2 items-center relative">
-          <div className=" w-6 h-6 rounded-full bottom-0 left-2 bg-amber-100 absolute"></div>
-          <div className=" z-10">
-            <p className=" text-3xl text-red-950">
-              <PaymentIcon />
-            </p>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+          <div className=' flex gap-1'>
+            <p className=' text-2xl'><OriginalIcon/></p>
+            <p className=" text-xl font-semibold mb-1">Own a True Original.</p>
           </div>
-          <div>
-            <p className=" text-red-950 font-semibold leading-tight">
-              Flexible payment
-            </p>
-            <p className=" font-light leading-tight">
-              Multiple secure payment options
-            </p>
-          </div>
+          <p>Our collection contains art hand-picked by our curators, signed by the artist, for you.
+          </p>
         </div>
-        <div className=" flex gap-2 items-center relative">
-          <div className=" w-6 h-6 rounded-full bottom-0 left-2 bg-amber-100 absolute"></div>
-          <div className=" z-10">
-            <p className=" text-3xl text-red-950">
-              <SupportIcon />
-            </p>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+          <div className=' flex gap-1'>
+            <p className=' text-2xl'><SupportIcon/></p>
+            <p className=" text-xl font-semibold mb-1">Empowering Ugandan Artists.</p>
           </div>
-          <div>
-            <p className=" text-red-950 font-semibold leading-tight">
-              24/7 support
-            </p>
-            <p className=" font-light leading-tight">
-              We support online all days.
-            </p>
-          </div>
+          <p>Support indigenous ugandan artists by buying unique, vibrant, original art.
+          </p>
         </div>
+      </div>
       </div>
   )
 }

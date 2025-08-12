@@ -30,7 +30,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-red-950 to-red-900 p-[3px] rounded-md mb-4 overflow-hidden">
+    <div className="bg-gradient-to-r from-red-950 to-red-900 p-[3px] rounded-md mb-10 overflow-hidden">
       <div className="flex flex-col sm:flex-row w-full min-h-[200px] md:min-h-[300px] rounded-md">
         <section className="flex-1 flex items-center py-6">
           <div className="px-4">

@@ -11,6 +11,8 @@ import Collection from "../pages/Collection";
 import ArtItem from "../pages/ArtItem";
 import ArtworkManagement from "../pages/ArtworkManagement";
 import Users from "../components/pages/Users";
+import Reviews from "../pages/Reviews";
+import Artists from "../pages/Artists";
 
 export const router = createBrowserRouter([
   { path: "signup", element: <Signup /> },
@@ -34,6 +36,8 @@ export const router = createBrowserRouter([
           {path: ":artId", element: <ArtItem/>}
         ]
       },
+      { path: "reviews", element: <Reviews /> },
+      { path: "artists", element: <Artists /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
       { path: "artwork", element: <ArtworkManagement/> },

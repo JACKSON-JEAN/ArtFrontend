@@ -26,9 +26,9 @@ const FeaturedArtwork = () => {
   if (error)
     return <p>There was an error when fetching data. {error.message}</p>;
   return (
-    <div className=" mb-2">
+    <div className=" mb-4">
       <div className=" flex justify-between items-center">
-        <p className=" text-xl text-red-950 font-semibold mb-1">Featured Artwork</p>
+        <p className=" text-2xl text-red-950 font-semibold pb-3">Featured Artwork</p>
         <Link
           className=" text-blue-600 text-sm flex items-center gap-1"
           to="collection"
