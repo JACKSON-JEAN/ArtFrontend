@@ -53,6 +53,15 @@ code {
     flex-direction: column;
     gap: 10px;
   }
+  .paintings{
+    flex-direction: column;
+  }
+  .paintings .heading{
+    margin-bottom: 7px;
+  }
+  .paintingsFilters{
+    justify-content: space-between;
+  }
   /* .navigation{
     position: absolute;
     right: 0;
@@ -148,6 +157,12 @@ code {
   }
   .open-menu{
     display: none;
+  }
+  .paintings{
+    flex-direction: row;
+  }
+  .paintings .heading{
+    margin-bottom: 0;
   }
   
 }

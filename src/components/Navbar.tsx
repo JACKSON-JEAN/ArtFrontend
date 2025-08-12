@@ -40,7 +40,7 @@ const Navbar = () => {
         className={`${"wrapper"} sticky top-0 z-40 bg-white border-b px-10 sm:px-16`}
       >
         
-        <section className=" flex justify-between items-center py-2 border-b">
+        <section className=" flex justify-between items-center py-2 border-b sm:shadow-sm">
           <div className={`${"logoSearchWrapper"} flex gap-2 items-center w-full`}>
             <p onClick={toggleMenu} className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}><MenuIcon/></p>
             <Link

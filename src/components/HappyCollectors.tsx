@@ -6,22 +6,22 @@ const HappyCollectors = () => {
       <p className=" text-2xl text-red-950 font-semibold text-center pb-6">
         Reviews from our happy collectors
       </p>
-      <div className=" flex justify-center gap-10 flex-col sm:flex-row">
-        <div className=" max-w-80 sm:flex-1">
+      <div className=" flex justify-center sm:gap-10 gap-4 flex-col sm:flex-row">
+        <div className=" max-w-80 flex-1 mx-auto">
           <p className=" italic text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
+            &quot;Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
             illo maxime deleniti iusto facilis provident sit ipsum facere natus
             amet rerum quisquam commodi reprehenderit tenetur animi, dolores
-            eaque labore. Adipisci.
+            eaque labore. Adipisci.&quot;
           </p>
           <p className=" font-semibold">John Doe</p>
         </div>
-        <div className=" max-w-80 sm:flex-1">
+        <div className=" max-w-80 flex-1 mx-auto">
           <p className=" italic text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
+            &quot;Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
             illo maxime deleniti iusto facilis provident sit ipsum facere natus
             amet rerum quisquam commodi reprehenderit tenetur animi, dolores
-            eaque labore. Adipisci.
+            eaque labore. Adipisci.&quot;
           </p>
           <p className=" font-semibold">John Doe</p>
         </div>
