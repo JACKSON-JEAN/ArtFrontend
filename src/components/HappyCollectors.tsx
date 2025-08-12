@@ -6,8 +6,8 @@ const HappyCollectors = () => {
       <p className=" text-2xl text-red-950 font-semibold text-center pb-6">
         Reviews from our happy collectors
       </p>
-      <div className=" grid sm:grid-cols-2 gap-4 sm:gap-10">
-        <div className=" max-w-80 mx-auto">
+      <div className=" flex justify-center gap-10 flex-col sm:flex-row">
+        <div className=" max-w-80 sm:flex-1">
           <p className=" italic text-gray-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
             illo maxime deleniti iusto facilis provident sit ipsum facere natus
@@ -16,7 +16,7 @@ const HappyCollectors = () => {
           </p>
           <p className=" font-semibold">John Doe</p>
         </div>
-        <div className=" max-w-80 mx-auto">
+        <div className=" max-w-80 sm:flex-1">
           <p className=" italic text-gray-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,
             illo maxime deleniti iusto facilis provident sit ipsum facere natus
