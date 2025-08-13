@@ -47,7 +47,9 @@ const ArtItem = () => {
     },
   });
 
+
   const artwork = data?.getArtworkById;
+  console.log(artwork)
 
   const artworkMedia = artwork?.media[0]?.url ? artwork?.media[0]?.url : img1;
 
@@ -89,7 +91,7 @@ const ArtItem = () => {
               src={artworkMedia}
               alt=""
               loading="lazy"
-              className=" w-full max-h-80 object-cover rounded-sm"
+              className=" w-full object-cover rounded-sm"
             />
           </div>
         </div>
@@ -108,9 +110,10 @@ const ArtItem = () => {
           </div>
           <div className=" mb-2">
             <p className=" text-base">Description:</p>
-            <p className=" text-slate-500 text-base capitalize">
+            <p className=" text-slate-500 text-base">
               {artwork.description}
             </p>
+            <p className=" text-slate-500 text-base mt-3">{artwork.culturalOrigin}</p>
           </div>
           <div className=" flex justify-between mb-2">
             {artwork.widthCm && (

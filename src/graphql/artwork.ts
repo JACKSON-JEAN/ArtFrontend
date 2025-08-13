@@ -50,6 +50,7 @@ query GetArtworkById($artworkId: Float!){
     id
     title
     description
+    culturalOrigin
     category
     yearCreated
     weightKg
