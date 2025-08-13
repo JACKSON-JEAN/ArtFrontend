@@ -15,15 +15,15 @@ const SubServices = () => {
       >;
   return (
     <div className=" w-full rounded-sm mb-10">
-      <p className=" text-2xl text-red-950 font-semibold pb-3">Why Buy From ZubArt?</p>
+      <p className=" text-2xl text-red-950 font-semibold pb-3">Why Buy From Pearl Art Galleries?</p>
       <div className=' w-full grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 justify-between'>
         <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
           <div className=' flex items-center gap-1'>
             <p className=' text-2xl'><PeaceIcon/></p>
             <p className=" text-xl font-semibold mb-1">Peace of Mind.</p>
           </div>
-          <p>Free returns within 14 days of derivery.</p>
-          <p>Secure chechout.</p>
+          <p>Free returns within 14 days of delivery.</p>
+          <p>Secure checkout.</p>
         </div>
         <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
           <div className=' flex gap-1'>
@@ -38,7 +38,7 @@ const SubServices = () => {
             <p className=' text-2xl'><SupportIcon/></p>
             <p className=" text-xl font-semibold mb-1">Empowering Ugandan Artists.</p>
           </div>
-          <p>Support indigenous ugandan artists by buying unique, vibrant, original art.
+          <p>Support indigenous Ugandan artists by buying unique, vibrant, original art.
           </p>
         </div>
       </div>

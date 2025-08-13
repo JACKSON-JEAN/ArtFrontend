@@ -6,6 +6,7 @@ export type Artwork = {
     heightCm?: number
     widthCm?: number
     isFeatured: boolean
+    artworkId: number
     price: number
     media: {
       id: number;

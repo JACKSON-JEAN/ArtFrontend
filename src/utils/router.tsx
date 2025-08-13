@@ -13,6 +13,7 @@ import ArtworkManagement from "../pages/ArtworkManagement";
 import Users from "../components/pages/Users";
 import Reviews from "../pages/Reviews";
 import Artists from "../pages/Artists";
+import Favorites from "../pages/Favorites";
 
 export const router = createBrowserRouter([
   { path: "signup", element: <Signup /> },
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
       { path: "artwork", element: <ArtworkManagement/> },
+      { path: "favorites", element: <Favorites/> },
     ],
   },
 ]);

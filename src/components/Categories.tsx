@@ -1,5 +1,8 @@
 import React from "react";
-import img3 from "../images/img3.jpeg";
+import paintings from "../images/painting.jpg"
+import sculptures from "../images/sculpture.jpg";
+import textiles from "../images/textile.jpg";
+import jewelry from "../images/jewlery.jpg";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -31,37 +34,45 @@ const Categories = () => {
           />
         </div> */}
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          <div className=" flex-1">
+          <div className=" flex-1 ">
+            <div className=" h-48 w-full">
             <img
-              src={img3}
+              src={paintings}
               alt="Jewelry"
-              className=" rounded-sm w-full object-cover"
+              className=" rounded-sm w-full h-full object-cover border"
             />
+            </div>
             <p className=" text-xl">Paintings</p>
           </div>
-          <div className=" flex-1">
+          <div className=" flex-1 ">
+            <div className=" h-48 w-full">
             <img
-              src={img3}
+              src={sculptures}
               alt="Jewelry"
-              className=" rounded-sm w-full object-cover"
+              className=" rounded-sm w-full h-full object-cover border"
             />
+            </div>
             <p className=" text-xl">Sculptures</p>
           </div>
           <div className=" flex-1">
+            <div className=" h-48 w-full">
             <img
-              src={img3}
+              src={textiles}
               alt="Jewelry"
-              className=" rounded-sm w-full object-cover"
+              className=" rounded-sm w-full h-full object-cover border"
             />
+            </div>
             <p className=" text-xl">Textile</p>
           </div>
           
           <div className=" flex-1">
+            <div className=" h-48 w-full">
             <img
-              src={img3}
+              src={jewelry}
               alt="Jewelry"
-              className=" rounded-sm w-full object-cover"
+              className=" rounded-sm w-full h-full object-cover border"
             />
+            </div>
             <p className=" text-xl">Jewelry</p>
           </div>
         </div>

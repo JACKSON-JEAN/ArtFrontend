@@ -3,9 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import { IoPersonOutline, IoCartOutline, IoCheckmarkCircle, IoMenuSharp } from "react-icons/io5";
 import { FaTimes  } from "react-icons/fa";
 import { useCart } from "../context/cart.context";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
-import shippingImg from "../images/shipping.png"
 
 const Navbar = () => {
   const PersonIcon = IoPersonOutline as React.ComponentType<
@@ -16,6 +16,9 @@ const Navbar = () => {
   >;
   const CartIcon = IoCartOutline as React.ComponentType<
     React.SVGProps<SVGSVGElement>
+  >;
+  const WishListIcon = IoMdHeartEmpty as React.ComponentType<
+      React.SVGProps<SVGSVGElement>
   >;
   const MenuIcon = IoMenuSharp as React.ComponentType<
     React.SVGProps<SVGSVGElement>
@@ -41,21 +44,19 @@ const Navbar = () => {
       >
         
         <section className=" flex justify-between items-center py-2 border-b sm:shadow-sm">
-          <div className={`${"logoSearchWrapper"} flex gap-2 items-center w-full`}>
+          <div className={`${"logoSearchWrapper"} flex gap-1 items-center w-full`}>
             <p onClick={toggleMenu} className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}><MenuIcon/></p>
             <Link
               onClick={() =>setIsMenuOpen(false)}
               to="/"
-              className=" text-3xl text-red-950 font-semibold font-serif"
+              className=" text-3xl text-red-950 font-semibold font-serif whitespace-nowrap"
             >
-              ZubArt
+              Pearl Galleries
             </Link>
           </div>
 
-          <div className=" flex items-center gap-8 right-4">
-            <div className=" ">
-              <img src={shippingImg} alt="" className=" h-full" />
-            </div>
+          <div className=" flex items-center gap-2 sm:gap-4 md:gap-8 right-4">
+            
             <div onClick={() =>setIsMenuOpen(false)} className={`${"profile-wrapper"} relative`}>
               <div
                 onClick={() => setDisplayProfile(!displayProfile)}
@@ -73,6 +74,15 @@ const Navbar = () => {
                 <ProfileSettings onClose={() => setDisplayProfile(false)} />
               )}
             </div>
+
+            <NavLink
+              onClick={() =>setIsMenuOpen(false)}
+              to="favorites"
+              className="text-xl cursor-pointer hover:text-blue-600 p-1 rounded-full flex items-center gap-1 capitalize relative"
+            >
+              <WishListIcon />
+              <span className="text-base sm:block hidden">Favorites</span>
+            </NavLink>
 
             <NavLink
               onClick={() =>setIsMenuOpen(false)}
@@ -105,7 +115,7 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink onClick={() => setIsMenuOpen(false)} to="collection" className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 ease-in-out duration-500 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}>
-              Paintings
+              Artwork
             </NavLink>
             <NavLink
               onClick={() => setIsMenuOpen(false)}

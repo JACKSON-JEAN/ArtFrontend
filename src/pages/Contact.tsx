@@ -13,7 +13,7 @@ const Contact = () => {
         <div className=" ">
           <div>
             <p>
-              Email: <span className=" font-light">info@zubart.com</span>{" "}
+              Email: <span className=" font-light">info@pearlartgalleries.com</span>{" "}
             </p>
             <p>
               Support: <span className=" font-light">+256 776 286 453</span>

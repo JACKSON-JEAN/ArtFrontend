@@ -153,7 +153,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       addCartItem({
         variables: {
           addItemInput: {
-            artworkId: item.id,
+            artworkId: item.artworkId,
             quantity: item.quantity || 1,
             price: item.price,
           },

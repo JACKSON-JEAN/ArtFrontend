@@ -12,7 +12,7 @@ const About = () => {
         <div className=" mb-2">
           <p className=" text-lg text-red-950 font-semibold">Our story</p>
           <p className=" font-light mb-4">
-            ZubArt was born from a deep friendship between U.S. Christian
+            Pearl Art Galleries was born from a deep friendship between U.S. Christian
             businessmen and Jackson Uwizeye, their Ugandan partner. They met
             Jackson as a bright young boy in a Ugandan village, his passion for
             learning inspiring their support through a sponsorship program from
@@ -34,13 +34,7 @@ const About = () => {
               while preserving cultural helitage."
             </span>
           </p>
-          <p className=" mb-2">
-            <span>Name meaning:</span>{" "}
-            <span className=" font-light">
-              "Zuba" means "sun" symbolising how we illuminate Africa's
-              brilliance.
-            </span>
-          </p>
+          
         </div>
         <div className=" mb-4">
           <p className=" text-lg text-red-950 font-semibold">How we work</p>

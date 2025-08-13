@@ -6,7 +6,7 @@ const Footer = () => {
     <div className={` text-white`}>
       <section className={`${"wrapper"} grid sm:gap-20 grid-cols-2 sm:grid-cols-3 px-10 sm:px-20 py-4 bg-blue-950`}>
         <section className=" mb-4 sm:mb-0">
-        <p className=" capitalize text-lg font-semibold">ZubArt</p>
+        <p className=" capitalize text-lg font-semibold">Pearl Art Galleries</p>
         <p className=" capitalize text-base italic font-light">Art that speaks every language.</p>
         </section>
         <section className=" mb-4 sm:mb-0">
@@ -38,7 +38,7 @@ const Footer = () => {
 
       </section>
       <section className=" bg-slate-800 py-4 border-t">
-        <p className=" text-base capitalize px-10 sm:px-20 flex justify-center font-light">copyright &copy; {new Date().getFullYear()} ZubArt</p>
+        <p className=" text-base capitalize px-10 sm:px-20 flex justify-center font-light">copyright &copy; {new Date().getFullYear()} Pearl Art Galleries</p>
       </section>
     </div>
   );
