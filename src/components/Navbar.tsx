@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import { IoPersonOutline, IoCartOutline, IoCheckmarkCircle, IoMenuSharp } from "react-icons/io5";
 import { FaTimes  } from "react-icons/fa";
 import { useCart } from "../context/cart.context";
-import { IoMdHeartEmpty } from "react-icons/io";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
 
@@ -16,9 +15,6 @@ const Navbar = () => {
   >;
   const CartIcon = IoCartOutline as React.ComponentType<
     React.SVGProps<SVGSVGElement>
-  >;
-  const WishListIcon = IoMdHeartEmpty as React.ComponentType<
-      React.SVGProps<SVGSVGElement>
   >;
   const MenuIcon = IoMenuSharp as React.ComponentType<
     React.SVGProps<SVGSVGElement>
