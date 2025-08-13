@@ -55,7 +55,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className=" flex items-center gap-2 sm:gap-4 md:gap-8 right-4">
+          <div className=" flex items-center gap-6 md:gap-8 right-4">
             
             <div onClick={() =>setIsMenuOpen(false)} className={`${"profile-wrapper"} relative`}>
               <div
@@ -74,15 +74,6 @@ const Navbar = () => {
                 <ProfileSettings onClose={() => setDisplayProfile(false)} />
               )}
             </div>
-
-            <NavLink
-              onClick={() =>setIsMenuOpen(false)}
-              to="favorites"
-              className="text-xl cursor-pointer hover:text-blue-600 p-1 rounded-full flex items-center gap-1 capitalize relative"
-            >
-              <WishListIcon />
-              <span className="text-base sm:block hidden">Favorites</span>
-            </NavLink>
 
             <NavLink
               onClick={() =>setIsMenuOpen(false)}

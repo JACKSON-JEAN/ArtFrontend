@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Local images
-import gallery1 from "../images/gallery1.jpeg"
+import gallery1 from "../images/gallery1.jpeg";
 import img1 from "../images/art1.jpg";
 import img2 from "../images/art2.jpg";
 import img3 from "../images/art3.jpg";
@@ -37,9 +37,9 @@ const HeroSection = () => {
         <section className="bg-gradient-to-r from-red-950 to-red-900 rounded-md flex-1 flex items-center mb-4 md:mb-0 py-6">
           <div className="px-4">
             <p className="text-xl md:text-2xl font-thin capitalize font-serif text-white mb-2">
-              Welcome to Pearl Art Galleries.
+              Welcome to Pearl Art Galleries
             </p>
-            <p className="text-base font-light capitalize text-amber-50 mb-6">
+            <p className="text-base font-light text-amber-50 mb-6">
               Winston Churchill called Uganda the "Pearl of Africa" for its
               stunning landscapes and cultural richness. Pearl Art Galleries
               embodies this legacy with authentic Ugandan artworks,

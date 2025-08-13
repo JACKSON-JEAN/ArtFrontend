@@ -22,9 +22,9 @@ const About = () => {
             art—distinct from mainstream offerings—sourced at fair trade prices.
             Our values of Quality Art, Reliable Service, Fair Trading, and
             Guaranteed Satisfaction ensure every customer is delighted with
-            their treasure. ZubArt ships globally via DHL within 72 hours of
+            their treasure. Pearl Art Galleries ships globally via DHL within 72 hours of
             receiving the order and the customer will receive a tracking email
-            alert. Most importantly, ZubArt payments are secured by
+            alert. Most importantly, Pearl Art Galleries payments are secured by
             Flutterwave’s world-class, PCI DSS-compliant processing.
           </p>
           <p className="mb-2">

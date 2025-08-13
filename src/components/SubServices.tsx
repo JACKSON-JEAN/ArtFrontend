@@ -22,6 +22,7 @@ const SubServices = () => {
             <p className=' text-2xl'><PeaceIcon/></p>
             <p className=" text-xl font-semibold mb-1">Peace of Mind.</p>
           </div>
+          <p>Guaranteed ship via DHL within 72 hours of payment confirmation.</p>
           <p>Free returns within 14 days of delivery.</p>
           <p>Secure checkout.</p>
         </div>

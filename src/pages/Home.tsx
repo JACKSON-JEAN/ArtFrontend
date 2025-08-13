@@ -1,6 +1,4 @@
-import Products from "../components/Products";
 import HeroSection from "../components/HeroSection";
-import Categories from "../components/Categories";
 import SubServices from "../components/SubServices";
 import FeaturedArtwork from "../components/FeaturedArtwork";
 
@@ -14,9 +12,7 @@ const Home = () => {
       <HeroSection />
       <SubServices />
       <FeaturedArtwork />
-      <Categories />
       <HappyCollectors/>
-      <Products limit={4} subTitle="Recently Uploaded"/>
       <Subscribe/>
     </div>
   );
