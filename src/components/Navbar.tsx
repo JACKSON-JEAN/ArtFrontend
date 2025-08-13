@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { IoPersonOutline, IoCartOutline, IoCheckmarkCircle, IoMenuSharp } from "react-icons/io5";
-import { FaTimes  } from "react-icons/fa";
+import {
+  IoPersonOutline,
+  IoCartOutline,
+  IoCheckmarkCircle,
+  IoMenuSharp,
+} from "react-icons/io5";
+import { FaTimes } from "react-icons/fa";
 import { useCart } from "../context/cart.context";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
+import { linkClasses } from "../utils/CssUtils";
 
 const Navbar = () => {
   const PersonIcon = IoPersonOutline as React.ComponentType<
@@ -38,12 +44,18 @@ const Navbar = () => {
       <div
         className={`${"wrapper"} sticky top-0 z-40 bg-white border-b px-10 sm:px-16`}
       >
-        
         <section className=" flex justify-between items-center py-2 border-b sm:shadow-sm">
-          <div className={`${"logoSearchWrapper"} flex gap-1 items-center w-full`}>
-            <p onClick={toggleMenu} className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}><MenuIcon/></p>
+          <div
+            className={`${"logoSearchWrapper"} flex gap-1 items-center w-full`}
+          >
+            <p
+              onClick={toggleMenu}
+              className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}
+            >
+              <MenuIcon />
+            </p>
             <Link
-              onClick={() =>setIsMenuOpen(false)}
+              onClick={() => setIsMenuOpen(false)}
               to="/"
               className=" text-3xl text-red-950 font-semibold font-serif whitespace-nowrap"
             >
@@ -52,8 +64,10 @@ const Navbar = () => {
           </div>
 
           <div className=" flex items-center gap-6 md:gap-8 right-4">
-            
-            <div onClick={() =>setIsMenuOpen(false)} className={`${"profile-wrapper"} relative`}>
+            <div
+              onClick={() => setIsMenuOpen(false)}
+              className={`${"profile-wrapper"} relative`}
+            >
               <div
                 onClick={() => setDisplayProfile(!displayProfile)}
                 className="border-b-2 border-white cursor-pointer hover:text-blue-600 flex items-center gap-1"
@@ -72,7 +86,7 @@ const Navbar = () => {
             </div>
 
             <NavLink
-              onClick={() =>setIsMenuOpen(false)}
+              onClick={() => setIsMenuOpen(false)}
               to="cart"
               className="text-xl cursor-pointer hover:text-blue-600 p-1 rounded-full flex items-center gap-1 capitalize relative"
             >
@@ -88,42 +102,33 @@ const Navbar = () => {
             </NavLink>
           </div>
         </section>
-        <div onClick={toggleMenu} className={`${isMenuOpen ? " block": " hidden"} absolute left-0 w-full h-screen bg-black bg-opacity-10 z-10 ease-in-out duration-700`}></div>
-        <section className={`${"navigation"} ${!isMenuOpen ? " -left-full sm:left-0" : " left-0" } absolute ease-in-out duration-500 sm:relative w-4/5 sm:w-auto h-screen sm:h-auto border-l-[1px] sm:border-l-0 bg-slate-50 border-r sm:border-r-0 sm:bg-white z-30`}>
-          <div onClick={toggleMenu} className=" sm:hidden menu flex justify-between items-center gap-1 py-2 border-b border-t px-2 bg-white">
+        <div
+          onClick={toggleMenu}
+          className={`${
+            isMenuOpen ? " block" : " hidden"
+          } absolute left-0 w-full h-screen bg-black bg-opacity-10 z-10 ease-in-out duration-700`}
+        ></div>
+        <section
+          className={`${"navigation"} ${
+            !isMenuOpen ? " -left-full sm:left-0" : " left-0"
+          } absolute ease-in-out duration-500 sm:relative w-4/5 sm:w-auto h-screen sm:h-auto border-l-[1px] sm:border-l-0 bg-slate-50 border-r sm:border-r-0 sm:bg-white z-30`}
+        >
+          <div
+            onClick={toggleMenu}
+            className=" sm:hidden menu flex justify-between items-center gap-1 py-2 border-b border-t px-2 bg-white"
+          >
             <p className=" text-base font-semibold">Menu</p>
             <p className=" hover:text-blue-700 cursor-pointer">
-              <CloseIcon/>
+              <CloseIcon />
             </p>
-            
           </div>
           <nav className=" flex flex-col sm:flex-row gap-0 sm:gap-10 ">
-            <NavLink onClick={() => setIsMenuOpen(false)} to="/" className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 border-r-2 ease-in-out duration-500 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}>
-              Home
-            </NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="collection" className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 ease-in-out duration-500 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}>
-              Artwork
-            </NavLink>
-            <NavLink
-              onClick={() => setIsMenuOpen(false)}
-              to="about"
-              className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition ease-in-out duration-500 hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}
-            >
-              About Us
-            </NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="artists" className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition ease-in-out duration-500 hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}>
-              Artists
-            </NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="reviews" className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition ease-in-out duration-500 hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}>
-              Reviews
-            </NavLink>
-            <NavLink
-              onClick={() => setIsMenuOpen(false)}
-              to="contact"
-              className={`${"navLink"} pl-[10px] sm:pl-0 border-b-[1px] sm:border-b-2 transition ease-in-out duration-500 hover:pl-[12px] sm:hover:pl-0 hover:text-blue-700 border-r-2 sm:border-r-0 border-r-transparent hover:border-r-blue-600 sm:border-transparent sm:hover:border-blue-600 text-base whitespace-nowrap py-2 hover:bg-blue-50 sm:hover:bg-transparent`}
-            >
-              Contact Us
-            </NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="/" className={({ isActive }) => linkClasses(isActive)}>Home</NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="collection" className={({ isActive }) => linkClasses(isActive)}>Artwork</NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="about" className={({ isActive }) => linkClasses(isActive)}>About Us</NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="artists" className={({ isActive }) => linkClasses(isActive)}>Artists</NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="reviews" className={({ isActive }) => linkClasses(isActive)}>Reviews</NavLink>
+            <NavLink onClick={() => setIsMenuOpen(false)} to="contact" className={({ isActive }) => linkClasses(isActive)}>Contact Us</NavLink>
           </nav>
         </section>
       </div>
