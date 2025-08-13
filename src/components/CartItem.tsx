@@ -39,7 +39,7 @@ const CartItem: React.FC<cartItemProps> = ({
     <div className=" w-full flex pb-2 mb-3 border-b">
       <div className={`${"cartItem"} w-full flex`}>
         <div className=" w-[200px] rounded-sm overflow-hidden">
-          <img className=" w-full" src={image} alt="" />
+          <img loading="lazy" className=" w-full" src={image} alt="" />
         </div>
         <section className=" flex gap-1 flex-col w-full ">
           <div className={`${"price_title"} flex justify-between`}>

@@ -63,7 +63,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
         key={id}
         className=" w-full break-inside-avoid mb-4 border shadow-sm rounded-sm overflow-hidden"
       >
-        <img src={primaryMedia?.url ? primaryMedia?.url : img1} alt="" />
+        <img loading="lazy" src={primaryMedia?.url ? primaryMedia?.url : img1} alt="" />
         <div className=" px-2 py-2">
           <div className=" flex items-center justify-between">
             <p className=" font-semibold text-lg">${price}</p>

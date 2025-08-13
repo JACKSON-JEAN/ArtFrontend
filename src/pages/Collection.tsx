@@ -134,7 +134,7 @@ const Collection = () => {
       {error && <p className=" text-center">{error.message}</p>}
       {loading && <p>Loading...</p>}
       <div className=" w-full py-4">
-        <div className=" columns-2 sm:columns-3 md:columns-3">
+        <div className=" columns-2 sm:columns-3 md:columns-4">
           {filteredCategory.map((item: Artwork) => (
             <ArtItem
               key={item.id}

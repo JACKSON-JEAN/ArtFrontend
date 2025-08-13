@@ -26,17 +26,11 @@ const Categories = () => {
         </Link>
       </div>
       <div className=" flex">
-        {/* <div>
-          <img
-            src={img4}
-            alt="Jewelry"
-            className=" rounded-sm w-full object-cover"
-          />
-        </div> */}
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           <div className=" flex-1 ">
             <div className=" h-48 w-full">
             <img
+              loading="lazy"
               src={paintings}
               alt="Jewelry"
               className=" rounded-sm w-full h-full object-cover border"
@@ -47,6 +41,7 @@ const Categories = () => {
           <div className=" flex-1 ">
             <div className=" h-48 w-full">
             <img
+              loading="lazy"
               src={sculptures}
               alt="Jewelry"
               className=" rounded-sm w-full h-full object-cover border"
@@ -57,6 +52,7 @@ const Categories = () => {
           <div className=" flex-1">
             <div className=" h-48 w-full">
             <img
+              loading="lazy"
               src={textiles}
               alt="Jewelry"
               className=" rounded-sm w-full h-full object-cover border"
@@ -68,6 +64,7 @@ const Categories = () => {
           <div className=" flex-1">
             <div className=" h-48 w-full">
             <img
+              loading="lazy"
               src={jewelry}
               alt="Jewelry"
               className=" rounded-sm w-full h-full object-cover border"
@@ -76,46 +73,7 @@ const Categories = () => {
             <p className=" text-xl">Jewelry</p>
           </div>
         </div>
-        {/* <div className=" bg-white">
-          <section>
-            <img
-              src={img1}
-              alt="category"
-              className=" rounded-sm w-full object-cover"
-            />
-          </section>
-          <p className=" text-base">Paintings</p>
-        </div>
-        <div className=" bg-white">
-          <section className="">
-            <img
-              src={img2}
-              alt="Sculptures"
-              className=" rounded-sm w-full object-cover"
-            />
-          </section>
-          <p className=" text-base">Sculptures</p>
-        </div>
-        <div className=" bg-white">
-          <section>
-            <img
-              src={img3}
-              alt="Textiles"
-              className=" rounded-sm w-full object-cover"
-            />
-          </section>
-          <p className=" text-base">Textiles</p>
-        </div>
-        <div className=" bg-white">
-          <section>
-            <img
-              src={img4}
-              alt="Jewelry"
-              className=" rounded-sm w-full object-cover"
-            />
-          </section>
-          <p className=" text-base">Jewelry</p>
-        </div> */}
+        
       </div>
     </div>
   );
