@@ -63,7 +63,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className=" flex items-center gap-6 md:gap-8 right-4">
+          <div className=" flex items-center gap-8 right-4">
             <div
               onClick={() => setIsMenuOpen(false)}
               className={`${"profile-wrapper"} relative`}
