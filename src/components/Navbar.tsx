@@ -46,7 +46,7 @@ const Navbar = () => {
       >
         <section className=" flex justify-between items-center py-2 border-b sm:shadow-sm">
           <div
-            className={`${"logoSearchWrapper"} flex gap-1 items-center w-full`}
+            className={`${"logoSearchWrapper"} flex gap-2 items-center w-full`}
           >
             <p
               onClick={toggleMenu}
@@ -57,7 +57,7 @@ const Navbar = () => {
             <Link
               onClick={() => setIsMenuOpen(false)}
               to="/"
-              className=" text-3xl text-red-950 font-semibold font-serif whitespace-nowrap"
+              className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
             >
               Pearl Galleries
             </Link>

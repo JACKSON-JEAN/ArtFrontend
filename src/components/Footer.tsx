@@ -31,7 +31,7 @@ const Footer = () => {
               <a href="https://www.facebook.com/ZubArt" className=" text-base py-1 font-thin capitalize hover:text-slate-200">FaceBook</a>
             </li>
             <li className=" mt-1">
-              <a href="https://www.instagram.com/zubart29" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Instagram</a>
+              <a href="https://www.instagram.com/pearlartgalleries" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Instagram</a>
             </li>
           </ul>
         </section>
