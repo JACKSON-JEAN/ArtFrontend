@@ -10,6 +10,7 @@ type ArtItemProps = {
   heightCm?: number;
   category: string;
   widthCm?: number;
+  isAvailable: boolean;
   showButton?: boolean;
   artworkId: number;
   price: number;
@@ -28,6 +29,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
     category,
     price,
     artworkId,
+    isAvailable,
     media,
   }) => {
     const ShoppingIcon = BsBag as React.ComponentType<
@@ -66,8 +68,9 @@ const ArtItem: React.FC<ArtItemProps> = ({
         <img loading="lazy" src={primaryMedia?.url ? primaryMedia?.url : img1} alt="" />
         <div className=" px-2 py-2">
           <div className=" flex items-center justify-between">
-            <p className=" font-semibold text-lg">${price}</p>
-            <div className=" flex items-center gap-2">
+            {isAvailable && <p className=" font-semibold text-lg">${price}</p>}
+            {!isAvailable && <p className={`${"soldItem"} uppercase font-semibold`}>${price} - Sold</p>}
+            {isAvailable && <div className=" flex items-center gap-2">
               <p className=" text-xl cursor-pointer">
                 <FavoriteIcon />
               </p>
@@ -78,7 +81,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
                   <ShoppingIcon onClick={addHandler} />
                 )}
               </p>
-            </div>
+            </div>}
           </div>
           <p className=" text-lg">{title}</p>
           {widthCm && (

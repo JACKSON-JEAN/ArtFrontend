@@ -56,6 +56,7 @@ query GetArtworkById($artworkId: Float!){
     weightKg
     widthCm
     heightCm
+    isAvailable
     price
     media{
       id

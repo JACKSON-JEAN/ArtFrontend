@@ -51,8 +51,6 @@ const Collection = () => {
     console.log(search);
   };
 
-  console.log(filteredCategory)
-
   return (
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-3 bg-slate-50`}
@@ -144,6 +142,7 @@ const Collection = () => {
               widthCm={item.widthCm}
               category={item.category}
               price={item.price}
+              isAvailable={item.isAvailable}
               artworkId={item.id}
               media={item.media}
             />

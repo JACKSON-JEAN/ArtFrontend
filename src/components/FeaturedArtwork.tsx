@@ -22,8 +22,6 @@ const FeaturedArtwork = () => {
   });
   const artwork = data?.getArtwork;
 
-  console.log(artwork)
-
   if (loading) return <p>Loading</p>;
   if (error)
     return <p>There was an error when fetching data. {error.message}</p>;

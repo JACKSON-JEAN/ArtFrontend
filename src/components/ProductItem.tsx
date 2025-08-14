@@ -98,11 +98,15 @@ const ProductItem: React.FC<ProductItemProps> = ({
             
           </div>
           <p className=" text-lg">{title}</p>
-          {widthCm && (
-            <p className=" text-gray-600">
-              {widthCm} X {heightCm} Cm
+          <div className=" flex items-center justify-between">
+            <p className=" capitalize text-base text-gray-600">{category.toLowerCase()}</p>
+            {widthCm && (
+            <p className=" text-gray-600 text-sm">
+              {widthCm} X {heightCm} in
             </p>
           )}
+          </div>
+          
         </div>
       </section>
     </div>
