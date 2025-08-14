@@ -8,6 +8,7 @@ import { BsBag, BsBagCheck } from "react-icons/bs";
 type ProductItemProps = {
   id: number;
   title: string;
+  material?: string;
   heightCm?: number;
   category: string;
   widthCm?: number;
@@ -26,6 +27,7 @@ type ProductItemProps = {
 const ProductItem: React.FC<ProductItemProps> = ({
   id,
   title,
+  material,
   heightCm,
   widthCm,
   category,
@@ -99,7 +101,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
           </div>
           <p className=" text-lg">{title}</p>
           <div className=" flex items-center justify-between">
-            <p className=" capitalize text-base text-gray-600">{category.toLowerCase()}</p>
+            {material && <p className=" text-base text-gray-600">{material}</p>}
             {widthCm && (
             <p className=" text-gray-600 text-sm">
               {widthCm} X {heightCm} in

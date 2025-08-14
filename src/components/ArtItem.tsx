@@ -7,6 +7,7 @@ import { useCart } from "../context/cart.context";
 type ArtItemProps = {
   id: number;
   title: string;
+  material?: string;
   heightCm?: number;
   category: string;
   widthCm?: number;
@@ -24,6 +25,7 @@ type ArtItemProps = {
 const ArtItem: React.FC<ArtItemProps> = ({
     id,
     title,
+    material,
     heightCm,
     widthCm,
     category,
@@ -84,11 +86,15 @@ const ArtItem: React.FC<ArtItemProps> = ({
             </div>}
           </div>
           <p className=" text-lg">{title}</p>
-          {widthCm && (
-            <p className=" text-gray-600">
-              {widthCm} X {heightCm} Cm
+          <div className=" flex items-center justify-between">
+            {!material && <p className=" text-base text-gray-600 capitalize">{category.toLowerCase()}</p>}
+            {material && <p className=" text-base text-gray-600">{material}</p>}
+            {widthCm && (
+            <p className=" text-gray-600 text-sm">
+              {widthCm} X {heightCm} in
             </p>
           )}
+          </div>
         </div>
       </div>
     );
