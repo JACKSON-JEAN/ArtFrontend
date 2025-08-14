@@ -20,6 +20,10 @@ code {
   display: none;
 }
 
+.soldItem{
+  color: red;
+}
+
 @media (min-width: 270px) {
   .wrapper {
       padding-left: 12px;

@@ -1,7 +1,7 @@
 import React from "react";
 import image1 from "../images/david.jpg";
 import image2 from "../images/Doug.jpg";
-import image3 from "../images/jackson.jpg";
+import image3 from "../images/jack.jpg";
 
 const About = () => {
   return (
@@ -53,28 +53,28 @@ const About = () => {
       <p className=" text-lg text-red-950 font-semibold mb-2">Meet our team.</p>
       <section className=" grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="">
-          <img src={image3} alt="" />
+          <img src={image3} alt="Jackson" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">Owner and President</p>
             <p className=" font-light">Uwizeye Jackon</p>
           </div>
         </div>
         <div>
-          <img src={image2} alt="" />
+          <img src={image2} alt="Doug Harris" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">US Founder.</p>
             <p className=" font-light">Mr. Doug Harris</p>
           </div>
         </div>
         <div>
-          <img src={image1} alt="" />
+          <img src={image1} alt="David Ragland" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">US Founder.</p>
             <p className=" font-light">Mr. David Ragland</p>
           </div>
         </div>
         <div>
-          <img src={image1} alt="" />
+          <img src={image1} alt="Jani" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">Curator.</p>
             <p className=" font-light">Janie Bianconi</p>

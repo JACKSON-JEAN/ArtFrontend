@@ -12,6 +12,7 @@ type ProductItemProps = {
   category: string;
   widthCm?: number;
   isFeatured: boolean;
+  isAvailable: boolean
   showButton?: boolean;
   artworkId: number;
   price: number;
@@ -28,6 +29,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   heightCm,
   widthCm,
   category,
+  isAvailable,
   price,
   artworkId,
   media,
@@ -77,8 +79,9 @@ const ProductItem: React.FC<ProductItemProps> = ({
       <section>
         <div className=" px-2 py-2">
           <div className=" flex items-center justify-between">
-            <p className=" font-semibold text-lg">${price}</p>
-            <div className=" flex items-start gap-4">
+            {isAvailable && <p className=" font-semibold text-lg">${price}</p>}
+            {!isAvailable && <p className={`${"soldItem"} uppercase font-semibold`}>${price} - Sold</p>}
+            {isAvailable && <div className=" flex items-start gap-4">
               <p className=" text-xl cursor-pointer">
                 <WishListIcon />
               </p>
@@ -91,7 +94,8 @@ const ProductItem: React.FC<ProductItemProps> = ({
                   <ShoppingIcon onClick={addHandler} />
                 )}
               </p>
-            </div>
+            </div>}
+            
           </div>
           <p className=" text-lg">{title}</p>
           {widthCm && (

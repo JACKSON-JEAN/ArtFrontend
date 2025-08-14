@@ -135,6 +135,7 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle }) => {
             widthCm={item.widthCm}
             heightCm={item.heightCm}
             isFeatured={item.isFeatured}
+            isAvailable={item.isAvailable}
             artworkId={item.id}
             price={item.price}
             showButton={true}
