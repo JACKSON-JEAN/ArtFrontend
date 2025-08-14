@@ -82,52 +82,55 @@ const ArtItem = () => {
               {artwork.culturalOrigin}
             </p>
           </div>
-          
+
           <div className=" flex justify-between my-4">
             {artwork.widthCm && (
-              
               <p className="text-gray-600 text-sm">
                 Size: {artwork.widthCm} x {artwork.heightCm}in
               </p>
             )}
-            {!artwork.material && <p className=" capitalize">
-              Category:{" "}
-              <span className=" text-slate-600">
-                {artwork.category.toLowerCase()}
-              </span>
-            </p>}
-            {artwork.material && <p className=" capitalize">
-              Category:
-              <span className=" text-slate-600">
-                {artwork.material}
-              </span>
-            </p>}
+            {!artwork.material && (
+              <p className=" capitalize">
+                Category:{" "}
+                <span className=" text-slate-600">
+                  {artwork.category.toLowerCase()}
+                </span>
+              </p>
+            )}
+            {artwork.material && (
+              <p className=" capitalize">
+                Category:
+                <span className=" text-slate-600">{artwork.material}</span>
+              </p>
+            )}
             {artwork.yearCreated && <p>Year created: {artwork.yearCreated}</p>}
           </div>
           {artwork.isAvailable && (
-            <div className=" flex gap-4">
+            <div className=" flex justify-between">
+              <p className=" font-semibold text-lg">${artwork.price}</p>
               {existing ? (
                 <button
-                onClick={() => removeFromCart(existing.id)}
-                className=" border-2 border-red-600 text-base hover:bg-red-100 text-red-600 font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
-              >
-                Remove From Cart
-              </button>
-              ) : (
-                <button
-                  onClick={addHandler}
-                  className=" bg-blue-600 hover:bg-blue-700 text-base text-white font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
+                  onClick={() => removeFromCart(existing.id)}
+                  className=" border-2 border-red-600 text-base hover:bg-red-100 text-red-600 font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
                 >
-                  Add To Cart
+                  Remove From Cart
                 </button>
+              ) : (
+                <div className=" flex gap-4">
+                  <div className=" flex items-end">
+                    <button className=" bg-slate-300 hover:bg-slate-200 text-base px-3 py-2 rounded-sm shadow-sm border">
+                      <WishListIcon />
+                      {/* <FullWishListIcon className=' text-red-600'/> */}
+                    </button>
+                  </div>
+                  <button
+                    onClick={addHandler}
+                    className=" bg-blue-600 hover:bg-blue-700 text-base text-white font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
               )}
-
-              <div className=" flex items-end">
-                <button className=" bg-slate-300 hover:bg-slate-200 text-base px-3 py-2 rounded-sm shadow-sm border">
-                  <WishListIcon />
-                  {/* <FullWishListIcon className=' text-red-600'/> */}
-                </button>
-              </div>
             </div>
           )}
           {!artwork.isAvailable && (
