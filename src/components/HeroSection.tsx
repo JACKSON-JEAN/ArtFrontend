@@ -5,9 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Local images
 import gallery1 from "../images/gallery1.jpeg";
-import img1 from "../images/art1.jpg";
+import img1 from "../images/img2.jpeg";
 import img2 from "../images/art2.jpg";
-import img3 from "../images/art3.jpg";
+import img3 from "../images/kampala.jpg";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {

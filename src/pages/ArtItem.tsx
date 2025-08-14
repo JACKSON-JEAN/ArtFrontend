@@ -4,11 +4,11 @@ import Products from "../components/Products";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_ARTWORK_BYID } from "../graphql/artwork";
-import { FiHeart } from "react-icons/fi";
+import { IoMdHeartEmpty  } from "react-icons/io";
 import { useCart } from "../context/cart.context";
 
 const ArtItem = () => {
-  const WishListIcon = FiHeart as React.ComponentType<
+  const WishListIcon = IoMdHeartEmpty as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
 
