@@ -99,7 +99,7 @@ const ArtItem = () => {
             )}
             {artwork.material && (
               <p className=" capitalize">
-                Category:
+                Category:{" "}
                 <span className=" text-slate-600">{artwork.material}</span>
               </p>
             )}
