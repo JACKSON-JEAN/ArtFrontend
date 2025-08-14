@@ -82,19 +82,26 @@ const ArtItem = () => {
               {artwork.culturalOrigin}
             </p>
           </div>
-          <div className=" flex justify-between mb-2">
+          
+          <div className=" flex justify-between my-4">
             {artwork.widthCm && (
-              <p>
-                Size: {artwork.widthCm} by {artwork.heightCm}cm
+              
+              <p className="text-gray-600 text-sm">
+                Size: {artwork.widthCm} x {artwork.heightCm}in
               </p>
             )}
-            {artwork.weightKg && <p>Weight: {artwork.weightKg}kg</p>}
-            <p className=" capitalize">
+            {!artwork.material && <p className=" capitalize">
               Category:{" "}
               <span className=" text-slate-600">
                 {artwork.category.toLowerCase()}
               </span>
-            </p>
+            </p>}
+            {artwork.material && <p className=" capitalize">
+              Category:
+              <span className=" text-slate-600">
+                {artwork.material}
+              </span>
+            </p>}
             {artwork.yearCreated && <p>Year created: {artwork.yearCreated}</p>}
           </div>
           {artwork.isAvailable && (
