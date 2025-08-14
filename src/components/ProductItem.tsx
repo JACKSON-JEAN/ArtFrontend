@@ -101,6 +101,11 @@ const ProductItem: React.FC<ProductItemProps> = ({
           </div>
           <p className=" text-lg">{title}</p>
           <div className=" flex items-center justify-between">
+          {!material && (
+            <p className=" text-base text-gray-600 capitalize">
+              {category.toLowerCase()}
+            </p>
+          )}
             {material && <p className=" text-base text-gray-600">{material}</p>}
             {widthCm && (
             <p className=" text-gray-600 text-sm">
