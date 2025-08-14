@@ -22,7 +22,7 @@ const Footer = () => {
           <p className=" capitalize text-base font-semibold">Social handles</p>
           <ul>
             <li className=" mt-1">
-              <a href="mailto:zubart716@gmail.com" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Email</a>
+              <a href="mailto:pearlartgalleries@gmail.com" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Email</a>
             </li>
             <li className=" mt-1">
               <a href="https://x.com/zubart716" className=" text-base py-1 font-thin capitalize hover:text-slate-200">Twitter</a>

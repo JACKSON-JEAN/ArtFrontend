@@ -2,7 +2,7 @@ import CartItem from "../components/CartItem";
 import cartImage from "../images/img2.jpeg";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
-import Products from "../components/Products";
+import SimilarArtwork from "../components/SimilarArtwork";
 
 const Cart = () => {
   const { cart, total } = useCart();
@@ -69,7 +69,7 @@ const Cart = () => {
           </div>
         )}
       </div>
-      <Products limit={4} subTitle="Artwork you may like"/>
+      <SimilarArtwork/>
     </div>
   );
 };
