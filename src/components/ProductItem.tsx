@@ -13,7 +13,7 @@ type ProductItemProps = {
   category: string;
   widthCm?: number;
   isFeatured: boolean;
-  isAvailable: boolean
+  isAvailable: boolean;
   showButton?: boolean;
   artworkId: number;
   price: number;
@@ -82,38 +82,45 @@ const ProductItem: React.FC<ProductItemProps> = ({
         <div className=" px-2 py-2">
           <div className=" flex items-center justify-between">
             {isAvailable && <p className=" font-semibold text-lg">${price}</p>}
-            {!isAvailable && <p className={`${"soldItem"} uppercase font-semibold`}>${price} - Sold</p>}
-            {isAvailable && <div className=" flex items-start gap-4">
-              <p className=" text-xl cursor-pointer">
-                <WishListIcon />
+            {!isAvailable && (
+              <p className={`${"soldItem"} uppercase font-semibold`}>
+                ${price} - Sold
               </p>
-              <p className=" text-lg cursor-pointer">
-                {existing ? (
-                  <AddedIcon onClick={() =>removeFromCart(existing.id)} />
-                ) : existingArtwork ? (
-                  <AddedIcon onClick={() =>removeFromCart(existingArtwork.id)} />
-                ) : (
-                  <ShoppingIcon onClick={addHandler} />
-                )}
-              </p>
-            </div>}
-            
+            )}
+            {isAvailable && (
+              <div className=" flex items-start gap-4">
+                <p className=" text-xl cursor-pointer">
+                  <WishListIcon />
+                </p>
+                <p className=" text-lg cursor-pointer">
+                  {existing ? (
+                    <AddedIcon onClick={() => removeFromCart(existing.id)} />
+                  ) : existingArtwork ? (
+                    <AddedIcon
+                      onClick={() => removeFromCart(existingArtwork.id)}
+                    />
+                  ) : (
+                    <ShoppingIcon onClick={addHandler} />
+                  )}
+                </p>
+              </div>
+            )}
           </div>
           <p className=" text-lg">{title}</p>
           <div className=" flex items-center justify-between">
-          {!material && (
-            <p className=" text-base text-gray-600 capitalize">
-              {category.toLowerCase()}
-            </p>
-          )}
             {material && <p className=" text-base text-gray-600">{material}</p>}
+            {!material && (
+              <p className=" text-base text-gray-600 capitalize">
+                {category.toLowerCase()}
+              </p>
+            )}
+
             {widthCm && (
-            <p className=" text-gray-600 text-sm">
-              {widthCm} X {heightCm} in
-            </p>
-          )}
+              <p className=" text-gray-600 text-sm">
+                {widthCm} X {heightCm} in
+              </p>
+            )}
           </div>
-          
         </div>
       </section>
     </div>
