@@ -13,7 +13,8 @@ export type CartItem = {
   id: number;
   image: string;
   title: string;
-  category: string
+  category: string;
+  material?: string;
   heightCm?: number;
   widthCm?: number;
   artworkId: number
@@ -49,6 +50,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           image: item.artwork.media[0]?.url,
           title: item.artwork.title,
           category: item.artwork.category,
+          material: item.artwork.material,
           heightCm: item.artwork.heightCm,
           widthCm: item.artwork.widthCm,
           artworkId: item.artwork.id,

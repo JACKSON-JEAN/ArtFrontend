@@ -55,6 +55,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
       image: primaryMedia?.url,
       title: title,
       category: category,
+      material: material,
       heightCm: heightCm,
       widthCm: widthCm,
       artworkId: artworkId,
@@ -80,8 +81,12 @@ const ProductItem: React.FC<ProductItemProps> = ({
       </section>
       <section>
         <div className=" px-2 py-2">
-          <div className=" flex items-center justify-between">
-            {isAvailable && <p className=" font-semibold text-lg">${price.toLocaleString()}</p>}
+          <div className={` flex items-center justify-between`}>
+            {isAvailable && (
+              <p className=" font-semibold text-lg">
+                ${price.toLocaleString()}
+              </p>
+            )}
             {!isAvailable && (
               <p className={`${"soldItem"} uppercase font-semibold`}>
                 ${price} - Sold
@@ -107,7 +112,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
             )}
           </div>
           <p className=" text-lg">{title}</p>
-          <div className=" flex items-center justify-between">
+          <div className={`${"material-price"} flex `}>
             {material && <p className=" text-base text-gray-600">{material}</p>}
             {!material && (
               <p className=" text-base text-gray-600 capitalize">

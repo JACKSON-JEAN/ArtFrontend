@@ -21,6 +21,7 @@ export const GET_CLIENT_CART = gql`
         heightCm
         widthCm
         category
+        material
         media{
           id
           url

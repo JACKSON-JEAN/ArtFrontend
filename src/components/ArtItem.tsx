@@ -55,6 +55,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
       image: primaryMedia?.url,
       title: title,
       category: category,
+      material: material,
       heightCm: heightCm,
       widthCm: widthCm,
       artworkId: artworkId,
@@ -100,7 +101,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
           )}
         </div>
         <p className=" text-lg">{title}</p>
-        <div className=" flex items-center justify-between">
+        <div className={`${"material-price"} flex `}>
           {!material && (
             <p className=" text-base text-gray-600 capitalize">
               {category.toLowerCase()}

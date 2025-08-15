@@ -22,7 +22,6 @@ const SimilarArtwork = () => {
   const availableArtwork = artwork.filter((item: Artwork) => item.isAvailable !== false)
   const unselectedArtwork = availableArtwork.filter((item: Artwork) => !cart.some(cartItem => cartItem.artworkId === item.id));
   const artworkLimit = unselectedArtwork.slice(0, 8)
-  console.log(artwork);
 
   return (
     <div>
@@ -37,6 +36,7 @@ const SimilarArtwork = () => {
           media={item.media || img1}
           title={item.title}
           category={item.category}
+          material={item.material}
           widthCm={item.widthCm}
           heightCm={item.heightCm}
           isFeatured={item.isFeatured}

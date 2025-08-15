@@ -7,6 +7,7 @@ interface cartItemProps {
   image: string;
   description: string;
   category: string;
+  material?: string
   heightCm?: number
   widthCm?: number
   quantity: number;
@@ -18,6 +19,7 @@ const CartItem: React.FC<cartItemProps> = ({
   image,
   description,
   category,
+  material,
   heightCm,
   widthCm,
   quantity,
@@ -39,9 +41,11 @@ const CartItem: React.FC<cartItemProps> = ({
             <p>{description}</p>
             
           </div>
-          <p><span className=" font-semibold">Category:</span> <span className=" text-slate-400 capitalize">{category.toLowerCase()}</span></p>
-          {heightCm &&<p>
-            Size: <span className=" font-light">{heightCm} x {widthCm}</span>
+          {material && <p><span className=" font-semibold">Category:</span> <span className=" text-slate-400">{material}</span></p>}
+          {!material && <p><span className=" font-semibold">Category:</span> <span className=" text-slate-400 capitalize">{category.toLowerCase()}</span></p>}
+          
+          {widthCm &&<p>
+            Size: <span className=" font-light">{widthCm} x {heightCm}in</span>
           </p>}
           
           <div className=" flex justify-between">

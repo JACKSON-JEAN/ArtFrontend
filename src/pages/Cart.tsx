@@ -30,6 +30,7 @@ const Cart = () => {
                       image={item.image? item.image: cartImage}
                       description={item.title}
                       category={item.category}
+                      material={item.material}
                       widthCm={item.widthCm}
                       heightCm={item.heightCm}
                       quantity={item.quantity}

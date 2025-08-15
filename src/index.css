@@ -94,6 +94,9 @@ code {
     padding-left: 10px;
     border-bottom-width: 1px;
   } */
+   .material-price{
+    flex-direction: column;
+   }
 }
 
 @media (min-width: 450px) {
@@ -106,6 +109,11 @@ code {
   .derivery_msg, .price_subtitle{
     display: block;
   }
+  .material-price{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+   }
    
 }
 @media (min-width: 512px) {
