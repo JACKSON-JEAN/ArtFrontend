@@ -107,7 +107,7 @@ const ArtItem = () => {
           </div>
           {artwork.isAvailable && (
             <div className=" flex justify-between">
-              <p className=" font-semibold text-lg">${artwork.price}</p>
+              <p className=" font-semibold text-lg">${artwork.price.toLocaleString()}</p>
               {existing ? (
                 <button
                   onClick={() => removeFromCart(existing.id)}

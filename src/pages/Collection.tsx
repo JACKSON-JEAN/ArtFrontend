@@ -141,6 +141,7 @@ const Collection = () => {
               heightCm={item.heightCm}
               widthCm={item.widthCm}
               category={item.category}
+              material={item.material}
               price={item.price}
               isAvailable={item.isAvailable}
               artworkId={item.id}

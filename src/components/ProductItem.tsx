@@ -81,7 +81,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
       <section>
         <div className=" px-2 py-2">
           <div className=" flex items-center justify-between">
-            {isAvailable && <p className=" font-semibold text-lg">${price}</p>}
+            {isAvailable && <p className=" font-semibold text-lg">${price.toLocaleString()}</p>}
             {!isAvailable && (
               <p className={`${"soldItem"} uppercase font-semibold`}>
                 ${price} - Sold
