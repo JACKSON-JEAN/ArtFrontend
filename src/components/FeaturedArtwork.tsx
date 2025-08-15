@@ -20,6 +20,7 @@ const FeaturedArtwork = () => {
       },
     },
   });
+
   const artwork = data?.getArtwork;
 
   if (loading) return <p>Loading</p>;
@@ -37,7 +38,7 @@ const FeaturedArtwork = () => {
           <MoreIcon />
         </Link>
       </div>
-      <div className=" w-full pb-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
         {artwork
           .filter((item: Artwork) => item.isFeatured === true)
           .map((item: Artwork) => (

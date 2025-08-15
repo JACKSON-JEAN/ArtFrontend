@@ -68,8 +68,8 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const existingArtwork = cart.find((item) => item.artworkId === artworkId);
 
   return (
-    <div className=" border rounded-sm bg-white overflow-hidden">
-      <section className=" w-full h-40 overflow-hidden">
+    <div className=" border rounded-sm bg-white mb-4 overflow-hidden">
+      <section className=" w-full overflow-hidden">
         <Link to={`/collection/${id}`}>
           <img
             loading="lazy"

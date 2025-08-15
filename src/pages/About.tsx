@@ -1,7 +1,8 @@
 import React from "react";
-import image1 from "../images/david.jpg";
+import image1 from "../images/Ragland.jpg";
 import image2 from "../images/Doug.jpg";
 import image3 from "../images/jack.jpg";
+import image4 from "../images/Janie.jpg";
 
 const About = () => {
   return (
@@ -66,15 +67,15 @@ const About = () => {
             <p className=" font-light">Mr. Doug Harris</p>
           </div>
         </div>
-        <div>
-          <img src={image1} alt="David Ragland" className=" border rounded-sm" />
+        <div className=" ">
+          <img src={image1} alt="David Ragland" className=" border rounded-sm w-full" />
           <div>
             <p className=" text-red-950">US Founder.</p>
             <p className=" font-light">Mr. David Ragland</p>
           </div>
         </div>
         <div>
-          <img src={image1} alt="Jani" className=" border rounded-sm" />
+          <img src={image4} alt="Jani" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">Curator.</p>
             <p className=" font-light">Janie Bianconi</p>
