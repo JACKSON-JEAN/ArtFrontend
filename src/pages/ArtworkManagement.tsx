@@ -7,6 +7,7 @@ import img1 from "../images/art1.jpg";
 import AddArtwork from "../components/AddProduct";
 import { Link } from "react-router-dom";
 import AddImage from "../dashboard/components/AddImage";
+import EditArtwork from "../components/EditArtwork";
 
 type ProductsProps = {
   limit?: number;
@@ -17,6 +18,8 @@ type ProductsProps = {
 
 const ArtworkManagement: React.FC<ProductsProps> = () => {
   const [addNew, setAddNew] = useState(false)
+  const [editArtwork, SetEditArtwork] = useState(false)
+  const [editId, setEdit] = useState<number>()
   const [addImage, setAddImage] = useState(false)
   const [selectedId, setSelectedId] = useState<number>()
   const { query } = useSearch();
@@ -31,6 +34,11 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
 
   const addHandler = () =>{
     setAddNew(true)
+  }
+
+  const artworkEditHandler = (artworkId: number) =>{
+    setEdit(artworkId)
+    SetEditArtwork(true)
   }
 
   const editHandler = (editId: number) => {
@@ -50,6 +58,7 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
       className={`${"wrapper "} w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50`}
     >
       {addNew && < AddArtwork onClose={handleCloseAdd}/>}
+      {editArtwork && <EditArtwork artworkId={Number(editId)} onCloseEdit={() =>SetEditArtwork(false)}/>}
       {addImage && <AddImage editId={Number(selectedId)} onclose={() =>setAddImage(false)}/>}
       <div className=" flex gap-10 mb-4">
         <h1>Artwork</h1>
@@ -68,7 +77,8 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
               <td className=" border px-1.5">{item.title}</td>
               <td className=" border px-1.5 capitalize">{item.category.toLowerCase()}</td>
               <td className=" border px-1.5">{item.price}</td>
-              <td><p onClick={() =>editHandler(Number(item.id))} className=" text-xs cursor-pointer text-blue-600">Add Image</p></td>
+              <td className=" border px-1.5 hover:underline"><p onClick={() =>editHandler(Number(item.id))} className=" text-xs cursor-pointer text-blue-600">Add Image</p></td>
+              <td className=" border px-1.5 hover:underline"><p onClick={() =>artworkEditHandler(Number(item.id))} className=" text-xs cursor-pointer text-green-700">Edit</p></td>
             </tr>
           ))}
         </tbody>

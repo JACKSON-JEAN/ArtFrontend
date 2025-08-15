@@ -59,7 +59,9 @@ query GetArtworkById($artworkId: Float!){
     widthCm
     heightCm
     isAvailable
+    isFeatured
     price
+    currency
     media{
       id
       url
@@ -93,6 +95,18 @@ query {
     reviews{
       rating
     }
+  }
+}
+`
+
+export const EDIT_ARTWORK_MUTATION = gql`
+mutation UpdateArtwork($artworkId: Float!, $updateArtworkInput: UpdateArtworkInput!){
+  updateArtwork(artworkId: $artworkId, updateArtworkInput: $updateArtworkInput){
+    title
+    description
+    category
+    material
+    widthCm
   }
 }
 `
