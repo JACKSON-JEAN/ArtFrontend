@@ -13,7 +13,7 @@ const HeroSection = () => {
             <p className="text-xl md:text-2xl font-thin capitalize font-serif text-white mb-2">
               Welcome to Pearl Art Galleries
             </p>
-            <p className="text-base font-light text-amber-50 mb-6">
+            <p className="text-lg font-light text-amber-50 mb-6">
               Winston Churchill called Uganda the "Pearl of Africa" for its
               stunning landscapes and cultural richness. Pearl Art Galleries
               embodies this legacy with authentic Ugandan artworks,

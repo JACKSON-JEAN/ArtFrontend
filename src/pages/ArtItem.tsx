@@ -111,7 +111,7 @@ const ArtItem = () => {
               {existing ? (
                 <button
                   onClick={() => removeFromCart(existing.id)}
-                  className=" border-2 border-red-600 text-base hover:bg-red-100 text-red-600 font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
+                  className=" border-2 border-red-600 text-base text-red-600 hover:bg-red-50 font-semibold px-3 py-1 rounded-sm shadow-sm hover:shadow-md"
                 >
                   Remove From Cart
                 </button>
