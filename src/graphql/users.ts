@@ -21,7 +21,7 @@ mutation SignIn($signInData: SigInInput!){
 export const LOGOUT_MUTATION = gql`
 mutation Logout($refreshToken: String!) {
   logout(refreshToken: $refreshToken){
-    message
+    success
   }
 }
 `

@@ -1,9 +1,18 @@
 import { useMutation } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SIGN_UP_MUTATION } from "../graphql/users";
 
 const Signup = () => {
+  const OpenEye = FaEye as React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+  const ClosedEye = FaEyeSlash as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const [fieldErrors, setFieldErrors] = useState<string[]>([]); // 🔹 Store multiple backend errors
@@ -29,8 +38,11 @@ const Signup = () => {
         (error.graphQLErrors[0]?.extensions?.originalError as any)?.message
       )
         ? (error.graphQLErrors[0]?.extensions?.originalError as any).message
-        : [(error.graphQLErrors[0]?.extensions?.originalError as any)?.message || error.message];
-              
+        : [
+            (error.graphQLErrors[0]?.extensions?.originalError as any)
+              ?.message || error.message,
+          ];
+
       if (Array.isArray(validationErrors)) {
         setFieldErrors(validationErrors);
       } else {
@@ -93,7 +105,7 @@ const Signup = () => {
 
   return (
     <div className="w-full flex justify-center px-10 sm:px-20 min-h-screen py-4 bg-slate-50">
-      <div className=' flex items-center flex-col'>
+      <div className=" flex items-center flex-col">
         <p className={` w-[400px] text-center mb-2`}>
           <Link
             to="/"
@@ -122,40 +134,45 @@ const Signup = () => {
             />
           </div>
 
-          
-            <div className="flex-1 flex flex-col mb-3">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                className="border outline-blue-500 rounded-sm pl-2 py-1"
-                type="text"
-                placeholder="Email..."
-                value={userInput.email}
-                onChange={(e) => changeHandler("email", e.target.value)}
-              />
-            </div>
-            <div className="flex-1 flex flex-col mb-3">
-              <label htmlFor="telephone">Telephone</label>
-              <input
-                id="telephone"
-                className="border outline-blue-500 rounded-sm pl-2 py-1"
-                type="text"
-                placeholder="Telephone..."
-                value={userInput.telephone}
-                onChange={(e) => changeHandler("telephone", e.target.value)}
-              />
-            </div>
-
           <div className="flex-1 flex flex-col mb-3">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              type="text"
+              placeholder="Email..."
+              value={userInput.email}
+              onChange={(e) => changeHandler("email", e.target.value)}
+            />
+          </div>
+          <div className="flex-1 flex flex-col mb-3">
+            <label htmlFor="telephone">Telephone</label>
+            <input
+              id="telephone"
+              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              type="text"
+              placeholder="Telephone..."
+              value={userInput.telephone}
+              onChange={(e) => changeHandler("telephone", e.target.value)}
+            />
+          </div>
+
+          <div className="flex-1 flex flex-col mb-3 relative">
             <label htmlFor="password">Password</label>
             <input
               id="password"
               className="border outline-blue-500 rounded-sm pl-2 py-1"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password..."
               value={userInput.password}
               onChange={(e) => changeHandler("password", e.target.value)}
             />
+            <p
+              onClick={() => setShowPassword(!showPassword)}
+              className=" absolute right-2 bottom-2 text-gray-500 text-sm cursor-pointer"
+            >
+              {showPassword ? <OpenEye /> : <ClosedEye />}
+            </p>
           </div>
 
           {generalError && (

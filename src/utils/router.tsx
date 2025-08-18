@@ -14,11 +14,17 @@ import Users from "../components/pages/Users";
 import Reviews from "../pages/Reviews";
 import Artists from "../pages/Artists";
 import Favorites from "../pages/Favorites";
+import Unauthorised from "../pages/Unauthorised";
+import NotFound from "../pages/NotFound";
+import ProtectedRoutes from "./protectedRoutes";
 
 export const router = createBrowserRouter([
   { path: "signup", element: <Signup /> },
   { path: "signin", element: <Signin /> },
+  { path: "unauthorised", element: <Unauthorised/>},
+  { path: "*", errorElement: <NotFound/>},
   {
+    element: <ProtectedRoutes allowedRoles={["ADMIN"]} />,
     path: "dashboard",
     children: [
       {index: true, element: <ArtworkManagement/>},

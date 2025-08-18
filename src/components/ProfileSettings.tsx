@@ -47,7 +47,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
 
-        // navigate("/");
+        onClose()
       } catch (error) {
         console.log("Logout failed", error);
       }
