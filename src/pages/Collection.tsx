@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { GET_ARTWORK } from "../graphql/artwork";
@@ -16,6 +16,8 @@ const Collection = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filter, setFilter] = useState<string>("All");
   const [search, setSearch] = useState<string>("");
+
+  const filterRef = useRef<HTMLDivElement>(null)
 
   const { loading, error, data } = useQuery(GET_ARTWORK, {
     variables: {
@@ -50,6 +52,21 @@ const Collection = () => {
     e.preventDefault();
     console.log(search);
   };
+
+  useEffect(() =>{
+      const handleClickOutside = (event: MouseEvent) =>{
+          if(
+            filterRef.current &&
+            !filterRef.current.contains(event.target as Node)
+          ){
+            setOpenFilter(false)
+          }
+      }
+      document.addEventListener("mousedown", handleClickOutside)
+      return () =>{
+          document.removeEventListener("mousedown", handleClickOutside)
+      }
+    },[])
 
   return (
     <div
@@ -90,6 +107,7 @@ const Collection = () => {
                 </p>
               </div>
               <div
+                ref={filterRef}
                 className={`absolute left-0 bg-white ${
                   openFilter ? " block" : "hidden"
                 } w-full border shadow-md rounded-sm text-gray-700 ease-in-out duration-700`}

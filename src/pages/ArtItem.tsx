@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import img1 from "../images/img1.jpeg";
 import Products from "../components/Products";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,9 @@ import { useQuery } from "@apollo/client";
 import { GET_ARTWORK_BYID } from "../graphql/artwork";
 import { IoMdHeartEmpty  } from "react-icons/io";
 import { useCart } from "../context/cart.context";
+import { ArrowDownIcon } from "../components/icons";
+import Rating from "../components/Rating";
+import AddRating from "../components/AddRating";
 
 const ArtItem = () => {
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
@@ -13,6 +16,7 @@ const ArtItem = () => {
   >;
 
   const { cart, addToCart, removeFromCart } = useCart();
+  const[isOpenAddRating, SetIsOpenAddRating] = useState(false)
 
   const { artId } = useParams();
   const artworkId = isNaN(Number(artId)) ? 0 : Number(artId);
@@ -42,6 +46,23 @@ const ArtItem = () => {
       quantity: 1,
     });
   };
+
+  const RatingRef = useRef<HTMLDivElement>(null)
+  
+    useEffect(() =>{
+        const handleClickOutside = (event: MouseEvent) =>{
+            if(
+              RatingRef.current &&
+              !RatingRef.current.contains(event.target as Node)
+            ){
+              SetIsOpenAddRating(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+        return () =>{
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+      },[])
 
   // const originalPrice = ((10/100) * artwork.price) + artwork.price
 
@@ -83,7 +104,7 @@ const ArtItem = () => {
             </p>
           </div>
 
-          <div className=" flex justify-between my-4">
+          <div className=" flex justify-between my-3">
             {artwork.widthCm && (
               <p className="text-gray-600 text-sm">
                 Size: {artwork.widthCm} x {artwork.heightCm}in
@@ -104,6 +125,14 @@ const ArtItem = () => {
               </p>
             )}
             {artwork.yearCreated && <p>Year created: {artwork.yearCreated}</p>}
+          </div>
+          <div className=" relative flex gap-2">
+            <Rating count={4} rating={4.6}/>
+            <p onClick={() =>SetIsOpenAddRating(!isOpenAddRating)} className=" cursor-pointer text-base"><ArrowDownIcon/></p>
+            {isOpenAddRating && 
+            <div ref={RatingRef}>
+              <AddRating itemId={artwork.id}/>
+            </div>}
           </div>
           {artwork.isAvailable && (
             <div className=" flex justify-between">
