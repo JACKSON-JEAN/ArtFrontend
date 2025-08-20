@@ -9,7 +9,7 @@ interface RatingProps{
 const Rating: React.FC<RatingProps> = ({count, rating}) => {
   return (
     <div className=' flex items-center gap-0.5 mb-2'>
-        <p className=' text-xs text-gray-700 mr-1 '>({rating})</p>
+        <p className=' text-xs text-gray-700 mr-1 '>({rating}/5)</p>
         {Array.from({length: count}).map((_, index) =>(
             <p key={index} className=" text-orange-500 text-sm"><RatingIcon/></p> 
         ))}

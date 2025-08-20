@@ -9,6 +9,7 @@ import { useCart } from "../context/cart.context";
 import { ArrowDownIcon } from "../components/icons";
 import Rating from "../components/Rating";
 import AddRating from "../components/AddRating";
+import AddReviews from "../components/AddReviews";
 
 const ArtItem = () => {
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
@@ -17,6 +18,7 @@ const ArtItem = () => {
 
   const { cart, addToCart, removeFromCart } = useCart();
   const[isOpenAddRating, SetIsOpenAddRating] = useState(false)
+  const[addReview, setAddReview] = useState(false)
 
   const { artId } = useParams();
   const artworkId = isNaN(Number(artId)) ? 0 : Number(artId);
@@ -81,6 +83,7 @@ const ArtItem = () => {
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
     >
+      {addReview && <AddReviews artId={artwork.id} onClose={() => setAddReview(false) }/>}
       <div className={`${"artItem"} flex mb-6`}>
         <div className=" flex-1">
           <div className=" w-full p-2 shadow-sm border rounded-sm">
@@ -131,7 +134,7 @@ const ArtItem = () => {
             <p onClick={() =>SetIsOpenAddRating(!isOpenAddRating)} className=" cursor-pointer text-base"><ArrowDownIcon/></p>
             {isOpenAddRating && 
             <div ref={RatingRef}>
-              <AddRating itemId={artwork.id}/>
+              <AddRating onOpen={() => setAddReview(true)} itemId={artwork.id}/>
             </div>}
           </div>
           {artwork.isAvailable && (

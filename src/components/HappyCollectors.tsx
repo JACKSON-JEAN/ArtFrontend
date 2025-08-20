@@ -3,59 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from "./CustomArrows";
-
-const Reviews = [
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "John Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "Jane Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "John Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "Jane Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "John Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "Jane Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "John Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "Jane Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "John Doe",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam,illo maxime deleniti iusto facilis provident sit ipsum facere natus amet rerum quisquam commodi reprehenderit tenetur animi, dolores eaque labore. Adipisci.",
-    name: "Jane Doe",
-  },
-];
+import { useQuery } from "@apollo/client";
+import { GET_REVIEWS } from "../graphql/reviews";
+import { ReviewsItem } from "../pages/Reviews";
 
 const HappyCollectors: React.FC = () => {
   const settings = {
@@ -81,19 +31,24 @@ const HappyCollectors: React.FC = () => {
     ],
   };
 
+  const { loading, error, data } = useQuery(GET_REVIEWS);
+    const reviews = data?.getReviews || [];
+
   return (
     <div className="mb-10 border-t border-b p-4 bg-slate-100 relative">
       <p className="text-2xl text-red-950 font-semibold text-center pb-6">
         Reviews from our happy collectors
       </p>
+      {error && <p>{error?.message}</p>}
+      {loading && <p>Loading...</p>}
 
       <div className="flex justify-center">
         <div className="w-full sm:max-w-4xl">
           <Slider {...settings}>
-            {Reviews.map(({ title, name }, index) => (
-              <div key={index} className="p-4">
-                <p className="italic text-gray-500">"{title}"</p>
-                <p className="font-semibold">{name}</p>
+            {reviews.map((item: ReviewsItem) => (
+              <div key={item.id} className="p-4">
+                <p className="italic text-gray-500">"{item.comment}"</p>
+                <p className="font-semibold">{item.clientName}</p>
               </div>
             ))}
           </Slider>
