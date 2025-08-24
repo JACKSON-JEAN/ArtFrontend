@@ -99,7 +99,7 @@ const AddReviews: React.FC<AddReviewsProps> = ({ artId, onClose }) => {
       ></div>
 
       {/* Review Form */}
-      <div className="absolute left-0 z-20 w-full flex justify-center">
+      <div className="fixed left-0 top-28 z-20 w-full flex justify-center">
         <form
           onSubmit={handleSubmit}
           className="w-96 bg-white rounded-sm px-4 py-4 shadow-lg relative"
