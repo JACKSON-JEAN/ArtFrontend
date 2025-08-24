@@ -18,7 +18,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ToastContext.Provider value={{ success, error }}>
       {children}
-      <ToastContainer theme="colored" position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </ToastContext.Provider>
   );
 };
