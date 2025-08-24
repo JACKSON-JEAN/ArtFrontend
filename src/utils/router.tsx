@@ -17,19 +17,57 @@ import Favorites from "../pages/Favorites";
 import Unauthorised from "../pages/Unauthorised";
 import NotFound from "../pages/NotFound";
 import ProtectedRoutes from "./protectedRoutes";
+import ScrollToTop from "../components/ScrollToTop";
 
 export const router = createBrowserRouter([
-  { path: "signup", element: <Signup /> },
-  { path: "signin", element: <Signin /> },
-  { path: "unauthorised", element: <Unauthorised/>},
-  { path: "*", errorElement: <NotFound/>},
   {
-    element: <ProtectedRoutes allowedRoles={["ADMIN"]} />,
+    path: "signup",
+    element: (
+      <>
+        <ScrollToTop />
+        <Signup />
+      </>
+    ),
+  },
+  {
+    path: "signin",
+    element: (
+      <>
+        <ScrollToTop />
+        <Signin />
+      </>
+    ),
+  },
+  {
+    path: "unauthorised",
+    element: (
+      <>
+        <ScrollToTop />
+        <Unauthorised />
+      </>
+    ),
+  },
+  {
+    path: "*",
+    errorElement: (
+      <>
+        <ScrollToTop />
+        <NotFound />
+      </>
+    ),
+  },
+  {
+    element: (
+      <>
+        <ScrollToTop />
+        <ProtectedRoutes allowedRoles={["ADMIN"]} />
+      </>
+    ),
     path: "dashboard",
     children: [
-      {index: true, element: <ArtworkManagement/>},
-      {path: "users", element: <Users/>}
-    ]
+      { index: true, element: <ArtworkManagement /> },
+      { path: "users", element: <Users /> },
+    ],
   },
   {
     path: "/",
@@ -37,18 +75,19 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "about", element: <About /> },
-      {path: "collection",
+      {
+        path: "collection",
         children: [
           { index: true, element: <Collection /> },
-          {path: ":artId", element: <ArtItem/>}
-        ]
+          { path: ":artId", element: <ArtItem /> },
+        ],
       },
       { path: "reviews", element: <Reviews /> },
       { path: "artists", element: <Artists /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
-      { path: "artwork", element: <ArtworkManagement/> },
-      { path: "favorites", element: <Favorites/> },
+      { path: "artwork", element: <ArtworkManagement /> },
+      { path: "favorites", element: <Favorites /> },
     ],
   },
 ]);

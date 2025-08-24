@@ -111,7 +111,7 @@ const Signup = () => {
             to="/"
             className="text-xl text-red-950 hover:text-red-900 font-semibold"
           >
-            ZubArt
+            Pearl Art Galleries
           </Link>
         </p>
         <form
