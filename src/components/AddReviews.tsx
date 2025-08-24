@@ -3,6 +3,7 @@ import { FaStar } from "react-icons/fa";
 import { getUserId, getUsername } from "../utils/decodeToken";
 import { useMutation } from "@apollo/client";
 import { ADD_REVIEWS_MUTATION } from "../graphql/reviews";
+import { useToast } from "../context/ToastContext";
 
 interface AddReviewsProps {
   artId: number;
@@ -26,6 +27,8 @@ const AddReviews: React.FC<AddReviewsProps> = ({ artId, onClose }) => {
   const [name, setName] = useState<string>("");
   const [comment, setComment] = useState<string>("");
 
+  const {success} = useToast()
+
   const [addReviews, { loading }] = useMutation(ADD_REVIEWS_MUTATION, {
     onCompleted: (data) => {
       setError({
@@ -36,6 +39,7 @@ const AddReviews: React.FC<AddReviewsProps> = ({ artId, onClose }) => {
       setHover(0);
       setName("");
       setComment("");
+      success("Review added successfully!")
     },
     onError: (error) => {
       const message = error.message.includes("required")

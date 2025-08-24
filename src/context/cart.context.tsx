@@ -176,6 +176,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return [...prev, { ...item, quantity: item.quantity || 1 }];
       }
     });
+    console.log("added this.")
   };
 
   const increaseQuantity = (id: number) => {

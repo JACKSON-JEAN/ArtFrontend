@@ -5,6 +5,7 @@ import { SIGN_IN_MUTATION } from "../graphql/users";
 import { GET_CLIENT_CART } from "../graphql/cart";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { getUserId, getUserRole } from "../utils/decodeToken";
+import { useToast } from "../context/ToastContext";
 
 const Signin = () => {
   const OpenEye = FaEye as React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -27,6 +28,7 @@ const Signin = () => {
 
   const userId = getUserId();
   const navigate = useNavigate();
+  const {success} = useToast()
 
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: (data) => {
@@ -47,6 +49,7 @@ const Signin = () => {
         email: "",
         password: "",
       });
+      success("Signed in successfully!")
     },
     onError: (error) => {
       const message = error.message.includes("credentials")
@@ -97,6 +100,7 @@ const Signin = () => {
         { query: GET_CLIENT_CART, variables: { clientId: userId } },
       ],
     });
+    
   };
 
   return (

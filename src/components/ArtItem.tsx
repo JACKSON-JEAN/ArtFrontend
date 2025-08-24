@@ -4,6 +4,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { BsBag, BsBagCheck } from "react-icons/bs";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
+import { useToast } from "../context/ToastContext";
 
 type ArtItemProps = {
   id: number;
@@ -46,12 +47,13 @@ const ArtItem: React.FC<ArtItemProps> = ({
   >;
   const primaryMedia = media[0];
   const { addToCart, removeFromCart, cart } = useCart();
+  const {success} = useToast()
 
   const cartItem = cart.find((item) => item.artworkId === artworkId);
 
   const addHandler = () => {
     addToCart({
-      id: id, // You might want to use artworkId here instead of id if that's your unique identifier
+      id: id, 
       image: primaryMedia?.url,
       title: title,
       category: category,
@@ -62,7 +64,14 @@ const ArtItem: React.FC<ArtItemProps> = ({
       price: price,
       quantity: 1,
     });
+
+    success("Item added to the cart successfully!")
   };
+
+  const removeHandler = (itemId: number) =>{
+    removeFromCart(itemId)
+    success("Item removed successfully!")
+  }
 
   return (
     <div
@@ -92,7 +101,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
               </p>
               <p className=" text-lg cursor-pointer">
                 {cartItem ? (
-                  <AddedIcon onClick={() => removeFromCart(cartItem.id)} />
+                  <AddedIcon onClick={() => removeHandler(cartItem.id)} />
                 ) : (
                   <ShoppingIcon onClick={addHandler} />
                 )}

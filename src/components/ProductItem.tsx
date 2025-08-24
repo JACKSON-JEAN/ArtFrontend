@@ -4,6 +4,7 @@ import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsBag, BsBagCheck } from "react-icons/bs";
+import { useToast } from "../context/ToastContext";
 
 type ProductItemProps = {
   id: number;
@@ -48,6 +49,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   >;
 
   const { addToCart, removeFromCart, cart } = useCart();
+  const { success } = useToast();
 
   const addHandler = () => {
     addToCart({
@@ -62,7 +64,13 @@ const ProductItem: React.FC<ProductItemProps> = ({
       price: price,
       quantity: 1,
     });
+    success("Item added to the cart successfully!")
   };
+
+  const removeHandler = (itemId: number) =>{
+    removeFromCart(itemId)
+    success("Item removed successfully!")
+  }
 
   const existing = cart.find((item) => item.id === id);
   const existingArtwork = cart.find((item) => item.artworkId === artworkId);
@@ -99,13 +107,15 @@ const ProductItem: React.FC<ProductItemProps> = ({
                 </p>
                 <p className=" text-lg cursor-pointer">
                   {existing ? (
-                    <AddedIcon onClick={() => removeFromCart(existing.id)} />
+                    <AddedIcon onClick={() => removeHandler(existing.id)} />
                   ) : existingArtwork ? (
                     <AddedIcon
-                      onClick={() => removeFromCart(existingArtwork.id)}
+                      onClick={() => removeHandler(existingArtwork.id)}
                     />
                   ) : (
-                    <ShoppingIcon onClick={addHandler} />
+                    <button onClick={addHandler}>
+                      <ShoppingIcon />
+                    </button>
                   )}
                 </p>
               </div>

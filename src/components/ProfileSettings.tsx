@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { LOGOUT_MUTATION } from "../graphql/users";
 import { GET_CLIENT_CART } from "../graphql/cart";
 import { Link } from "react-router-dom";
+import { useToast } from "../context/ToastContext";
 
 interface ProfileProps {
     onClose: () => void
@@ -31,8 +32,10 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
     }
   },[onClose])
 
+  const {success, error: toastError} = useToast()
   const logoutHandler = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
+    
 
     if (refreshToken) {
       try {
@@ -46,9 +49,10 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
         });
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-
+        success("Signed out successfully!")
         onClose()
       } catch (error) {
+        toastError("Oops there was an error!")
         console.log("Logout failed", error);
       }
     }
