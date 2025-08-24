@@ -72,7 +72,6 @@ const ArtItem = () => {
     return <p>Invalid art ID. Please check the URL and try again.</p>;
   }
 
-  if (loading) return <p>Loading...</p>;
   if (error)
     return (
       <div className=" w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50">
@@ -83,6 +82,7 @@ const ArtItem = () => {
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
     >
+      {loading && <p>Loading...</p>}
       {addReview && <AddReviews artId={artwork.id} onClose={() => setAddReview(false) }/>}
       <div className={`${"artItem"} flex mb-6`}>
         <div className=" flex-1">
