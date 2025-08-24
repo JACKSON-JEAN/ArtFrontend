@@ -4,7 +4,6 @@ import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { Artwork } from "../types/artwork";
 import ArtItem from "../components/ArtItem";
-import { useToast } from "../context/ToastContext";
 
 const Collection = () => {
   const FilterIcon = IoIosArrowDown as React.ComponentType<
@@ -68,13 +67,6 @@ const Collection = () => {
           document.removeEventListener("mousedown", handleClickOutside)
       }
     },[])
-
-    const {success} = useToast()
-
-    const clickHandler = () =>{
-      success("clicked.")
-      console.log("clicked.")
-    }
 
   return (
     <div
@@ -158,7 +150,6 @@ const Collection = () => {
       {error && <p className=" text-center">{error.message}</p>}
       {loading && <p>Loading...</p>}
       <div className=" w-full py-4">
-        <button onClick={clickHandler}>click</button>
         <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
           {filteredCategory.map((item: Artwork) => (
             <ArtItem
