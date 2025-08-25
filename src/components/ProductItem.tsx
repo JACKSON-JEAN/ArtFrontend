@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import img1 from "../images/art1.jpg";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { BsBag, BsBagCheck } from "react-icons/bs";
 import { useToast } from "../context/ToastContext";
 
@@ -47,7 +47,11 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
+  const FavoriteFullIcon = IoMdHeart as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
 
+  const [isLiked, setIsLiked] = useState(false);
   const { addToCart, removeFromCart, cart } = useCart();
   const { success } = useToast();
 
@@ -64,16 +68,20 @@ const ProductItem: React.FC<ProductItemProps> = ({
       price: price,
       quantity: 1,
     });
-    success("Item added to the cart successfully!")
+    success("Item added to the cart successfully!");
   };
 
-  const removeHandler = (itemId: number) =>{
-    removeFromCart(itemId)
-    success("Item removed successfully!")
-  }
+  const removeHandler = (itemId: number) => {
+    removeFromCart(itemId);
+    success("Item removed successfully!");
+  };
 
   const existing = cart.find((item) => item.id === id);
   const existingArtwork = cart.find((item) => item.artworkId === artworkId);
+
+  const likeHandler = (itemId: number) => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div className=" w-full border rounded-sm bg-white mb-4 overflow-hidden">
@@ -102,8 +110,17 @@ const ProductItem: React.FC<ProductItemProps> = ({
             )}
             {isAvailable && (
               <div className=" flex items-start gap-4">
-                <p className=" text-xl cursor-pointer">
-                  <WishListIcon />
+                <p
+                  onClick={() => likeHandler(id)}
+                  className=" text-xl cursor-pointer"
+                >
+                  {isLiked ? (
+                    <p className=" text-red-500">
+                      <FavoriteFullIcon />
+                    </p>
+                  ) : (
+                    <WishListIcon />
+                  )}
                 </p>
                 <p className=" text-lg cursor-pointer">
                   {existing ? (

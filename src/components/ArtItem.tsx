@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import img1 from "../images/art1.jpg";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { BsBag, BsBagCheck } from "react-icons/bs";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
@@ -45,8 +45,12 @@ const ArtItem: React.FC<ArtItemProps> = ({
   const FavoriteIcon = IoMdHeartEmpty as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
+  const FavoriteFullIcon = IoMdHeart as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
   const primaryMedia = media[0];
   const { addToCart, removeFromCart, cart } = useCart();
+  const [isLiked, setIsLiked] = useState(false)
   const {success} = useToast()
 
   const cartItem = cart.find((item) => item.artworkId === artworkId);
@@ -73,6 +77,10 @@ const ArtItem: React.FC<ArtItemProps> = ({
     success("Item removed successfully!")
   }
 
+  const likeHandler = (itemId: number) =>{
+    setIsLiked(!isLiked)
+  }
+
   return (
     <div
       key={id}
@@ -96,8 +104,8 @@ const ArtItem: React.FC<ArtItemProps> = ({
           )}
           {isAvailable && (
             <div className=" flex items-center gap-2">
-              <p className=" text-xl cursor-pointer">
-                <FavoriteIcon />
+              <p onClick={() =>likeHandler(id)} className=" text-xl cursor-pointer">
+                {isLiked ? <p className=" text-red-500"><FavoriteFullIcon/></p> : <FavoriteIcon />}
               </p>
               <p className=" text-lg cursor-pointer">
                 {cartItem ? (
