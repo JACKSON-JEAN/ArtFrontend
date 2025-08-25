@@ -35,7 +35,7 @@ const Subscribe = () => {
     addSubscriber({
       variables: {
         addSubscriberInput: {
-          email: userEmail
+          email: userEmail.trimEnd()
         } 
       }
     })
