@@ -8,7 +8,7 @@ const uploadLink = createUploadLink({
   // uri: `http://localhost:4000/graphql`,
   uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
   headers: {
-    "Apollo-Require-Preflight": "true" // Required for file uploads
+    "Apollo-Require-Preflight": "true" 
   }
 });
 
