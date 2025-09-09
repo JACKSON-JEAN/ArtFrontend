@@ -18,6 +18,7 @@ import Unauthorised from "../pages/Unauthorised";
 import NotFound from "../pages/NotFound";
 import ProtectedRoutes from "./protectedRoutes";
 import ScrollToTop from "../components/ScrollToTop";
+import Addresses from "../pages/Addresses";
 
 export const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ export const router = createBrowserRouter([
       { path: "artists", element: <Artists /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
+      { path: "address", element: <Addresses /> },
       { path: "artwork", element: <ArtworkManagement /> },
       { path: "favorites", element: <Favorites /> },
     ],

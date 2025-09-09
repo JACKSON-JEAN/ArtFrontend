@@ -3,39 +3,40 @@ import { getUserEmail, getUserId } from "../utils/decodeToken";
 import { useMutation } from "@apollo/client";
 import { LOGOUT_MUTATION } from "../graphql/users";
 import { GET_CLIENT_CART } from "../graphql/cart";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import { GET_ADDRESSES_BY_CUSTOMER_ID } from "../graphql/addresses";
 
 interface ProfileProps {
-    onClose: () => void
+  onClose: () => void;
 }
 
-const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
+const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
   const [logout, { loading }] = useMutation(LOGOUT_MUTATION);
   const userEmail = getUserEmail();
   const userId = getUserId();
+  const navigate = useNavigate();
 
-  const profileRef = useRef<HTMLDivElement>(null)
+  const profileRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() =>{
-    const handleClickOutside = (event: MouseEvent) =>{
-        if(
-            profileRef.current &&
-            !profileRef.current.contains(event.target as Node)
-        ){
-            onClose()
-        }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () =>{
-        document.removeEventListener("mousedown", handleClickOutside)
-    }
-  },[onClose])
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
 
-  const {success, error: toastError} = useToast()
+  const { success, error: toastError } = useToast();
   const logoutHandler = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    
 
     if (refreshToken) {
       try {
@@ -45,14 +46,19 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
           },
           refetchQueries: [
             { query: GET_CLIENT_CART, variables: { clientId: userId } },
+            {
+              query: GET_ADDRESSES_BY_CUSTOMER_ID,
+              variables: { customerId: userId },
+            },
           ],
         });
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        success("Signed out successfully!")
-        onClose()
+        success("Signed out successfully!");
+        onClose();
+        navigate("/")
       } catch (error) {
-        toastError("Oops there was an error!")
+        toastError("Oops there was an error!");
         console.log("Logout failed", error);
       }
     }
@@ -73,18 +79,22 @@ const ProfileSettings: React.FC<ProfileProps> = ({onClose}) => {
         )}
         {!userEmail && (
           <div>
-            <Link to="/signin" className=" bg-blue-600 text-center py-1 rounded-sm shadow-sm text-white hover:bg-blue-700 text-sm w-full inline-block">
-            Sign In
+            <Link
+              to="/signin"
+              className=" bg-blue-600 text-center py-1 rounded-sm shadow-sm text-white hover:bg-blue-700 text-sm w-full inline-block"
+            >
+              Sign In
             </Link>
-            <p className=" mt-1 text-xs text-center">New customer?
-              {" "}
-              <Link to="/signup" className=" text-blue-700 hover:underline">create account</Link>
+            <p className=" mt-1 text-xs text-center">
+              New customer?{" "}
+              <Link to="/signup" className=" text-blue-700 hover:underline">
+                create account
+              </Link>
             </p>
           </div>
         )}
         <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -top-[6px] left-[125px] sm:left-[98px] z-20"></div>
       </div>
-      
     </div>
   );
 };
