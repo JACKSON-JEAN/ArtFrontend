@@ -46,9 +46,9 @@ const Cart = () => {
                   {`Order summary(${totalItems} items):`}{" "}
                   <span className=" font-semibold">${total.toFixed(2)}</span>
                 </p>
-                <div className=" border-t">
-                  <Link to="/address" className=" bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white py-0.5 rounded-sm w-full mt-2">
-                    Proceed to checkout
+                <div className=" border-t pt-0.5 w-full">
+                  <Link to="/address" >
+                    <button className=" px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full mt-2">Proceed to checkout</button>
                   </Link>
                 </div>
               </div>
