@@ -1,5 +1,8 @@
 import React from "react";
-import image3 from "../images/jack.jpg";
+import artist1 from "../images/artist2_4.jpg"
+import artist2 from "../images/artist2_3.jpg"
+import artist3 from "../images/artist2_1.jpg"
+import artist4 from "../images/artist4.jpeg"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,107 +11,31 @@ import Products from "../components/Products";
 
 const artists = [
   {
-    src: image3,
-    name: "Mujuni Alex",
+    src: artist1,
+    name: "Johnson Kambugu",
     speciality: "Painter",
     nationality: "Ugandan"
   },
   {
-    src: image3,
-    name: "Mujuni Alex",
+    src: artist2,
+    name: "Peter May",
     speciality: "Painter",
     nationality: "Ugandan"
   },
   {
-    src: image3,
-    name: "Mujuni Alex",
+    src: artist4,
+    name: "Knite Frank",
     speciality: "Painter",
     nationality: "Ugandan"
   },
   {
-    src: image3,
-    name: "Mujuni Alex",
+    src: artist3,
+    name: "Augustus Kimbugwe",
     speciality: "Painter",
     nationality: "Ugandan"
   },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
-  {
-    src: image3,
-    name: "Mujuni Alex",
-    speciality: "Painter",
-    nationality: "Ugandan"
-  },
+  
+
 ]
 const Artists = () => {
   const settings = {
@@ -117,20 +44,13 @@ const Artists = () => {
     autoplay: false,
     speed: 1000,
     autoplaySpeed: 3000,
-    slidesToShow: 5, // default for largest screens
+    slidesToShow: 4, // default for largest screens
     slidesToScroll: 1,
     arrows: true,
     pauseOnHover: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
-      {
-        breakpoint: 1280, // xl screens and below
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
       {
         breakpoint: 1024, // lg screens and below
         settings: {
@@ -153,23 +73,28 @@ const Artists = () => {
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-50`}
     >
       <p className=" text-xl text-red-950 font-semibold pb-1 text-center">
-        Creators of Original Masterpieces
+        Creators of original masterpieces
       </p>
-      <p className=" text-base text-gray-700 max-w-[600px] mx-auto text-center mb-8">
+      <div className=" ">
+        <p className=" text-base text-gray-700 max-w-[600px] mx-auto mb-8">
         From intricate sculptures to breathtaking photography, our artists bring
         diverse visions to life. Browse by artist, explore their creations, and
         find the perfect piece for your space.
       </p>
+      </div>
+      
 
       <div className=" mb-8">
           <Slider {...settings}>
             {artists.map(({ src, name, speciality, nationality }, index) => (
               <div key={index} className=" relative px-2">
-              <img src={src} alt="Jackson" loading="lazy" className=" border rounded-md" />
+              <img src={src} alt="Jackson" loading="lazy" className=" border rounded-sm" />
               <div className=" absolute bottom-0 left-0  w-full p-2">
-                <div className=" bg-white border shadow-sm rounded-md px-1 py-0.5 -space-y-1">
+                <div className=" px-2">
+                  <div className=" bg-white border shadow-sm rounded-sm px-1 py-0.5 -space-y-1">
                   <p className=" text-red-950">{name}</p>
                   <p className=" font-light">{nationality} - {speciality}</p>
+                </div>
                 </div>
               </div>
             </div>
