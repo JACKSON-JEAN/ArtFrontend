@@ -1,7 +1,7 @@
 import React from "react";
 import image1 from "../images/Ragland.jpg";
 import image2 from "../images/Doug.jpg";
-import image3 from "../images/jack.jpg";
+import image3 from "../images/jean.jpg";
 import image4 from "../images/Janie.jpg";
 
 const About = () => {
