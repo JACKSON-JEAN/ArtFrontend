@@ -57,7 +57,7 @@ const About = () => {
           <img src={image3} alt="Jackson" className=" border rounded-sm" />
           <div>
             <p className=" text-red-950">Owner and President</p>
-            <p className=" font-light">Uwizeye Jackon</p>
+            <p className=" font-light">Uwizeye Jackson</p>
           </div>
         </div>
         <div>
