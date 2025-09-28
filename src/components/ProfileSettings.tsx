@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { getUserEmail, getUserId } from "../utils/decodeToken";
-import { useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import { LOGOUT_MUTATION } from "../graphql/users";
 import { GET_CLIENT_CART } from "../graphql/cart";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
 import { GET_ADDRESSES_BY_CUSTOMER_ID } from "../graphql/addresses";
+import { useCart } from "../context/cart.context";
 
 interface ProfileProps {
   onClose: () => void;
@@ -35,34 +36,36 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
   }, [onClose]);
 
   const { success, error: toastError } = useToast();
-  const logoutHandler = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
+  const client = useApolloClient();
+  const { clearCart } = useCart();
 
+  const logoutHandler = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  try {
     if (refreshToken) {
-      try {
-        await logout({
-          variables: {
-            refreshToken: refreshToken,
-          },
-          refetchQueries: [
-            { query: GET_CLIENT_CART, variables: { clientId: userId } },
-            {
-              query: GET_ADDRESSES_BY_CUSTOMER_ID,
-              variables: { customerId: userId },
-            },
-          ],
-        });
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        success("Signed out successfully!");
-        onClose();
-        navigate("/")
-      } catch (error) {
-        toastError("Oops there was an error!");
-        console.log("Logout failed", error);
-      }
+      await logout({
+        variables: { refreshToken },
+        refetchQueries: [
+          { query: GET_CLIENT_CART, variables: { clientId: userId } },
+          { query: GET_ADDRESSES_BY_CUSTOMER_ID, variables: { customerId: userId } },
+        ],
+      });
     }
-  };
+    clearCart();
+    await client.resetStore();
+    success("Signed out successfully!");
+  } catch (error) {
+    toastError("Oops there was an error!");
+    console.log("Logout failed", error);
+  } finally {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    onClose();
+    navigate("/");
+  }
+};
+
   return (
     <div
       className={`${"profile-login"} absolute top-7 -right-[50px] lg:-right-[18px] shadow-xl border w-48 bg-white rounded-sm !z-40`}
