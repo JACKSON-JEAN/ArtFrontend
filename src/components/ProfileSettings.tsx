@@ -35,7 +35,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
     };
   }, [onClose]);
 
-  const { success, error: toastError } = useToast();
+  const { success } = useToast();
   const client = useApolloClient();
   const { clearCart } = useCart();
 
@@ -56,7 +56,6 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
     await client.resetStore();
     success("Signed out successfully!");
   } catch (error) {
-    toastError("Oops there was an error!");
     console.log("Logout failed", error);
   } finally {
     localStorage.removeItem("accessToken");
