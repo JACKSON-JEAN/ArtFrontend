@@ -57,8 +57,13 @@ code {
     flex-direction: column;
     gap: 10px;
   }
-  .paintings{
+  .paintings, .successBtns{
     flex-direction: column;
+  }
+
+  .successBtns button{
+    flex-direction: row;
+    width: 100%;
   }
   .paintings .heading{
     margin-bottom: 7px;
@@ -115,6 +120,17 @@ code {
     justify-content: space-between;
    }
    
+}
+
+@media (min-width: 467px){
+  .successBtns{
+    flex-direction: row;
+  }
+
+  .successBtns button{
+    flex-direction: row;
+    width: 50%;
+  }
 }
 @media (min-width: 512px) {
   .auth{

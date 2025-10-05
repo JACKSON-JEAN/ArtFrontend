@@ -19,6 +19,9 @@ import NotFound from "../pages/NotFound";
 import ProtectedRoutes from "./protectedRoutes";
 import ScrollToTop from "../components/ScrollToTop";
 import Addresses from "../pages/Addresses";
+import Orders from "../components/pages/Orders";
+import PaymentSuccessPage from "../components/pages/SuccessPage";
+import PaymentFailed from "../components/PaymentCallback";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +42,16 @@ export const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "payment-success",
+    element: (
+      <>
+        <ScrollToTop />
+        <PaymentSuccessPage />
+      </>
+    ),
+  },
+  { path: "payment-failed", element: <PaymentFailed /> },
   {
     path: "unauthorised",
     element: (
@@ -90,6 +103,8 @@ export const router = createBrowserRouter([
       { path: "address", element: <Addresses /> },
       { path: "artwork", element: <ArtworkManagement /> },
       { path: "favorites", element: <Favorites /> },
+      { path: "orders", element: <Orders /> },
+      // { path: "payment/callback", element: <Callback /> },
     ],
   },
 ]);
