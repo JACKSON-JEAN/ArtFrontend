@@ -1,17 +1,17 @@
 import { useQuery, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GET_ADDRESSES_BY_CUSTOMER_ID } from "../graphql/addresses";
 import { CREATE_ORDER, INITIATE_PESAPAL_PAYMENT } from "../graphql/payments";
 import { getUserId } from "../utils/decodeToken";
 import { useCart } from "../context/cart.context";
 import { formatDate } from "../utils/DateFormat";
 import AddAddress from "../components/AddAddress";
-import Signin from "./Signin";
 import EditAddress from "../components/EditAddress";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { GET_CLIENT_CART } from "../graphql/cart";
+import { useNavigate } from "react-router-dom";
 
-interface Address {
+export interface ShippingAddress {
   id: number;
   line1: string;
   city: string;
@@ -45,6 +45,7 @@ const Addresses = () => {
 
   const addresses = data?.getAddressesByCustomerId || [];
 
+  const navigate = useNavigate()
   const today = new Date();
   const startDate = new Date(today);
   startDate.setDate(today.getDate() + 3);
@@ -114,7 +115,11 @@ const Addresses = () => {
     setPaymentError("");
   };
 
-  if (!userId) return <Signin />;
+useEffect(() => {
+  if (!userId) {
+    navigate("/signin"); // make sure to include the leading slash
+  }
+}, [userId, navigate]);
 
   const editHandler = (clientId: number) => {
     setSelectedId(clientId);
@@ -158,7 +163,7 @@ const Addresses = () => {
 
           {addresses.length > 0 && (
             <section className="py-1.5 px-3">
-              {addresses.map((item: Address) => (
+              {addresses.map((item: ShippingAddress) => (
                 <div key={item.id} className="mb-2.5 flex items-start gap-2">
                   <input
                     type="radio"

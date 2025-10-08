@@ -81,6 +81,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <ArtworkManagement /> },
       { path: "users", element: <Users /> },
+      { path: "orders", element: <Orders /> },
     ],
   },
   {
@@ -103,7 +104,7 @@ export const router = createBrowserRouter([
       { path: "address", element: <Addresses /> },
       { path: "artwork", element: <ArtworkManagement /> },
       { path: "favorites", element: <Favorites /> },
-      { path: "orders", element: <Orders /> },
+      
       // { path: "payment/callback", element: <Callback /> },
     ],
   },

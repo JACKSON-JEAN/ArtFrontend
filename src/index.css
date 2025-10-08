@@ -71,6 +71,9 @@ code {
   .paintingsFilters{
     justify-content: space-between;
   }
+  .order{
+     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
   /* .navigation{
     position: absolute;
     right: 0;
@@ -120,6 +123,7 @@ code {
     justify-content: space-between;
    }
    
+   
 }
 
 @media (min-width: 467px){
@@ -135,6 +139,9 @@ code {
 @media (min-width: 512px) {
   .auth{
     width: 450px;
+  }
+  .order{
+     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
    
 }
@@ -193,6 +200,12 @@ code {
     margin-bottom: 0;
   }
   
+}
+
+@media (min-width: 1024px) {
+    .lg\:flex-row {
+        flex-direction: row;
+    }
 }
 @media (min-width: 875px) {
   .search {

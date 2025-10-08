@@ -102,52 +102,54 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Smart merge on login
   useEffect(() => {
-    if (userId) {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
+  if (!userId) return;
 
-      if (stored) {
-        try {
-          const guestCart: CartItem[] = JSON.parse(stored);
-          client
-            .query({
-              query: GET_CLIENT_CART,
-              variables: { clientId: userId },
-              fetchPolicy: "network-only",
-            })
-            .then(({ data }) => {
-              const serverItems = data?.getClientCart?.cartItems || [];
+  const stored = localStorage.getItem(CART_STORAGE_KEY);
+  if (!stored) return;
 
-              guestCart.forEach((guestItem) => {
-                const match = serverItems.find(
-                  (srv: any) => srv.artwork.id === guestItem.id
-                );
-                if (match) {
-                  incrementItem({ variables: { itemId: match.id, clientId: userId } });
-                } else {
-                  addCartItem({
-                    variables: {
-                      addItemInput: {
-                        artworkId: guestItem.id,
-                        quantity: guestItem.quantity,
-                        price: guestItem.price,
-                      },
-                      clientId: userId,
-                    },
-                  });
-                }
-              });
-              localStorage.removeItem(CART_STORAGE_KEY);
-              fetchCart({ variables: { clientId: userId } });
-            })
-            .catch((error) => {
-              console.error("Failed to merge guest cart", error);
+  try {
+    const guestCart: CartItem[] = JSON.parse(stored);
+
+    client
+      .query({
+        query: GET_CLIENT_CART,
+        variables: { clientId: userId },
+        fetchPolicy: "network-only",
+      })
+      .then(async ({ data }) => {
+        const serverItems = data?.getClientCart?.cartItems || [];
+
+        for (const guestItem of guestCart) {
+          // Check if the artwork is already in the server cart
+          const alreadyInCart = serverItems.some(
+            (srv: any) => srv.artwork.id === guestItem.artworkId
+          );
+
+          if (!alreadyInCart) {
+            // Only add items that are not already in the cart
+            await addCartItem({
+              variables: {
+                addItemInput: {
+                  artworkId: guestItem.artworkId,
+                  quantity: guestItem.quantity,
+                  price: guestItem.price,
+                },
+                clientId: userId,
+              },
             });
-        } catch (error) {
-          console.error("Failed to merge guest cart", error);
+          }
+          // If it exists, skip it
         }
-      }
-    }
-  }, [userId, addCartItem, client, fetchCart, incrementItem]);
+
+        localStorage.removeItem(CART_STORAGE_KEY);
+        fetchCart({ variables: { clientId: userId } });
+      })
+      .catch((err) => console.error("Failed to merge guest cart", err));
+  } catch (error) {
+    console.error("Failed to parse guest cart", error);
+  }
+}, [userId, addCartItem, client, fetchCart]);
+
 
   // Cart actions
   const addToCart = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
