@@ -6,10 +6,12 @@ import ScrollToTop from "../components/ScrollToTop";
 
 const Layout = () => {
   return (
-    <div className=" relative">
+    <div className="flex flex-col min-h-screen relative">
       <ScrollToTop />
       <Navbar />
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
