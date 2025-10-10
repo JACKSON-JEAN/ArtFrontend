@@ -34,7 +34,7 @@ const ImageComponent: React.FC<ImageProps> = ({ src, imageHash, name }) => {
           src={src} 
           alt={name}
           loading="lazy"
-          className={`border rounded-sm transition-opacity duration-700 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+          className={`border rounded-sm w-full transition-opacity duration-700 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
         />
     </>
   );
