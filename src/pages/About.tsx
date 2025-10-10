@@ -1,8 +1,4 @@
 import React from "react";
-import image1 from "../images/Ragland.jpg";
-import image2 from "../images/Doug.jpg";
-import image3 from "../images/jean.jpg";
-import image4 from "../images/Janie.jpg";
 
 const About = () => {
   return (
@@ -56,7 +52,7 @@ const About = () => {
         <div className="">
           <img
             loading="lazy"
-            src={image3}
+            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098456/jean_hhrrrt.jpg"
             alt="Jackson"
             className=" border blur-sm transition duration-500 ease-out rounded-sm"
             onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
@@ -69,7 +65,7 @@ const About = () => {
         <div>
           <img
             loading="lazy"
-            src={image2}
+            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098805/Doug_qm1kvy.jpg"
             alt="Doug Harris"
             className=" border blur-sm transition duration-500 ease-out rounded-sm"
             onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
@@ -82,7 +78,7 @@ const About = () => {
         <div className=" ">
           <img
             loading="lazy"
-            src={image1}
+            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098688/Ragland_tcbk6b.jpg"
             alt="David Ragland"
             className=" border rounded-sm blur-sm transition duration-500 ease-out w-full"
             onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
@@ -95,7 +91,7 @@ const About = () => {
         <div>
           <img
             loading="lazy"
-            src={image4}
+            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098904/Janie_eogrkt.jpg"
             alt="Jani"
             className=" border blur-sm transition duration-500 ease-out rounded-sm"
             onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}

@@ -1,8 +1,4 @@
 import React from "react";
-import artist1 from "../images/artist2_4.jpg";
-import artist2 from "../images/artist2_3.jpg";
-import artist3 from "../images/artist2_1.jpg";
-import artist4 from "../images/artist4.jpeg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,25 +7,25 @@ import Products from "../components/Products";
 
 const artists = [
   {
-    src: artist1,
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099113/artist2_4_uvifgw.jpg",
     name: "Johnson Kambugu",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: artist2,
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099186/artist2_3_obboqn.jpg",
     name: "Peter May",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: artist4,
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099274/artist4_eb0ewn.jpg",
     name: "Knite Frank",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: artist3,
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760101852/artist2_1_jtfqz6.jpg",
     name: "Augustus Kimbugwe",
     speciality: "Painter",
     nationality: "Ugandan",

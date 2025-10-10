@@ -89,7 +89,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
         <Link to={`/collection/${id}`} className=" w-full">
           <img
             loading="lazy"
-            alt=""
+            alt={title}
             className=" h-full w-full object-cover"
             src={primaryMedia?.url ? primaryMedia?.url : img1}
           />

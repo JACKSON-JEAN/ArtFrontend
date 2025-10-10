@@ -89,7 +89,7 @@ const ArtItem = () => {
           <div className=" w-full p-2 shadow-sm border rounded-sm">
             <img
               src={artworkMedia}
-              alt=""
+              alt={artwork.title}
               loading="lazy"
               className=" w-full object-cover rounded-sm"
             />

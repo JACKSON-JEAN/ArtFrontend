@@ -90,7 +90,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
         <img
           loading="lazy"
           src={primaryMedia?.url ? primaryMedia?.url : img1}
-          alt=""
+          alt={title}
         />
       </Link>
 
