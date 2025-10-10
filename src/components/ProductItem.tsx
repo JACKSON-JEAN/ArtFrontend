@@ -84,7 +84,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   };
 
   return (
-    <div className=" w-full border rounded-sm bg-white mb-4 overflow-hidden">
+    <div className=" w-full border rounded-sm bg-white break-inside-avoid mb-4 overflow-hidden">
       <section className=" w-full overflow-hidden">
         <Link to={`/collection/${id}`} className=" w-full">
           <img

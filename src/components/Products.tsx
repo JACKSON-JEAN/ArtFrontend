@@ -124,7 +124,7 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle }) => {
       {displayedArtwork.length < 1 && (
         <p className=" text-lg font-semibold text-center">No artwork found!</p>
       )}
-      <div className=" columns-2 sm:columns-3 md:columns-4">
+      <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
         {filteredCategory.map((item: Artwork) => (
           <ProductItem
             id={item.id}

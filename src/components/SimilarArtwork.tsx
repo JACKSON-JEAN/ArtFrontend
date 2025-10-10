@@ -28,7 +28,7 @@ const SimilarArtwork = () => {
       <p className=" text-xl text-red-950 font-semibold mb-1">Artwork you may like</p>
       {loading && <p>Loading...</p>}
       {error && <p>{error.message}</p>}
-      <div className=" columns-2 sm:columns-3 md:columns-4">
+      <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
       {artworkLimit.map((item: Artwork) => (
         <ProductItem
           id={item.id}
