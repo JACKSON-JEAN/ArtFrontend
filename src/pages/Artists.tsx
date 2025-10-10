@@ -4,28 +4,33 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from "../components/CustomArrows";
 import Products from "../components/Products";
+import ImageComponent from "../components/ImageComponent";
 
 const artists = [
   {
     src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099113/artist2_4_uvifgw.jpg",
+    imageHash: "LAG8x}?u1DM|0P-;nWtR0y-q~Co$",
     name: "Johnson Kambugu",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
     src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099186/artist2_3_obboqn.jpg",
+    imageHash: "LOJHTmNI~jn%}aJ7M$xWRRnSN2RS",
     name: "Peter May",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
     src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099274/artist4_eb0ewn.jpg",
+    imageHash: "LQGIK9RN?d-q-;xYMxR-cGs.S5bb",
     name: "Knite Frank",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
     src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760101852/artist2_1_jtfqz6.jpg",
+    imageHash: "LfHLPPjF_Nbc?bj?tRj]E1fkRPoL",
     name: "Augustus Kimbugwe",
     speciality: "Painter",
     nationality: "Ugandan",
@@ -79,14 +84,12 @@ const Artists = () => {
 
       <div className=" mb-8">
         <Slider {...settings}>
-          {artists.map(({ src, name, speciality, nationality }, index) => (
+          {artists.map(({ src, name, speciality, nationality, imageHash }, index) => (
             <div key={index} className=" relative px-2">
-              <img
+              <ImageComponent
                 src={src}
-                alt={name}
-                loading="lazy"
-                className=" border rounded-sm blur-sm transition duration-500 ease-out"
-                onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
+                name={name}
+                imageHash={imageHash}
               />
               <div className=" absolute bottom-0 left-0  w-full p-2">
                 <div className=" px-2">

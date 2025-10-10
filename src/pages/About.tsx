@@ -1,4 +1,39 @@
 import React from "react";
+import ImageComponent from "../components/ImageComponent";
+
+interface Owner {
+  src: string;
+  imageHash: string;
+  name: string;
+  role: string;
+}
+
+const owners = [
+  {
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098456/jean_hhrrrt.jpg",
+    imageHash: "LCFFjd?G00?G~0s=?doN^+s;xbxt",
+    name: "Uwizeye Jackson",
+    role: "Owner and President.",
+  },
+  {
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098805/Doug_qm1kvy.jpg",
+    imageHash: "LLG[4*vKyYBp~Ar?%MgN$xOsVr#+",
+    name: "Mr. Doug Harris",
+    role: "US Founder.",
+  },
+  {
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098688/Ragland_tcbk6b.jpg",
+    imageHash: "LXLyv7XkS~IV7~r?%2RP~Be.xaM{",
+    name: "Mr. David Ragland",
+    role: "US Founder.",
+  },
+  {
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098904/Janie_eogrkt.jpg",
+    imageHash: "LDJ@ar}d0cXy0Q-qDhD%0fEK%2k7",
+    name: "Janie Bianconi",
+    role: "Curator.",
+  },
+];
 
 const About = () => {
   return (
@@ -49,58 +84,16 @@ const About = () => {
       </section>
       <p className=" text-lg text-red-950 font-semibold mb-2">Meet our team.</p>
       <section className=" grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="">
-          <img
-            loading="lazy"
-            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098456/jean_hhrrrt.jpg"
-            alt="Jackson"
-            className=" border blur-sm transition duration-500 ease-out rounded-sm"
-            onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
-          />
-          <div>
-            <p className=" text-red-950">Owner and President</p>
-            <p className=" font-light">Uwizeye Jackson</p>
+        
+        {owners.map((owner: Owner, index) => (
+          <div key={index}>
+            <ImageComponent src={owner.src} name={owner.name} imageHash={owner.imageHash} />
+            <div>
+              <p className=" text-red-950">{owner.role}</p>
+              <p className=" font-light">{owner.name}</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <img
-            loading="lazy"
-            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098805/Doug_qm1kvy.jpg"
-            alt="Doug Harris"
-            className=" border blur-sm transition duration-500 ease-out rounded-sm"
-            onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
-          />
-          <div>
-            <p className=" text-red-950">US Founder.</p>
-            <p className=" font-light">Mr. Doug Harris</p>
-          </div>
-        </div>
-        <div className=" ">
-          <img
-            loading="lazy"
-            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098688/Ragland_tcbk6b.jpg"
-            alt="David Ragland"
-            className=" border rounded-sm blur-sm transition duration-500 ease-out w-full"
-            onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
-          />
-          <div>
-            <p className=" text-red-950">US Founder.</p>
-            <p className=" font-light">Mr. David Ragland</p>
-          </div>
-        </div>
-        <div>
-          <img
-            loading="lazy"
-            src="https://res.cloudinary.com/dsawd9eso/image/upload/v1760098904/Janie_eogrkt.jpg"
-            alt="Jani"
-            className=" border blur-sm transition duration-500 ease-out rounded-sm"
-            onLoad={(e) => e.currentTarget.classList.remove("blur-sm")}
-          />
-          <div>
-            <p className=" text-red-950">Curator.</p>
-            <p className=" font-light">Janie Bianconi</p>
-          </div>
-        </div>
+        ))}
       </section>
     </div>
   );
