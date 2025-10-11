@@ -5,11 +5,13 @@ import { BsBag, BsBagCheck } from "react-icons/bs";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import ImageComponent from "./ImageComponent";
 
 type ArtItemProps = {
   id: number;
   title: string;
   material?: string;
+  imageHash?: string;
   heightCm?: number;
   category: string;
   widthCm?: number;
@@ -28,6 +30,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
   id,
   title,
   material,
+  imageHash,
   heightCm,
   widthCm,
   category,
@@ -87,10 +90,10 @@ const ArtItem: React.FC<ArtItemProps> = ({
       className=" w-full break-inside-avoid mb-4 border shadow-sm rounded-sm overflow-hidden"
     >
       <Link to={`/collection/${id}`}>
-        <img
-          loading="lazy"
+        <ImageComponent 
           src={primaryMedia?.url ? primaryMedia?.url : img1}
-          alt={title}
+          name={title}
+          imageHash={imageHash ? imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
         />
       </Link>
 

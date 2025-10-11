@@ -18,6 +18,7 @@ export const GET_CLIENT_CART = gql`
       artwork{
         id
         title
+        imageHash
         heightCm
         widthCm
         category
@@ -41,6 +42,7 @@ export const GET_CART_ITEMS = gql`
       artwork {
         id
         image
+        imageHash
         title
         heightCm
         widthCm

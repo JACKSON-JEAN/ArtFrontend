@@ -3,6 +3,7 @@ export type Artwork = {
     title: string
     description: string
     material?: string
+    imageHash?: string
     category: string
     heightCm?: number
     widthCm?: number

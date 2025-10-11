@@ -19,6 +19,7 @@ query GetArtwork($searchInput: SearchArtworkInput!){
     description,
     material,
     category,
+    imageHash,
     yearCreated,
     culturalOrigin,
     isUnique,
@@ -53,6 +54,7 @@ query GetArtworkById($artworkId: Float!){
     description
     culturalOrigin
     material
+    imageHash
     category
     yearCreated
     weightKg
