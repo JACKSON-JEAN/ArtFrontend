@@ -10,25 +10,25 @@ interface Owner {
 
 const owners = [
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098456/jean_hhrrrt.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169340/jean_bhijkx.webp",
     imageHash: "LCFFjd?G00?G~0s=?doN^+s;xbxt",
     name: "Uwizeye Jackson",
     role: "Owner and President.",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098805/Doug_qm1kvy.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169319/Doug_lxassp.webp",
     imageHash: "LLG[4*vKyYBp~Ar?%MgN$xOsVr#+",
     name: "Mr. Doug Harris",
     role: "US Founder.",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098688/Ragland_tcbk6b.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169234/Ragland_lsldwc.webp",
     imageHash: "LXLyv7XkS~IV7~r?%2RP~Be.xaM{",
     name: "Mr. David Ragland",
     role: "US Founder.",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760098904/Janie_eogrkt.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760168636/Janie_qc614p.webp",
     imageHash: "LDJ@ar}d0cXy0Q-qDhD%0fEK%2k7",
     name: "Janie Bianconi",
     role: "Curator.",

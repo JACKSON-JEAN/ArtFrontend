@@ -8,28 +8,28 @@ import ImageComponent from "../components/ImageComponent";
 
 const artists = [
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099113/artist2_4_uvifgw.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169967/artist2_4_czjbdf.webp",
     imageHash: "LAG8x}?u1DM|0P-;nWtR0y-q~Co$",
     name: "Johnson Kambugu",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099186/artist2_3_obboqn.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169966/artist2_3_fxahuo.webp",
     imageHash: "LOJHTmNI~jn%}aJ7M$xWRRnSN2RS",
     name: "Peter May",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760099274/artist4_eb0ewn.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169966/artist4_yjjxdz.webp",
     imageHash: "LQGIK9RN?d-q-;xYMxR-cGs.S5bb",
     name: "Knite Frank",
     speciality: "Painter",
     nationality: "Ugandan",
   },
   {
-    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760101852/artist2_1_jtfqz6.jpg",
+    src: "https://res.cloudinary.com/dsawd9eso/image/upload/v1760169966/artist2_1_mtve67.webp",
     imageHash: "LfHLPPjF_Nbc?bj?tRj]E1fkRPoL",
     name: "Augustus Kimbugwe",
     speciality: "Painter",
