@@ -22,7 +22,7 @@ const HeroSection = () => {
             </p>
             <Link
               to="/collection"
-              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-1.5 mt-4 capitalize rounded-sm shadow-sm hover:shadow-md"
+              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 mt-4 capitalize rounded-sm shadow-sm hover:shadow-md"
             >
               Shop now
             </Link>
