@@ -48,6 +48,7 @@ const FeaturedArtwork = () => {
               media={item.media || img1}
               title={item.title}
               category={item.category}
+              imageHash={item.imageHash}
               material={item.material}
               widthCm={item.widthCm}
               heightCm={item.heightCm}

@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { BsBag, BsBagCheck } from "react-icons/bs";
 import { useToast } from "../context/ToastContext";
+import ImageComponent from "./ImageComponent";
 
 type ProductItemProps = {
   id: number;
   title: string;
   material?: string;
+  imageHash?: string;
   heightCm?: number;
   category: string;
   widthCm?: number;
@@ -29,6 +31,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   id,
   title,
   material,
+  imageHash,
   heightCm,
   widthCm,
   category,
@@ -87,11 +90,10 @@ const ProductItem: React.FC<ProductItemProps> = ({
     <div className=" w-full border rounded-sm bg-white break-inside-avoid mb-4 overflow-hidden">
       <section className=" w-full overflow-hidden">
         <Link to={`/collection/${id}`} className=" w-full">
-          <img
-            loading="lazy"
-            alt={title}
-            className=" h-full w-full object-cover"
+          <ImageComponent
             src={primaryMedia?.url ? primaryMedia?.url : img1}
+            imageHash={imageHash ? imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
+            name={title}
           />
         </Link>
       </section>
