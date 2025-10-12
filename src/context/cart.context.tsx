@@ -12,6 +12,7 @@ import {
 export type CartItem = {
   id: number;
   image: string;
+  imageHash?: string;
   title: string;
   category: string;
   material?: string;
@@ -48,6 +49,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         const serverCart: CartItem[] = data.getClientCart.items.map((item: any) => ({
           id: item.id,
           image: item.artwork.media[0]?.url,
+          imageHash: item.imageHash,
           title: item.artwork.title,
           category: item.artwork.category,
           material: item.artwork.material,

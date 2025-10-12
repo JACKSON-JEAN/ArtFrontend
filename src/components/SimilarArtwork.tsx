@@ -35,6 +35,7 @@ const SimilarArtwork = () => {
           key={item.id}
           media={item.media || img1}
           title={item.title}
+          imageHash={item.imageHash}
           category={item.category}
           material={item.material}
           widthCm={item.widthCm}

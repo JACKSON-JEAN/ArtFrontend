@@ -10,6 +10,7 @@ import { ArrowDownIcon } from "../components/icons";
 import Rating from "../components/Rating";
 import AddRating from "../components/AddRating";
 import AddReviews from "../components/AddReviews";
+import ImageComponent from "../components/ImageComponent";
 
 const ArtItem = () => {
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
@@ -87,11 +88,10 @@ const ArtItem = () => {
       <div className={`${"artItem"} flex mb-6`}>
         <div className=" flex-1">
           <div className=" w-full p-2 shadow-sm border rounded-sm">
-            <img
+            <ImageComponent
               src={artworkMedia}
-              alt={artwork.title}
-              loading="lazy"
-              className=" w-full object-cover rounded-sm"
+              name={artwork.title}
+              imageHash={artwork.imageHash ? artwork.imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
             />
           </div>
         </div>

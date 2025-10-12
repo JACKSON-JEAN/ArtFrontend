@@ -47,7 +47,7 @@ const FadeWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 // 🔹 Type-safe Suspense wrapper
 const withSuspense = (Component: React.ComponentType<any>) => (
-  <Suspense fallback={<div className="text-center p-10">Loading...</div>}>
+  <Suspense fallback={<div className="text-center p-3">Loading...</div>}>
     <ScrollToTop />
     <FadeWrapper>
       <Component />

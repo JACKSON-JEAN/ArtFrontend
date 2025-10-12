@@ -1,10 +1,12 @@
 import React from "react";
 import { useCart } from "../context/cart.context";
 import { PiTrashSimpleBold } from "react-icons/pi";
+import ImageComponent from "./ImageComponent";
 
 interface cartItemProps {
   id: number;
   image: string;
+  imageHash?: string;
   description: string;
   category: string;
   material?: string
@@ -17,6 +19,7 @@ interface cartItemProps {
 const CartItem: React.FC<cartItemProps> = ({
   id,
   image,
+  imageHash,
   description,
   category,
   material,
@@ -34,7 +37,11 @@ const CartItem: React.FC<cartItemProps> = ({
     <div className=" w-full flex pb-2 mb-3 border-b">
       <div className={`${"cartItem"} w-full flex`}>
         <div className=" w-[200px] rounded-sm overflow-hidden">
-          <img loading="lazy" className=" w-full" src={image} alt={description} />
+          <ImageComponent
+            src={image}
+            name={description}
+            imageHash={imageHash ? imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
+          />
         </div>
         <section className=" flex gap-1 flex-col w-full ">
           <div className={`${"price_title"} flex justify-between`}>
