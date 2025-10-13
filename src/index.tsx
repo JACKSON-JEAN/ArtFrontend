@@ -6,6 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import client from './utils/client';
 
+// 🔄 Handle missing chunk errors (e.g. after a new deploy)
+window.addEventListener('error', (e) => {
+  if (e.message && /Loading chunk [\d]+ failed/.test(e.message)) {
+    console.warn('⚠️ Chunk load failed, reloading app...');
+    window.location.reload();
+  }
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
