@@ -4,6 +4,7 @@ import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { Artwork } from "../types/artwork";
 import ArtItem from "../components/ArtItem";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const Collection = () => {
   const FilterIcon = IoIosArrowDown as React.ComponentType<
@@ -17,7 +18,7 @@ const Collection = () => {
   const [filter, setFilter] = useState<string>("All");
   const [search, setSearch] = useState<string>("");
 
-  const filterRef = useRef<HTMLDivElement>(null)
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const { loading, error, data } = useQuery(GET_ARTWORK, {
     variables: {
@@ -53,124 +54,175 @@ const Collection = () => {
     console.log(search);
   };
 
-  useEffect(() =>{
-      const handleClickOutside = (event: MouseEvent) =>{
-          if(
-            filterRef.current &&
-            !filterRef.current.contains(event.target as Node)
-          ){
-            setOpenFilter(false)
-          }
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        filterRef.current &&
+        !filterRef.current.contains(event.target as Node)
+      ) {
+        setOpenFilter(false);
       }
-      document.addEventListener("mousedown", handleClickOutside)
-      return () =>{
-          document.removeEventListener("mousedown", handleClickOutside)
-      }
-    },[])
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
-    <div
-      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-3 bg-slate-50`}
-    >
-      <div className=" w-full flex items-center gap-10">
-        <div className={`${"paintings"} w-full flex justify-between`}>
-          <h1
-            className={`${"heading"} text-xl text-red-950 font-semibold whitespace-nowrap`}
-          >
-            Original Artwork.
-          </h1>
-          <div className={`${"paintingsFilters"} flex items-center gap-2`}>
-            <form onSubmit={searchHandler} className=" flex items-center">
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                type="text"
-                placeholder="Search for anything..."
-                className=" border outline-blue-600 rounded-sm py-1 pl-2"
-              />
-              <button className=" bg-blue-600 hover:bg-blue-700 text-white text-2xl py-1 px-2 rounded-sm shadow-sm hover:shadow-md border cursor-pointer ml-1">
-                <SearchIcon />
-              </button>
-            </form>
-            <div className=" relative">
-              <div
-                onClick={toggleFilter}
-                className=" border py-1 px-2 w-[105px] bg-white flex items-center justify-between cursor-pointer !z-10"
-              >
-                <p className=" text-base text-gray-700">{filter}</p>
-                <p
-                  className={`text-base text-gray-700 ease-in-out duration-500 ${
-                    openFilter && "rotate-180"
-                  }`}
+      <Helmet>
+        <title>Shop Authentic African Artwork | Pearl Art Galleries</title>
+        <meta
+          name="description"
+          content="Browse our curated collection of authentic African paintings, sculptures, and handmade crafts. Discover original artwork from African artists."
+        />
+        <link
+          rel="canonical"
+          href="https://www.pearlartgalleries.com/collection"
+        />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Shop Authentic African Artwork | Pearl Art Galleries"
+        />
+        <meta
+          property="og:description"
+          content="Explore African paintings, sculptures, and textiles crafted by talented artists across the continent."
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760267152/kampala_1_jltha2.jpg"
+        />
+        <meta
+          property="og:url"
+          content="https://www.pearlartgalleries.com/collection"
+        />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Shop Authentic African Artwork | Pearl Art Galleries"
+        />
+        <meta
+          name="twitter:description"
+          content="Browse and buy authentic African paintings, sculptures, and crafts by talented African artists."
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760267152/kampala_1_jltha2.jpg"
+        />
+
+        <meta
+          name="keywords"
+          content="African art collection, buy African paintings, African sculptures, authentic African artwork, handmade African crafts, online art gallery Africa, Pearl Art Galleries"
+        />
+      </Helmet>
+
+      <div
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-3 bg-slate-50`}
+      >
+        <div className=" w-full flex items-center gap-10">
+          <div className={`${"paintings"} w-full flex justify-between`}>
+            <h1
+              className={`${"heading"} text-xl text-red-950 font-semibold whitespace-nowrap`}
+            >
+              Original Artwork.
+            </h1>
+            <div className={`${"paintingsFilters"} flex items-center gap-2`}>
+              <form onSubmit={searchHandler} className=" flex items-center">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  type="text"
+                  placeholder="Search for anything..."
+                  className=" border outline-blue-600 rounded-sm py-1 pl-2"
+                />
+                <button className=" bg-blue-600 hover:bg-blue-700 text-white text-2xl py-1 px-2 rounded-sm shadow-sm hover:shadow-md border cursor-pointer ml-1">
+                  <SearchIcon />
+                </button>
+              </form>
+              <div className=" relative">
+                <div
+                  onClick={toggleFilter}
+                  className=" border py-1 px-2 w-[105px] bg-white flex items-center justify-between cursor-pointer !z-10"
                 >
-                  <FilterIcon />
-                </p>
-              </div>
-              <div
-                ref={filterRef}
-                className={`absolute left-0 bg-white ${
-                  openFilter ? " block" : "hidden"
-                } w-full border shadow-md rounded-sm text-gray-700 ease-in-out duration-700`}
-              >
-                <p
-                  onClick={() => handleSelectFilter("All")}
-                  className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  <p className=" text-base text-gray-700">{filter}</p>
+                  <p
+                    className={`text-base text-gray-700 ease-in-out duration-500 ${
+                      openFilter && "rotate-180"
+                    }`}
+                  >
+                    <FilterIcon />
+                  </p>
+                </div>
+                <div
+                  ref={filterRef}
+                  className={`absolute left-0 bg-white ${
+                    openFilter ? " block" : "hidden"
+                  } w-full border shadow-md rounded-sm text-gray-700 ease-in-out duration-700`}
                 >
-                  All
-                </p>
-                <p
-                  onClick={() => handleSelectFilter("Painting")}
-                  className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                >
-                  Paintings
-                </p>
-                <p
-                  onClick={() => handleSelectFilter("Sculpture")}
-                  className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                >
-                  Sculptures
-                </p>
-                <p
-                  onClick={() => handleSelectFilter("Textile")}
-                  className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                >
-                  Textile
-                </p>
-                <p
-                  onClick={() => handleSelectFilter("Jewelry")}
-                  className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                >
-                  Jewelry
-                </p>
+                  <p
+                    onClick={() => handleSelectFilter("All")}
+                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  >
+                    All
+                  </p>
+                  <p
+                    onClick={() => handleSelectFilter("Painting")}
+                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  >
+                    Paintings
+                  </p>
+                  <p
+                    onClick={() => handleSelectFilter("Sculpture")}
+                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  >
+                    Sculptures
+                  </p>
+                  <p
+                    onClick={() => handleSelectFilter("Textile")}
+                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  >
+                    Textile
+                  </p>
+                  <p
+                    onClick={() => handleSelectFilter("Jewelry")}
+                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
+                  >
+                    Jewelry
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {error && <p className=" text-center">{error.message}</p>}
-      {loading && <p>Loading...</p>}
-      <div className=" w-full py-4">
-        <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
-          {filteredCategory.map((item: Artwork) => (
-            <ArtItem
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              imageHash={item.imageHash}
-              heightCm={item.heightCm}
-              widthCm={item.widthCm}
-              category={item.category}
-              material={item.material}
-              price={item.price}
-              isAvailable={item.isAvailable}
-              artworkId={item.id}
-              media={item.media}
-            />
-          ))}
+        {error && <p className=" text-center">{error.message}</p>}
+        {loading && <p>Loading...</p>}
+        <div className=" w-full py-4">
+          <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
+            {filteredCategory.map((item: Artwork) => (
+              <ArtItem
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                imageHash={item.imageHash}
+                heightCm={item.heightCm}
+                widthCm={item.widthCm}
+                category={item.category}
+                material={item.material}
+                price={item.price}
+                isAvailable={item.isAvailable}
+                artworkId={item.id}
+                media={item.media}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

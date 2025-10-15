@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from "../components/CustomArrows";
 import Products from "../components/Products";
 import ImageComponent from "../components/ImageComponent";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const artists = [
   {
@@ -69,46 +70,90 @@ const Artists = () => {
 
   return (
     <>
-    <div
-      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-50`}
-    >
-      <h1 className=" text-xl text-red-950 font-semibold pb-1 text-center">
-        Creators of original masterpieces
-      </h1>
-      <div className=" ">
-        <p className=" text-base text-gray-700 max-w-[600px] mx-auto mb-8">
-          From intricate sculptures to breathtaking photography, our artists
-          bring diverse visions to life. Browse by artist, explore their
-          creations, and find the perfect piece for your space.
-        </p>
-      </div>
+      <Helmet>
+        <title>Meet Our Artists | Pearl Art Galleries</title>
+        <meta
+          name="description"
+          content="Discover talented African artists behind every masterpiece. Learn their stories, explore their artwork, and experience authentic creativity from the heart of Africa."
+        />
+        <link
+          rel="canonical"
+          href="https://www.pearlartgalleries.com/artists"
+        />
 
-      <div className=" mb-8">
-        <Slider {...settings}>
-          {artists.map(({ src, name, speciality, nationality, imageHash }, index) => (
-            <div key={index} className=" relative px-2">
-              <ImageComponent
-                src={src}
-                name={name}
-                imageHash={imageHash}
-              />
-              <div className=" absolute bottom-0 left-0  w-full p-2">
-                <div className=" px-2">
-                  <div className=" bg-white border shadow-sm rounded-sm px-1 py-0.5 -space-y-1">
-                    <p className=" text-red-950">{name}</p>
-                    <p className=" font-light">
-                      {nationality} - {speciality}
-                    </p>
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Meet Our Artists | Pearl Art Galleries"
+        />
+        <meta
+          property="og:description"
+          content="Explore African artists, their stories, and authentic masterpieces from the heart of Africa."
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760169967/artist2_4_czjbdf.webp"
+        />
+        <meta
+          property="og:url"
+          content="https://www.pearlartgalleries.com/artists"
+        />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Meet Our Artists | Pearl Art Galleries"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover talented African artists behind every masterpiece."
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760169967/artist2_4_czjbdf.webp"
+        />
+      </Helmet>
+
+      <div
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-50`}
+      >
+        <h1 className=" text-xl text-red-950 font-semibold pb-1 text-center">
+          Creators of original masterpieces
+        </h1>
+        <div className=" ">
+          <p className=" text-base text-gray-700 max-w-[600px] mx-auto mb-8">
+            From intricate sculptures to breathtaking photography, our artists
+            bring diverse visions to life. Browse by artist, explore their
+            creations, and find the perfect piece for your space.
+          </p>
+        </div>
+
+        <div className=" mb-8">
+          <Slider {...settings}>
+            {artists.map(
+              ({ src, name, speciality, nationality, imageHash }, index) => (
+                <div key={index} className=" relative px-2">
+                  <ImageComponent src={src} name={name} imageHash={imageHash} />
+                  <div className=" absolute bottom-0 left-0  w-full p-2">
+                    <div className=" px-2">
+                      <div className=" bg-white border shadow-sm rounded-sm px-1 py-0.5 -space-y-1">
+                        <p className=" text-red-950">{name}</p>
+                        <p className=" font-light">
+                          {nationality} - {speciality}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
+              )
+            )}
+          </Slider>
+        </div>
 
-      <Products subTitle="Some of their artwork" limit={8} />
-    </div>
+        <Products subTitle="Some of their artwork" limit={8} />
+      </div>
     </>
   );
 };
