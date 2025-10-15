@@ -10,16 +10,18 @@ const Cart = () => {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}>
+    <div
+      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
+    >
       <div className=" w-full flex mb-8">
         {cart.length > 0 && (
           <div className=" w-full flex md:flex-row flex-col gap-3">
             <section className=" lg:w-[calc(100%-300px)] w-full order-2 md:order-1">
               <div className=" bg-white border p-2">
                 <div className=" flex justify-between border-b mb-4">
-                  <p className=" text-xl text-red-950 font-semibold mb-2">
+                  <h1 className=" text-xl text-red-950 font-semibold mb-2">
                     Shopping Cart
-                  </p>
+                  </h1>
                   <p className="price_subtitle">Price</p>
                 </div>
                 <div>
@@ -27,7 +29,7 @@ const Cart = () => {
                     <CartItem
                       key={item.id}
                       id={item.id}
-                      image={item.image? item.image: cartImage}
+                      image={item.image ? item.image : cartImage}
                       description={item.title}
                       category={item.category}
                       material={item.material}
@@ -47,9 +49,9 @@ const Cart = () => {
                   <span className=" font-semibold">${total.toFixed(2)}</span>
                 </p>
                 <div className=" border-t pt-0.5 w-full">
-                  <Link to="/address" >
-                    <button className=" px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full mt-2">Proceed to checkout</button>
-                  </Link>
+                  <button className=" px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full">
+                    <Link to="/address">Proceed to checkout</Link>
+                  </button>
                 </div>
               </div>
             </section>
@@ -61,16 +63,13 @@ const Cart = () => {
               <p className=" font-semibold text-lg">Your cart is empty!</p>
               <p>Browse our collections and discover our best deals.</p>
             </div>
-            <Link
-              to="/collection"
-              className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm"
-            >
-              Start Shopping
-            </Link>
+            <button className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm">
+              <Link to="/collection">Start Shopping</Link>
+            </button>
           </div>
         )}
       </div>
-      <SimilarArtwork/>
+      <SimilarArtwork />
     </div>
   );
 };

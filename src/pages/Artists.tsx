@@ -68,12 +68,13 @@ const Artists = () => {
   };
 
   return (
+    <>
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-50`}
     >
-      <p className=" text-xl text-red-950 font-semibold pb-1 text-center">
+      <h1 className=" text-xl text-red-950 font-semibold pb-1 text-center">
         Creators of original masterpieces
-      </p>
+      </h1>
       <div className=" ">
         <p className=" text-base text-gray-700 max-w-[600px] mx-auto mb-8">
           From intricate sculptures to breathtaking photography, our artists
@@ -108,6 +109,7 @@ const Artists = () => {
 
       <Products subTitle="Some of their artwork" limit={8} />
     </div>
+    </>
   );
 };
 

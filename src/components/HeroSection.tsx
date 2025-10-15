@@ -10,9 +10,9 @@ const HeroSection = () => {
       <div className=" block md:flex w-full md:gap-1 min-h-[200px] md:min-h-[300px]">
         <section className="bg-gradient-to-r from-red-950 to-red-900 rounded-md flex-1 flex items-center mb-4 md:mb-0 py-6">
           <div className="px-4 sm:px-10 md:px-20">
-            <p className="text-xl md:text-2xl font-thin capitalize font-serif text-white mb-2">
+            <h1 className="text-xl md:text-2xl font-thin capitalize font-serif text-white mb-2">
               Welcome to Pearl Art Galleries
-            </p>
+            </h1>
             <p className="text-lg font-light text-amber-50 mb-6">
               Winston Churchill called Uganda the "Pearl of Africa" for its
               stunning landscapes and cultural richness. Pearl Art Galleries
@@ -20,12 +20,14 @@ const HeroSection = () => {
               hand-selected from local artists. These unique pieces bring
               Uganda’s vibrant soul to your home or office, inspiring joy.
             </p>
-            <Link
+            <button className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base">
+              <Link
               to="/collection"
-              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 mt-4 capitalize rounded-sm shadow-sm hover:shadow-md"
             >
               Shop now
             </Link>
+            </button>
+            
           </div>
         </section>
 

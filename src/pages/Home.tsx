@@ -8,6 +8,7 @@ import HappyCollectors from "../components/HappyCollectors";
 const Home = () => {
 
   return (
+    <>
     <div className={`${"wrapper "} w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50`}>
       <HeroSection />
       <SubServices />
@@ -15,6 +16,7 @@ const Home = () => {
       <HappyCollectors/>
       <Subscribe/>
     </div>
+    </>
   );
 };
 

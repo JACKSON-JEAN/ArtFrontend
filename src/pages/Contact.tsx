@@ -64,13 +64,14 @@ const Contact = () => {
   };
 
   return (
+    <>
     <div
       className={`${"wrapper"} w-full block md:flex flex-col md:flex-row md:gap-3 px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
     >
       <section className=" flex-1 mb-4 md:mb-0">
-        <p className=" text-lg text-red-950 font-semibold">
+        <h1 className=" text-xl text-red-950 font-semibold">
           We'd Love to hear from you.
-        </p>
+        </h1>
         <p className=" font-light mb-2">
           Questions, collaborations, or just want to chat about African Art?
           Reach out, we're here to connect.
@@ -135,6 +136,7 @@ const Contact = () => {
         </form>
       </section>
     </div>
+    </>
   );
 };
 

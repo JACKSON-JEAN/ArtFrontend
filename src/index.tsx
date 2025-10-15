@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import client from './utils/client';
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 
 // 🔄 Handle missing chunk errors (e.g. after a new deploy)
 window.addEventListener('error', (e) => {
@@ -20,7 +21,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </ApolloProvider>
   </React.StrictMode>
 );

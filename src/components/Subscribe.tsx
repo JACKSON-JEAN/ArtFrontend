@@ -58,7 +58,7 @@ const Subscribe = () => {
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
         />
-        <button className=" bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-full px-1.5 py-[2.5px]">
+        <button className=" bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-full px-1.5 py-1">
           {loading? "Adding..." : "Subscribe"}
         </button>
       </form>

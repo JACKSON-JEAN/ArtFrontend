@@ -81,6 +81,7 @@ const ArtItem = () => {
       </div>
     );
   return (
+    <>
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
     >
@@ -176,6 +177,7 @@ const ArtItem = () => {
         <Products limit={4} subTitle="Similar Artwork" />
       </div>
     </div>
+    </>
   );
 };
 

@@ -37,12 +37,13 @@ const owners = [
 
 const About = () => {
   return (
+    <>
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
     >
       <section className=" flex-1">
         <div className=" mb-2">
-          <p className=" text-lg text-red-950 font-semibold">Our story</p>
+          <h1 className=" text-xl text-red-950 font-semibold">Our story</h1>
           <p className=" font-light mb-4">
             Pearl Art Galleries was born from a deep friendship between U.S.
             Christian businessmen and Jackson Uwizeye, their Ugandan partner.
@@ -69,7 +70,7 @@ const About = () => {
           </p>
         </div>
         <div className=" mb-4">
-          <p className=" text-lg text-red-950 font-semibold">How we work</p>
+          <h2 className=" text-lg text-red-950 font-semibold">How we work</h2>
           <p>Direct partnerships</p>
           <p className=" font-light mb-2">
             We travel to villages, build relationships with artists, and
@@ -96,6 +97,7 @@ const About = () => {
         ))}
       </section>
     </div>
+    </>
   );
 };
 

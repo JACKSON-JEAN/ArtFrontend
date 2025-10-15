@@ -69,16 +69,17 @@ const Collection = () => {
     },[])
 
   return (
+    <>
     <div
       className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-3 bg-slate-50`}
     >
       <div className=" w-full flex items-center gap-10">
         <div className={`${"paintings"} w-full flex justify-between`}>
-          <p
+          <h1
             className={`${"heading"} text-xl text-red-950 font-semibold whitespace-nowrap`}
           >
             Original Artwork.
-          </p>
+          </h1>
           <div className={`${"paintingsFilters"} flex items-center gap-2`}>
             <form onSubmit={searchHandler} className=" flex items-center">
               <input
@@ -170,6 +171,7 @@ const Collection = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

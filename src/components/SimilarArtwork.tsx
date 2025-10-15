@@ -25,7 +25,7 @@ const SimilarArtwork = () => {
 
   return (
     <div>
-      <p className=" text-xl text-red-950 font-semibold mb-1">Artwork you may like</p>
+      <h2 className=" text-xl text-red-950 font-semibold mb-1">Artwork you may like</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error.message}</p>}
       <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">

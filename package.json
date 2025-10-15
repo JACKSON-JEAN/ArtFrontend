@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "@dr.pogodin/react-helmet": "^3.0.4",
     "@react-email/components": "^0.5.3",
     "@react-email/tailwind": "^1.2.2",
     "@testing-library/dom": "^10.4.0",

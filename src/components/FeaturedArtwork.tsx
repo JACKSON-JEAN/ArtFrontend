@@ -29,7 +29,7 @@ const FeaturedArtwork = () => {
   return (
     <div className=" mb-4">
       <div className=" flex justify-between items-center">
-        <p className=" text-2xl text-red-950 font-semibold pb-3">Featured Artwork</p>
+        <h2 className=" text-xl text-red-950 font-semibold pb-3">Featured Artwork</h2>
         <Link
           className=" text-blue-600 text-sm flex items-center gap-1"
           to="collection"

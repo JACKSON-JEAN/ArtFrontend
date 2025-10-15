@@ -36,9 +36,9 @@ const HappyCollectors: React.FC = () => {
 
   return (
     <div className="mb-10 border-t border-b p-4 bg-slate-100 relative">
-      <p className="text-2xl text-red-950 font-semibold text-center pb-6">
+      <h2 className="text-xl text-red-950 font-semibold text-center mb-1">
         Reviews from our happy collectors
-      </p>
+      </h2>
       {error && <p>{error?.message}</p>}
       {loading && <p>Loading...</p>}
 

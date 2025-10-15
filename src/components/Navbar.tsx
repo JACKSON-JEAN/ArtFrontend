@@ -54,16 +54,18 @@ const Navbar = () => {
             >
               <MenuIcon />
             </p>
-            <Link
-              onClick={() => setIsMenuOpen(false)}
-              to="/"
-              className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
-            >
-              Pearl Galleries
-            </Link>
+            <h1>
+              <Link
+                onClick={() => setIsMenuOpen(false)}
+                to="/"
+                className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
+              >
+                Pearl Galleries
+              </Link>
+            </h1>
           </div>
 
-          <div className=" flex items-center gap-8 right-4">
+          <div className=" flex items-center gap-4 right-4">
             <div
               onClick={() => setIsMenuOpen(false)}
               className={`${"profile-wrapper"} relative`}
@@ -123,12 +125,48 @@ const Navbar = () => {
             </p>
           </div>
           <nav className=" flex flex-col sm:flex-row gap-0 sm:gap-10 ">
-            <NavLink onClick={() => setIsMenuOpen(false)} to="/" className={({ isActive }) => linkClasses(isActive)}>Home</NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="collection" className={({ isActive }) => linkClasses(isActive)}>Artwork</NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="about" className={({ isActive }) => linkClasses(isActive)}>About Us</NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="artists" className={({ isActive }) => linkClasses(isActive)}>Artists</NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="reviews" className={({ isActive }) => linkClasses(isActive)}>Reviews</NavLink>
-            <NavLink onClick={() => setIsMenuOpen(false)} to="contact" className={({ isActive }) => linkClasses(isActive)}>Contact Us</NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="/"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="collection"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              Artwork
+            </NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="about"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="artists"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              Artists
+            </NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="reviews"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              Reviews
+            </NavLink>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to="contact"
+              className={({ isActive }) => linkClasses(isActive)}
+            >
+              Contact Us
+            </NavLink>
           </nav>
         </section>
       </div>
