@@ -85,13 +85,10 @@ const Contact = () => {
               </span>{" "}
             </p>
             <p>
-              Support: <span className=" font-light">+256 776 286 453</span>
+              Call us: <span className=" font-light">+256 776 286 453</span>
             </p>
           </div>
         </div>
-        {/* <div>
-            <img src={image} alt="" />
-        </div> */}
       </section>
       <section className=" flex-1">
         <p className=" mb-2 font-light">Or, send us a message directly.</p>
@@ -130,7 +127,7 @@ const Contact = () => {
               onChange={(e) => changeHandler("message", e.target.value)}
             ></textarea>
           </div>
-          <button className=" bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md">
+          <button className=" bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md">
             { loading? "Sending message..." : "Send message"}
           </button>
         </form>

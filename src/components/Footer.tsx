@@ -44,7 +44,7 @@ const Footer = () => {
             <li className="mt-1">
               <Link
                 to="about"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 About us
               </Link>
@@ -52,7 +52,7 @@ const Footer = () => {
             <li className="mt-1">
               <Link
                 to="contact"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Contact us
               </Link>
@@ -60,7 +60,7 @@ const Footer = () => {
             <li className="mt-1">
               <Link
                 to="collection"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Our Collection
               </Link>
@@ -68,7 +68,7 @@ const Footer = () => {
             <li className="mt-1">
               <Link
                 to="cart"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Shopping Cart
               </Link>
@@ -83,7 +83,7 @@ const Footer = () => {
             <li className="mt-1">
               <a
                 href="mailto:pearlartgalleries@gmail.com"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Email
               </a>
@@ -93,7 +93,7 @@ const Footer = () => {
                 href="https://x.com/pearlgalleries"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Twitter
               </a>
@@ -103,7 +103,7 @@ const Footer = () => {
                 href="https://www.facebook.com/pearl.art.galleries"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Facebook
               </a>
@@ -113,7 +113,7 @@ const Footer = () => {
                 href="https://www.instagram.com/pearlartgalleries"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-base py-1 font-thin capitalize hover:text-slate-200"
+                className="text-base py-1 font-light capitalize hover:text-slate-200"
               >
                 Instagram
               </a>
