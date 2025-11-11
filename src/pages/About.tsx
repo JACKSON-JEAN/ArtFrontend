@@ -90,7 +90,7 @@ const About = () => {
               program from age 10 until his university graduation. United by a
               love for original art, Jackson now leads this Kampala-based,
               locally owned online business. Together, they curate unique,
-              authentic Ugandan art—distinct from mainstream offerings—sourced
+              original Ugandan art—distinct from mainstream offerings—sourced
               at fair trade prices. Our values of Quality Art, Reliable Service,
               Fair Trading, and Guaranteed Satisfaction ensure every customer is
               delighted with their treasure. Pearl Art Galleries ships globally

@@ -72,10 +72,10 @@ const Collection = () => {
   return (
     <>
       <Helmet>
-        <title>Shop Authentic African Artwork | Pearl Art Galleries</title>
+        <title>Shop Original African Artwork | Pearl Art Galleries</title>
         <meta
           name="description"
-          content="Browse our curated collection of authentic African paintings, sculptures, and handmade crafts. Discover original artwork from African artists."
+          content="Browse our curated collection of original African paintings, sculptures, and handmade crafts. Discover original artwork from African artists."
         />
         <link
           rel="canonical"
@@ -85,7 +85,7 @@ const Collection = () => {
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="Shop Authentic African Artwork | Pearl Art Galleries"
+          content="Shop Original African Artwork | Pearl Art Galleries"
         />
         <meta
           property="og:description"
@@ -105,11 +105,11 @@ const Collection = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Shop Authentic African Artwork | Pearl Art Galleries"
+          content="Shop Original African Artwork | Pearl Art Galleries"
         />
         <meta
           name="twitter:description"
-          content="Browse and buy authentic African paintings, sculptures, and crafts by talented African artists."
+          content="Browse and buy original African paintings, sculptures, and crafts by talented African artists."
         />
         <meta
           name="twitter:image"
@@ -118,7 +118,7 @@ const Collection = () => {
 
         <meta
           name="keywords"
-          content="African art collection, buy African paintings, African sculptures, authentic African artwork, handmade African crafts, online art gallery Africa, Pearl Art Galleries"
+          content="African art collection, buy African paintings, African sculptures, original African artwork, handmade African crafts, online art gallery Africa, Pearl Art Galleries"
         />
       </Helmet>
 

@@ -16,7 +16,7 @@ const HeroSection = () => {
             <p className="text-lg font-light text-amber-50 mb-6">
               Winston Churchill called Uganda the "Pearl of Africa" for its
               stunning landscapes and cultural richness. Pearl Art Galleries
-              embodies this legacy with authentic Ugandan artworks,
+              embodies this legacy with original Ugandan artworks,
               hand-selected from local artists. These unique pieces bring
               Uganda’s vibrant soul to your home or office, inspiring joy.
             </p>

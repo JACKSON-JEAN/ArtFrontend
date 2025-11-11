@@ -10,17 +10,17 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Pearl Art Galleries | Authentic African Art Collections</title>
+        <title>Pearl Art Galleries | Original African Art Collections</title>
         <meta
           name="description"
-          content="Discover and buy authentic African art, paintings, and sculptures from talented artists across Africa. Explore unique collections and support African creativity."
+          content="Discover and buy original African art, paintings, and sculptures from talented artists across Africa. Explore unique collections and support African creativity."
         />
         <link rel="canonical" href="https://www.pearlartgalleries.com/" />
 
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="Pearl Art Galleries | Authentic African Art Collections"
+          content="Pearl Art Galleries | Original African Art Collections"
         />
         <meta
           property="og:description"
@@ -37,11 +37,11 @@ const Home = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Pearl Art Galleries | Authentic African Art Collections"
+          content="Pearl Art Galleries | Original African Art Collections"
         />
         <meta
           name="twitter:description"
-          content="Shop authentic African art and discover inspiring collections by talented artists across Africa."
+          content="Shop original African art and discover inspiring collections by talented artists across Africa."
         />
         <meta
           name="twitter:image"

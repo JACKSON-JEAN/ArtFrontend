@@ -74,7 +74,7 @@ const Artists = () => {
         <title>Meet Our Artists | Pearl Art Galleries</title>
         <meta
           name="description"
-          content="Discover talented African artists behind every masterpiece. Learn their stories, explore their artwork, and experience authentic creativity from the heart of Africa."
+          content="Discover talented African artists behind every masterpiece. Learn their stories, explore their artwork, and experience original creativity from the heart of Africa."
         />
         <link
           rel="canonical"
@@ -88,7 +88,7 @@ const Artists = () => {
         />
         <meta
           property="og:description"
-          content="Explore African artists, their stories, and authentic masterpieces from the heart of Africa."
+          content="Explore African artists, their stories, and original masterpieces from the heart of Africa."
         />
         <meta
           property="og:image"
