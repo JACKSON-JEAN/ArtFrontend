@@ -88,112 +88,127 @@ const PaymentSuccessPage: React.FC = () => {
   // ----------------------------
   // PDF Receipt Generation
   // ----------------------------
-
   const downloadReceipt = () => {
-  const doc = new jsPDF("p", "mm", "a4");
+    const doc = new jsPDF("p", "mm", "a4");
 
-  // Logo text (centered)
-  doc.setFont("Playfair Display serif", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor("#450a0a");
-  doc.text("Pearl Art Galleries", 105, 20, { align: "center" });
+    // Logo text (centered)
+    doc.setFont("Playfair Display serif", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor("#450a0a");
+    doc.text("Pearl Art Galleries", 105, 20, { align: "center" });
 
-  // Title
-  doc.setFontSize(18);
-  doc.setTextColor("#059669");
-  doc.text("Payment Receipt", 105, 35, { align: "center" });
+    // Title
+    doc.setFontSize(18);
+    doc.setTextColor("#059669");
+    doc.text("Payment Receipt", 105, 35, { align: "center" });
 
-  // Separator line
-  doc.setDrawColor(200);
-  doc.setLineWidth(0.5);
-  doc.line(15, 40, 195, 40);
+    // Separator
+    doc.setDrawColor(200);
+    doc.setLineWidth(0.5);
+    doc.line(15, 40, 195, 40);
 
-  // ----------------------------
-  // Styled Info Box (matches the HTML look)
-  // ----------------------------
-  const boxX = 15;          // left margin
-  const boxY = 45;          // top position
-  const boxWidth = 180;     // width of box
-  const boxHeight = 50;     // height (adjusted for padding + 4 lines)
-  const cornerRadius = 3;   // subtle rounded corners
+    // ----------------------------
+    // Styled Info Box
+    // ----------------------------
+    const boxX = 15;
+    const boxY = 45;
+    const boxWidth = 180;
+    const boxHeight = 50;
+    const cornerRadius = 3;
 
-  // Draw rounded box background
-  doc.setFillColor("#f3f4f6"); // Tailwind gray-100
-  doc.roundedRect(boxX, boxY, boxWidth, boxHeight, cornerRadius, cornerRadius, "F");
+    doc.setFillColor("#f3f4f6");
+    doc.roundedRect(boxX, boxY, boxWidth, boxHeight, cornerRadius, cornerRadius, "F");
 
-  // Text padding inside the box
-  const paddingX = 8;
-  const paddingY = 8;
-  let textY = boxY + paddingY + 4;
+    const paddingX = 8;
+    const paddingY = 8;
+    let textY = boxY + paddingY + 4;
+    const lineHeight = 8;
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(12);
-  doc.setTextColor("#111827");
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor("#111827");
 
-  // Line spacing between <p> elements
-  const lineHeight = 8;
+    doc.text(`Payment Method: ${paymentStatus.payment_method}`, boxX + paddingX, textY);
+    textY += lineHeight;
+    doc.text(
+      `Amount Paid: ${paymentStatus.currency} ${paymentStatus.amount.toFixed(2)}`,
+      boxX + paddingX,
+      textY
+    );
+    textY += lineHeight;
+    doc.text(`Status: ${paymentStatus.status}`, boxX + paddingX, textY);
+    textY += lineHeight;
+    doc.text(`Date: ${paymentStatus.date}`, boxX + paddingX, textY);
 
-  doc.text(`Payment Method: ${paymentStatus.payment_method}`, boxX + paddingX, textY);
-  textY += lineHeight;
-  doc.text(
-    `Amount Paid: ${paymentStatus.currency} ${paymentStatus.amount.toFixed(2)}`,
-    boxX + paddingX,
-    textY
-  );
-  textY += lineHeight;
-  doc.text(`Status: ${paymentStatus.status}`, boxX + paddingX, textY);
-  textY += lineHeight;
-  doc.text(`Date: ${paymentStatus.date}`, boxX + paddingX, textY);
+    // ----------------------------
+    // Items Section
+    // ----------------------------
+    let startY = boxY + boxHeight + 20;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("Order Items", 20, startY);
+    startY += 6;
 
-  // ----------------------------
-  // Items Section
-  // ----------------------------
-  let startY = boxY + boxHeight + 20;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Order Items", 20, startY);
-  startY += 6;
+    doc.setFontSize(12);
+    doc.text("Item", 20, startY);
+    doc.text("Qty", 100, startY);
+    doc.text("Price", 140, startY);
+    startY += 4;
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text("Item", 20, startY);
-  doc.text("Qty", 100, startY);
-  doc.text("Price", 140, startY);
-  startY += 4;
+    doc.setDrawColor(180);
+    doc.line(15, startY, 195, startY);
+    startY += 6;
 
-  doc.setDrawColor(180);
-  doc.line(15, startY, 195, startY);
-  startY += 6;
+    doc.setFont("helvetica", "normal");
+    paymentStatus.items.forEach((item) => {
+      doc.text(item.name, 20, startY);
+      doc.text(item.quantity.toString(), 100, startY);
+      doc.text((item.price * item.quantity).toFixed(2), 140, startY);
+      startY += 8;
+    });
 
-  doc.setFont("helvetica", "normal");
-  paymentStatus.items.forEach((item) => {
-    doc.text(item.name, 20, startY);
-    doc.text(item.quantity.toString(), 100, startY);
-    doc.text((item.price * item.quantity).toFixed(2), 140, startY);
-    startY += 8;
-  });
+    // Total
+    doc.setFont("helvetica", "bold");
+    doc.text(
+      `Total: ${paymentStatus.currency} ${totalAmount.toFixed(2)}`,
+      140,
+      startY + 4
+    );
 
-  // Total
-  doc.setFont("helvetica", "bold");
-  doc.text(
-    `Total: ${paymentStatus.currency} ${totalAmount.toFixed(2)}`,
-    140,
-    startY + 4
-  );
+    // ----------------------------
+    // Footer + Added Info
+    // ----------------------------
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor("#111827");
 
-  // ----------------------------
-  // Footer
-  // ----------------------------
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor("#6b7280");
-  doc.text("Thank you for your purchase at Pearl Art Galleries!", 105, 280, {
-    align: "center",
-  });
+    let footerY = startY + 25;
+    if (footerY > 240) footerY = 240;
 
-  doc.save(`receipt_${paymentStatus.transactionId}.pdf`);
-};
+    doc.text("Questions? pearlartgalleries@gmail.com", 105, footerY, {
+      align: "center",
+    });
 
+    footerY += 8;
+
+    const footerText =
+      "What to expect: Thanks for your order. Your credit card charge will appear as PESAPAL Haven Gallerie. " +
+      "We will get your painting ready to ship via DHL within 72 hours. Once shipped, we will email you a tracking number.";
+
+    doc.setFontSize(10);
+    doc.setTextColor("#374151");
+    doc.text(doc.splitTextToSize(footerText, 170), 20, footerY);
+
+    footerY += 28;
+
+    doc.setFontSize(10);
+    doc.setTextColor("#6b7280");
+    doc.text("Thank you for your purchase at Pearl Art Galleries!", 105, 290, {
+      align: "center",
+    });
+
+    doc.save(`receipt_${paymentStatus.transactionId}.pdf`);
+  };
 
   // ----------------------------
   // UI Render
@@ -259,7 +274,7 @@ const PaymentSuccessPage: React.FC = () => {
                   Total
                 </td>
                 <td className="py-0.5 px-3 border font-bold">
-                 {paymentStatus.currency} {totalAmount.toFixed(2)} 
+                  {paymentStatus.currency} {totalAmount.toFixed(2)}
                 </td>
               </tr>
             </tfoot>
