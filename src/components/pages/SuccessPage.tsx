@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { jsPDF } from "jspdf";
 import dayjs from "dayjs";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENT_PAYMENT_REPORT } from "../../graphql/payments";
 
-// ----------------------------
-// TypeScript Interfaces
-// ----------------------------
 interface PaymentItem {
   name: string;
   quantity: number;
@@ -25,21 +22,35 @@ interface PaymentStatus {
   items: PaymentItem[];
 }
 
-// ----------------------------
-// Component
-// ----------------------------
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const trackingId = searchParams.get("trackingId");
 
-  // Fetch payment report
   const { loading, error, data } = useQuery(GET_CLIENT_PAYMENT_REPORT, {
     skip: !trackingId,
     variables: { trackingId },
   });
 
+  // -------------------------------
+  // GOOGLE ADS CONVERSION TRACKING
+  // -------------------------------
+  useEffect(() => {
+    const report = data?.getClientPaymentReport;
+    if (!report) return;
+
+    window.gtag("event", "conversion", {
+      send_to: "AW-1037563441/LvKfCP2W4sEbELHs3-4D",
+      value: report.amount,
+      currency: report.currency,
+      transaction_id: report.id || "",
+    });
+  }, [data]);
+
+  // --------------------------------
+  // Early returns for loading/errors
+  // --------------------------------
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -63,7 +74,6 @@ const PaymentSuccessPage: React.FC = () => {
     );
   }
 
-  // Build PaymentStatus object dynamically
   const paymentStatus: PaymentStatus = {
     transactionId: report.id,
     orderId: report.order?.id || 0,
@@ -85,31 +95,25 @@ const PaymentSuccessPage: React.FC = () => {
     0
   );
 
-  // ----------------------------
+  // -------------------------------
   // PDF Receipt Generation
-  // ----------------------------
+  // -------------------------------
   const downloadReceipt = () => {
     const doc = new jsPDF("p", "mm", "a4");
 
-    // Logo text (centered)
     doc.setFont("Playfair Display serif", "bold");
     doc.setFontSize(22);
     doc.setTextColor("#450a0a");
     doc.text("Pearl Art Galleries", 105, 20, { align: "center" });
 
-    // Title
     doc.setFontSize(18);
     doc.setTextColor("#059669");
     doc.text("Payment Receipt", 105, 35, { align: "center" });
 
-    // Separator
     doc.setDrawColor(200);
     doc.setLineWidth(0.5);
     doc.line(15, 40, 195, 40);
 
-    // ----------------------------
-    // Styled Info Box
-    // ----------------------------
     const boxX = 15;
     const boxY = 45;
     const boxWidth = 180;
@@ -140,9 +144,6 @@ const PaymentSuccessPage: React.FC = () => {
     textY += lineHeight;
     doc.text(`Date: ${paymentStatus.date}`, boxX + paddingX, textY);
 
-    // ----------------------------
-    // Items Section
-    // ----------------------------
     let startY = boxY + boxHeight + 20;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
@@ -167,7 +168,6 @@ const PaymentSuccessPage: React.FC = () => {
       startY += 8;
     });
 
-    // Total
     doc.setFont("helvetica", "bold");
     doc.text(
       `Total: ${paymentStatus.currency} ${totalAmount.toFixed(2)}`,
@@ -175,9 +175,6 @@ const PaymentSuccessPage: React.FC = () => {
       startY + 4
     );
 
-    // ----------------------------
-    // Footer + Added Info
-    // ----------------------------
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
     doc.setTextColor("#111827");
@@ -210,9 +207,9 @@ const PaymentSuccessPage: React.FC = () => {
     doc.save(`receipt_${paymentStatus.transactionId}.pdf`);
   };
 
-  // ----------------------------
-  // UI Render
-  // ----------------------------
+  // -------------------------------
+  // UI Render (no changes)
+  // -------------------------------
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <div className="bg-white shadow-sm rounded-sm p-8 max-w-xl w-full">
@@ -229,7 +226,6 @@ const PaymentSuccessPage: React.FC = () => {
           Payment Successful!
         </h2>
 
-        {/* Info Box */}
         <div className="bg-gray-100 px-4 py-2 rounded-sm mb-4">
           <p>
             <strong>Payment Method:</strong> {paymentStatus.payment_method}
@@ -246,7 +242,6 @@ const PaymentSuccessPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Order Items */}
         <div className="mb-4">
           <h3 className="text-xl font-semibold mb-2">Order Items</h3>
           <table className="w-full text-left border-collapse">
@@ -281,7 +276,6 @@ const PaymentSuccessPage: React.FC = () => {
           </table>
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-4 justify-center">
           <button
             onClick={downloadReceipt}
@@ -303,3 +297,5 @@ const PaymentSuccessPage: React.FC = () => {
 };
 
 export default PaymentSuccessPage;
+
+
