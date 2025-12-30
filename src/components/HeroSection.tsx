@@ -20,13 +20,13 @@ const HeroSection = () => {
               hand-selected from local artists. These unique pieces bring
               Uganda’s vibrant soul to your home or office, inspiring joy.
             </p>
-            <button className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base">
-              <Link
+            
+            <Link
               to="/collection"
+              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base"
             >
               Shop now
             </Link>
-            </button>
             
           </div>
         </section>

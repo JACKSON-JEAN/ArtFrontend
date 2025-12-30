@@ -67,7 +67,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
 
   return (
     <div
-      className={`${"profile-login"} absolute top-7 -right-[50px] lg:-right-[18px] shadow-xl border w-48 bg-white rounded-sm !z-40`}
+      className={`${"profile-login"} absolute top-7 -right-[50px] lg:-right-[18px] shadow-xl border w-auto bg-white rounded-sm !z-40`}
     >
       <div ref={profileRef} className=" relative px-3 py-2">
         {userEmail && <p className=" text-sm mb-1">{userEmail}</p>}
@@ -95,7 +95,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
             </p>
           </div>
         )}
-        <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -top-[6px] left-[125px] sm:left-[98px] z-20"></div>
+        {/* <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -top-[6px] left-[125px] sm:left-[98px] z-20"></div> */}
       </div>
     </div>
   );

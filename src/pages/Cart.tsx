@@ -49,9 +49,7 @@ const Cart = () => {
                   <span className=" font-semibold">${total.toFixed(2)}</span>
                 </p>
                 <div className=" border-t pt-0.5 w-full">
-                  <button className=" px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full">
-                    <Link to="/address">Proceed to checkout</Link>
-                  </button>
+                  <Link className=" inline-block text-center px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full" to="/address">Proceed to checkout</Link>
                 </div>
               </div>
             </section>

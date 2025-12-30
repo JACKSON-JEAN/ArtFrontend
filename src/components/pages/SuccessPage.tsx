@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENT_PAYMENT_REPORT } from "../../graphql/payments";
+import { getUserEmail, getUsername } from "../../utils/decodeToken";
 
 interface PaymentItem {
   name: string;
@@ -20,18 +21,22 @@ interface PaymentStatus {
   status: string;
   date: string;
   items: PaymentItem[];
+  customerName?: string;
+  customerEmail?: string;
 }
 
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const trackingId = searchParams.get("trackingId");
+  const trackingId = new URLSearchParams(location.search).get("session_id");
 
   const { loading, error, data } = useQuery(GET_CLIENT_PAYMENT_REPORT, {
     skip: !trackingId,
     variables: { trackingId },
   });
+
+  const clientName = getUsername();
+  const clientEmail = getUserEmail();
 
   // -------------------------------
   // GOOGLE ADS CONVERSION TRACKING
@@ -40,48 +45,46 @@ const PaymentSuccessPage: React.FC = () => {
     const report = data?.getClientPaymentReport;
     if (!report) return;
 
-    window.gtag("event", "conversion", {
+    window.gtag?.("event", "conversion", {
       send_to: "AW-1037563441/LvKfCP2W4sEbELHs3-4D",
       value: report.amount,
       currency: report.currency,
-      transaction_id: report.id || "",
+      transaction_id: report.transactionId || "",
     });
   }, [data]);
 
-  // --------------------------------
-  // Early returns for loading/errors
-  // --------------------------------
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <p>Loading...</p>
       </div>
     );
 
   if (error)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Error: {error.message}</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-red-600">{error.message}</p>
       </div>
     );
 
   const report = data?.getClientPaymentReport;
-  if (!report) {
+  if (!report)
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <p>No payment report found.</p>
       </div>
     );
-  }
 
   const paymentStatus: PaymentStatus = {
-    transactionId: report.id,
+    transactionId: report.transactionId,
     orderId: report.order?.id || 0,
     payment_method: report.paymentMethod,
     amount: report.amount,
     currency: report.currency,
     status: report.status,
     date: dayjs(report.createdAt).format("YYYY-MM-DD HH:mm"),
+    customerName: clientName,
+    customerEmail: clientEmail,
     items:
       report.order?.items.map((item: any) => ({
         name: item.artwork.title,
@@ -96,206 +99,223 @@ const PaymentSuccessPage: React.FC = () => {
   );
 
   // -------------------------------
-  // PDF Receipt Generation
+  // PDF RECEIPT
   // -------------------------------
   const downloadReceipt = () => {
-    const doc = new jsPDF("p", "mm", "a4");
+    const doc = new jsPDF();
+    const startX = 15;
+    const qtyX = 120;
+    const priceX = 195;
 
-    doc.setFont("Playfair Display serif", "bold");
-    doc.setFontSize(22);
-    doc.setTextColor("#450a0a");
-    doc.text("Pearl Art Galleries", 105, 20, { align: "center" });
+    const clientName = paymentStatus.customerName
+      ? paymentStatus.customerName
+          .toLowerCase()
+          .split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
+      : "N/A";
 
+    const paymentMethod = paymentStatus.payment_method
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    const clientEmail = paymentStatus.customerEmail
+      ? paymentStatus.customerEmail.toLowerCase()
+      : "N/A";
+
+    // Header
     doc.setFontSize(18);
-    doc.setTextColor("#059669");
-    doc.text("Payment Receipt", 105, 35, { align: "center" });
+    doc.text("PEARL ART GALLERIES, LLC", 105, 15, { align: "center" });
 
-    doc.setDrawColor(200);
-    doc.setLineWidth(0.5);
-    doc.line(15, 40, 195, 40);
-
-    const boxX = 15;
-    const boxY = 45;
-    const boxWidth = 180;
-    const boxHeight = 50;
-    const cornerRadius = 3;
-
-    doc.setFillColor("#f3f4f6");
-    doc.roundedRect(boxX, boxY, boxWidth, boxHeight, cornerRadius, cornerRadius, "F");
-
-    const paddingX = 8;
-    const paddingY = 8;
-    let textY = boxY + paddingY + 4;
-    const lineHeight = 8;
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(12);
-    doc.setTextColor("#111827");
-
-    doc.text(`Payment Method: ${paymentStatus.payment_method}`, boxX + paddingX, textY);
-    textY += lineHeight;
-    doc.text(
-      `Amount Paid: ${paymentStatus.currency} ${paymentStatus.amount.toFixed(2)}`,
-      boxX + paddingX,
-      textY
-    );
-    textY += lineHeight;
-    doc.text(`Status: ${paymentStatus.status}`, boxX + paddingX, textY);
-    textY += lineHeight;
-    doc.text(`Date: ${paymentStatus.date}`, boxX + paddingX, textY);
-
-    let startY = boxY + boxHeight + 20;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
-    doc.text("Order Items", 20, startY);
-    startY += 6;
-
-    doc.setFontSize(12);
-    doc.text("Item", 20, startY);
-    doc.text("Qty", 100, startY);
-    doc.text("Price", 140, startY);
-    startY += 4;
-
-    doc.setDrawColor(180);
-    doc.line(15, startY, 195, startY);
-    startY += 6;
-
-    doc.setFont("helvetica", "normal");
-    paymentStatus.items.forEach((item) => {
-      doc.text(item.name, 20, startY);
-      doc.text(item.quantity.toString(), 100, startY);
-      doc.text((item.price * item.quantity).toFixed(2), 140, startY);
-      startY += 8;
-    });
-
-    doc.setFont("helvetica", "bold");
-    doc.text(
-      `Total: ${paymentStatus.currency} ${totalAmount.toFixed(2)}`,
-      140,
-      startY + 4
-    );
-
-    doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
-    doc.setTextColor("#111827");
-
-    let footerY = startY + 25;
-    if (footerY > 240) footerY = 240;
-
-    doc.text("Questions? pearlartgalleries@gmail.com", 105, footerY, {
+    doc.text("Email: pearlartgalleries@gmail.com", 105, 22, {
       align: "center",
     });
+    doc.text("Phone: +256 776 286 452", 105, 27, { align: "center" });
 
-    footerY += 8;
+    doc.line(15, 35, 195, 35);
 
-    const footerText =
-      "What to expect: Thanks for your order. Your credit card charge will appear as PESAPAL Haven Gallerie. " +
-      "We will get your painting ready to ship via DHL within 72 hours. Once shipped, we will email you a tracking number.";
+    // Transaction Info
+    let y = 45;
+    doc.text(`Customer: ${clientName}`, 15, y);
+    y += 7;
+    doc.text(`Email: ${clientEmail}`, 15, y);
+    y += 10;
+
+    doc.text(`Transaction ID: ${paymentStatus.transactionId}`, 15, y);
+    y += 7;
+    doc.text(`Order ID: ${paymentStatus.orderId}`, 15, y);
+    y += 7;
+
+    doc.text(`Payment Method: ${paymentMethod}`, 15, y);
+    y += 7;
+    doc.text(
+      `Date: ${new Date().toLocaleString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      })}`,
+      15,
+      y
+    );
+    y += 12;
+
+    // Order Items Header
+    doc.setFont("helvetica", "bold");
+    doc.text("Order Items", 15, y);
+    doc.setFont("helvetica", "normal");
+    y += 3;
+    doc.line(startX, y, priceX, y);
+    y += 8;
 
     doc.setFontSize(10);
-    doc.setTextColor("#374151");
-    doc.text(doc.splitTextToSize(footerText, 170), 20, footerY);
+    doc.setTextColor(100);
+    doc.text("#", startX, y);
+    doc.text("Item", startX + 10, y);
+    doc.text("Qty", qtyX, y);
+    doc.text("Amount", priceX, y, { align: "right" });
+    y += 5;
+    doc.line(startX, y, priceX, y);
+    y += 6;
 
-    footerY += 28;
+    // Order Items Content
+    doc.setTextColor(0);
+    doc.setFontSize(11);
 
-    doc.setFontSize(10);
-    doc.setTextColor("#6b7280");
-    doc.text("Thank you for your purchase at Pearl Art Galleries!", 105, 290, {
-      align: "center",
+    paymentStatus.items.forEach((item, index) => {
+      const title = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+      const lineTotal = (item.price * item.quantity).toFixed(2);
+
+      doc.text(String(index + 1), startX, y);
+      doc.text(title, startX + 10, y);
+      doc.text(String(item.quantity), qtyX, y);
+      doc.text(`${paymentStatus.currency} ${lineTotal}`, priceX, y, {
+        align: "right",
+      });
+      y += 7;
     });
 
-    doc.save(`receipt_${paymentStatus.transactionId}.pdf`);
+    // Total
+    // const totalAmount = paymentStatus.items.reduce(
+    //   (acc, item) => acc + item.price * item.quantity,
+    //   0
+    // );
+
+    // const totalAmount = paymentStatus.items.reduce(
+    //   (acc, item) => acc + item.price * item.quantity,
+    //   0
+    // );
+    y += 4;
+    doc.line(startX, y, priceX, y);
+    y += 6;
+    doc.setFont("helvetica", "bold");
+    doc.text("TOTAL", qtyX, y);
+    doc.text(`${paymentStatus.currency} ${totalAmount.toFixed(2)}`, priceX, y, {
+      align: "right",
+    });
+    doc.setFont("helvetica", "normal");
+
+    // Footer
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const footerY = pageHeight - 20;
+    doc.setFontSize(9);
+    doc.setTextColor(120);
+    doc.text("Thank you for your purchase.", 105, footerY, { align: "center" });
+    doc.text(
+      "For questions or support, contact: pearlartgalleries@gmail.com",
+      105,
+      footerY + 5,
+      { align: "center" }
+    );
+    doc.setTextColor(0);
+    doc.setFontSize(11);
+
+    // Save PDF
+    doc.save(`Receipt_${paymentStatus.transactionId}.pdf`);
   };
 
   // -------------------------------
-  // UI Render (no changes)
+  // UI
   // -------------------------------
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div className="bg-white shadow-sm rounded-sm p-8 max-w-xl w-full">
-        <p className="text-center mb-2 w-full">
-          <Link
-            to="/"
-            className="text-2xl text-red-950 font-semibold font-logo whitespace-nowrap"
-          >
-            Pearl Art Galleries
-          </Link>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="max-w-md w-full bg-white rounded-md shadow-sm border p-6 text-center">
+        {/* Icon */}
+        <div className="flex justify-center mb-4">
+          <div className="h-14 w-14 rounded-full bg-green-100 flex items-center justify-center">
+            <svg
+              className="h-7 w-7 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <Link to="/" className="text-xl font-semibold text-red-950 block mb-2">
+          Pearl Art Galleries
+        </Link>
+
+        <h1 className="text-xl font-semibold text-green-600 mb-2">
+          Payment Successful
+        </h1>
+
+        <p className="text-gray-600 text-sm mb-4">
+          Thank you for your purchase. Your payment has been received
+          successfully.
         </p>
 
-        <h2 className="text-xl font-semibold text-green-600 text-center mb-4">
-          Payment Successful!
-        </h2>
-
-        <div className="bg-gray-100 px-4 py-2 rounded-sm mb-4">
+        <div className="bg-gray-100 rounded-sm p-4 text-left text-sm mb-4">
           <p>
-            <strong>Payment Method:</strong> {paymentStatus.payment_method}
+            <strong>Amount:</strong> {paymentStatus.currency}{" "}
+            {paymentStatus.amount.toFixed(2)}
           </p>
           <p>
-            <strong>Amount Paid:</strong>{" "}
-            {paymentStatus.currency} {paymentStatus.amount.toFixed(2)}
+            <strong>Paid by:</strong> {paymentStatus.customerName || "N/A"}
           </p>
           <p>
-            <strong>Status:</strong> {paymentStatus.status}
+            <strong>Email:</strong> {paymentStatus.customerEmail || "N/A"}
           </p>
           <p>
-            <strong>Date:</strong> {paymentStatus.date}
+            <strong>Transaction ID:</strong> {paymentStatus.transactionId}
           </p>
         </div>
 
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold mb-2">Order Items</h3>
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="py-0.5 px-3 border">Item</th>
-                <th className="py-0.5 px-3 border">Quantity</th>
-                <th className="py-0.5 px-3 border">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paymentStatus.items.map((item, idx) => (
-                <tr key={idx} className="odd:bg-white even:bg-gray-50">
-                  <td className="py-0.5 px-3 border">{item.name}</td>
-                  <td className="py-0.5 px-3 border">{item.quantity}</td>
-                  <td className="py-0.5 px-3 border">
-                    {(item.price * item.quantity).toFixed(2)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="bg-gray-100">
-                <td className="py-0.5 px-3 border font-bold" colSpan={2}>
-                  Total
-                </td>
-                <td className="py-0.5 px-3 border font-bold">
-                  {paymentStatus.currency} {totalAmount.toFixed(2)}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-col gap-2">
           <button
             onClick={downloadReceipt}
-            className="bg-green-600 text-white whitespace-nowrap px-3 sm:px-6 py-1.5 rounded-sm hover:bg-green-700 transition"
+            className="bg-green-600 hover:bg-green-700 text-white py-2 rounded-sm font-medium"
           >
             Download Receipt
           </button>
 
           <button
             onClick={() => navigate("/")}
-            className="bg-gray-600 text-white whitespace-nowrap px-3 sm:px-6 py-1.5 rounded-sm hover:bg-gray-700 transition"
+            className="border border-gray-300 hover:bg-gray-100 text-gray-700 py-2 rounded-sm font-medium"
           >
             Go Back Home
           </button>
         </div>
+
+        <p className="text-xs text-gray-500 mt-4">
+          Need help? Contact pearlartgalleries@gmail.com
+        </p>
       </div>
     </div>
   );
 };
 
 export default PaymentSuccessPage;
-
-

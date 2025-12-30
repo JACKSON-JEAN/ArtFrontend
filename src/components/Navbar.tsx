@@ -68,7 +68,7 @@ const Navbar = () => {
           <div className=" flex items-center gap-4 right-4">
             <div
               onClick={() => setIsMenuOpen(false)}
-              className={`${"profile-wrapper"} relative`}
+              className={`${"profile-wrapper"} relative bg-white`}
             >
               <div
                 onClick={() => setDisplayProfile(!displayProfile)}
@@ -82,6 +82,9 @@ const Navbar = () => {
                   </p>
                 )}
               </div>
+              {displayProfile && (
+                <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -bottom-[15.5px] sm:-bottom-[7px] left-0.5 z-50"></div>
+              )}
               {displayProfile && (
                 <ProfileSettings onClose={() => setDisplayProfile(false)} />
               )}

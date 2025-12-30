@@ -131,7 +131,7 @@ const Signin = () => {
             />
           </div>
 
-          <div className=" flex-1 flex flex-col mb-3 relative">
+          <div className=" flex-1 flex flex-col relative">
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -148,6 +148,10 @@ const Signin = () => {
               {showPassword ? <OpenEye /> : <ClosedEye />}
             </p>
           </div>
+          <div className=" mb-4 text-right text-sm text-blue-500 hover:text-blue-600">
+            <Link to="/forgot-password" className=" ">Forgot your password?</Link>
+          </div>
+          
           {error.isError && (
             <p className=" text-xs text-red-700 bg-red-100 rounded-sm mb-2 p-1">
               {error.errorMessage}
@@ -159,7 +163,7 @@ const Signin = () => {
           <div className=" mt-4 py-2 border-t">
             <p>
               Have no account?{" "}
-              <Link to="/signup" className=" text-blue-600 cursor-pointer">
+              <Link to="/signup" className=" text-blue-500 hover:text-blue-600 cursor-pointer">
                 Sign up
               </Link>
             </p>

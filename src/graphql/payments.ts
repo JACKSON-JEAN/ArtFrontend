@@ -76,11 +76,13 @@ query GetClientPaymentReport($trackingId: String!){
   getClientPaymentReport(trackingId: $trackingId){
     id
     status
+    transactionId
     paymentMethod
     amount
     currency
     createdAt
     order{
+      id
       items{
         price
         quantity
@@ -94,3 +96,11 @@ query GetClientPaymentReport($trackingId: String!){
   }
 }
 `
+
+export const CREATE_STRIPE_CHECKOUT_SESSION = gql`
+ mutation CreateStripeCheckoutSession($orderId: Float!){
+  createStripeCheckoutSession(orderId: $orderId){
+    sessionUrl
+  }
+}
+`;

@@ -10,6 +10,8 @@ const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Signin = lazy(() => import("../pages/Signin"));
+const ForgotPassword = lazy(() => import("../pages/ForgotPassword"))
+const ResetPassword = lazy(() => import("../pages/ResetPassword"))
 const Cart = lazy(() => import("../pages/Cart"));
 const Collection = lazy(() => import("../pages/Collection"));
 const ArtItem = lazy(() => import("../pages/ArtItem"));
@@ -23,6 +25,7 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 const Addresses = lazy(() => import("../pages/Addresses"));
 const Orders = lazy(() => import("../components/pages/Orders"));
 const PaymentSuccessPage = lazy(() => import("../components/pages/SuccessPage"));
+const PaymentCancelled = lazy(() => import("../components/pages/PaymentCancelled"));
 const PaymentFailed = lazy(() => import("../components/Callback"));
 
 // ✨ Fade-in wrapper for better transitions
@@ -60,7 +63,10 @@ export const router = createBrowserRouter([
   // Public routes
   { path: "signup", element: withSuspense(Signup) },
   { path: "signin", element: withSuspense(Signin) },
+  { path: "forgot-password", element: withSuspense(ForgotPassword) },
+  { path: "reset-password", element: withSuspense(ResetPassword) },
   { path: "payment-success", element: withSuspense(PaymentSuccessPage) },
+  { path: "payment-cancelled", element: withSuspense(PaymentCancelled) },
   { path: "payment-failed", element: withSuspense(PaymentFailed) },
   { path: "unauthorised", element: withSuspense(Unauthorised) },
   { path: "*", errorElement: withSuspense(NotFound) },
