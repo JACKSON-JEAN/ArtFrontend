@@ -69,7 +69,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
     <div
       className={`${"profile-login"} absolute top-7 -right-[50px] lg:-right-[18px] shadow-xl border min-w-48 w-auto bg-white rounded-sm !z-40`}
     >
-      <div ref={profileRef} className=" relative px-3 py-2">
+      <div ref={profileRef} className=" relative px-3 py-3">
         {userEmail && <p className=" text-base whitespace-nowrap mb-1">{userEmail}</p>}
         {userEmail && (
           <button

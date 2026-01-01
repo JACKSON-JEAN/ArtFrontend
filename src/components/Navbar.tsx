@@ -83,7 +83,7 @@ const Navbar = () => {
                 )}
               </div>
               {displayProfile && (
-                <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -bottom-[15.5px] sm:-bottom-[7px] left-0.5 z-50"></div>
+                <div className=" bg-white w-[10px] h-[10px] rotate-45 border-t border-l absolute -bottom-[12px] sm:-bottom-[9px] left-[5px] z-50"></div>
               )}
               {displayProfile && (
                 <ProfileSettings onClose={() => setDisplayProfile(false)} />
