@@ -70,11 +70,11 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
       className={`${"profile-login"} absolute top-7 -right-[50px] lg:-right-[18px] shadow-xl border min-w-48 w-auto bg-white rounded-sm !z-40`}
     >
       <div ref={profileRef} className=" relative px-3 py-2">
-        {userEmail && <p className=" text-sm mb-1">{userEmail}</p>}
+        {userEmail && <p className=" text-base whitespace-nowrap mb-1">{userEmail}</p>}
         {userEmail && (
           <button
             onClick={logoutHandler}
-            className=" bg-red-600 hover:bg-red-700 text-white font-semibold w-full rounded-sm"
+            className=" bg-red-600 hover:bg-red-700 text-base text-white font-semibold w-full rounded-sm"
           >
             {loading ? "Signing Out..." : "Sign Out"}{" "}
           </button>
@@ -83,11 +83,11 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
           <div>
             <Link
               to="/signin"
-              className=" bg-blue-600 text-center py-1 rounded-sm shadow-sm text-white hover:bg-blue-700 text-sm w-full inline-block"
+              className=" bg-blue-600 text-center py-1 rounded-sm shadow-sm text-white hover:bg-blue-700 text-base w-full inline-block"
             >
               Sign In
             </Link>
-            <p className=" mt-1 text-xs text-center">
+            <p className=" mt-1 text-base whitespace-nowrap text-center">
               New customer?{" "}
               <Link to="/signup" className=" text-blue-700 hover:underline">
                 create account

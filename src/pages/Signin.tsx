@@ -120,10 +120,10 @@ const Signin = () => {
         >
           <p className=" text-lg text-red-950 font-semibold mb-3">Sign in or create account</p>
           <div className=" flex-1 flex flex-col mb-3">
-            <label htmlFor="email">Email</label>
+            <label className=" text-base" htmlFor="email">Email</label>
             <input
               id="email"
-              className=" border outline-blue-500 rounded-sm pl-2 py-1"
+              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1"
               type="text"
               placeholder="Email..."
               value={userInput.email}
@@ -132,10 +132,10 @@ const Signin = () => {
           </div>
 
           <div className=" flex-1 flex flex-col relative">
-            <label htmlFor="password">Password</label>
+            <label className=" text-base" htmlFor="password">Password</label>
             <input
               id="password"
-              className=" border outline-blue-500 rounded-sm pl-2 py-1"
+              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1"
               type={showPassword ? "text" : "password"}
               placeholder="Password..."
               value={userInput.password}
@@ -148,8 +148,8 @@ const Signin = () => {
               {showPassword ? <OpenEye /> : <ClosedEye />}
             </p>
           </div>
-          <div className=" mb-4 text-right text-sm text-blue-500 hover:text-blue-600">
-            <Link to="/forgot-password" className=" ">Forgot your password?</Link>
+          <div className=" mb-5 text-right text-sm text-blue-500 hover:text-blue-600">
+            <Link to="/forgot-password" className=" text-base">Forgot your password?</Link>
           </div>
           
           {error.isError && (
@@ -157,7 +157,7 @@ const Signin = () => {
               {error.errorMessage}
             </p>
           )}
-          <button className=" w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md">
+          <button className=" text-base w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md">
             {loading ? "Signing in..." : "SignIn"}
           </button>
           <div className=" mt-4 py-2 border-t">

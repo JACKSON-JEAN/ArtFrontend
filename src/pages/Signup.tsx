@@ -194,7 +194,7 @@ const Signup = () => {
           <div className="mt-4 py-2 border-t">
             <p>
               Already have an account?{" "}
-              <Link to="/signin" className="text-blue-600 cursor-pointer">
+              <Link to="/signin" className=" text-base text-blue-600 cursor-pointer">
                 Sign in
               </Link>
             </p>
