@@ -109,7 +109,7 @@ const Signin = () => {
         <p className=" w-[400px] text-center mb-6">
           <Link
             to="/"
-            className=" text-2xl text-red-950 font-semibold font-logo whitespace-nowrap"
+            className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
           >
             Pearl Art Galleries
           </Link>
@@ -118,12 +118,12 @@ const Signin = () => {
           onSubmit={submitHandler}
           className={` ${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm`}
         >
-          <p className=" text-lg text-red-950 font-semibold mb-3">Sign in or create account</p>
+          <p className=" text-xl text-red-950 font-semibold mb-3">Sign in or create account</p>
           <div className=" flex-1 flex flex-col mb-3">
             <label className=" text-base" htmlFor="email">Email</label>
             <input
               id="email"
-              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1"
+              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1.5"
               type="text"
               placeholder="Email..."
               value={userInput.email}
@@ -135,7 +135,7 @@ const Signin = () => {
             <label className=" text-base" htmlFor="password">Password</label>
             <input
               id="password"
-              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1"
+              className=" text-base border outline-blue-500 rounded-sm pl-2 py-1.5"
               type={showPassword ? "text" : "password"}
               placeholder="Password..."
               value={userInput.password}
@@ -148,8 +148,8 @@ const Signin = () => {
               {showPassword ? <OpenEye /> : <ClosedEye />}
             </p>
           </div>
-          <div className=" mb-5 text-right text-sm text-blue-500 hover:text-blue-600">
-            <Link to="/forgot-password" className=" text-base">Forgot your password?</Link>
+          <div className=" mb-4 text-right text-sm">
+            <p className=" text-base">Forgot your <Link className="text-blue-500 hover:text-blue-600" to="/forgot-password">password?</Link></p>
           </div>
           
           {error.isError && (
@@ -157,12 +157,12 @@ const Signin = () => {
               {error.errorMessage}
             </p>
           )}
-          <button className=" text-base w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md">
-            {loading ? "Signing in..." : "SignIn"}
+          <button disabled={loading} className=" text-base w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md">
+            {loading ? "Signing in..." : "SIGN IN"}
           </button>
           <div className=" mt-4 py-2 border-t">
             <p>
-              Have no account?{" "}
+              Don't have account?{" "}
               <Link to="/signup" className=" text-blue-500 hover:text-blue-600 cursor-pointer">
                 Sign up
               </Link>

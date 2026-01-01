@@ -74,7 +74,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
         {userEmail && (
           <button
             onClick={logoutHandler}
-            className=" bg-red-600 hover:bg-red-700 text-base text-white font-semibold w-full rounded-sm"
+            className=" bg-red-600 hover:bg-red-700 text-base py-1 text-white font-semibold w-full rounded-sm"
           >
             {loading ? "Signing Out..." : "Sign Out"}{" "}
           </button>

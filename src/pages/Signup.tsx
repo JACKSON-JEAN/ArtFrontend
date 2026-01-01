@@ -109,7 +109,7 @@ const Signup = () => {
         <p className=" w-[400px] text-center mb-6">
           <Link
             to="/"
-            className=" text-2xl text-red-950 font-semibold font-logo whitespace-nowrap"
+            className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
           >
             Pearl Art Galleries
           </Link>
@@ -118,13 +118,13 @@ const Signup = () => {
           onSubmit={submitHandler}
           className={`${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm relative`}
         >
-          <p className=" text-lg text-red-950 font-semibold mb-3">Create account or sign in</p>
+          <p className=" text-xl text-red-950 font-semibold mb-3">Create account or sign in</p>
 
           <div className="flex-1 flex flex-col mb-3">
             <label htmlFor="fullName">Full Name</label>
             <input
               id="fullName"
-              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              className="border outline-blue-500 rounded-sm pl-2 py-1.5"
               type="text"
               placeholder="Full name..."
               value={userInput.fullName}
@@ -136,7 +136,7 @@ const Signup = () => {
             <label htmlFor="email">Email</label>
             <input
               id="email"
-              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              className="border outline-blue-500 rounded-sm pl-2 py-1.5"
               type="text"
               placeholder="Email..."
               value={userInput.email}
@@ -147,7 +147,7 @@ const Signup = () => {
             <label htmlFor="telephone">Telephone</label>
             <input
               id="telephone"
-              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              className="border outline-blue-500 rounded-sm pl-2 py-1.5"
               type="text"
               placeholder="Telephone..."
               value={userInput.telephone}
@@ -159,7 +159,7 @@ const Signup = () => {
             <label htmlFor="password">Password</label>
             <input
               id="password"
-              className="border outline-blue-500 rounded-sm pl-2 py-1"
+              className="border outline-blue-500 rounded-sm pl-2 py-1.5"
               type={showPassword ? "text" : "password"}
               placeholder="Password..."
               value={userInput.password}
@@ -187,8 +187,8 @@ const Signup = () => {
             </ul>
           )}
 
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md">
-            {loading ? "Signing up..." : "Signup"}
+          <button disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md">
+            {loading ? "Signing up..." : "SIGN UP"}
           </button>
 
           <div className="mt-4 py-2 border-t">

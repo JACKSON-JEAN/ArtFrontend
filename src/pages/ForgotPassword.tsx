@@ -73,7 +73,7 @@ const ForgotPassword = () => {
         <p className=" w-[400px] text-center mb-6">
           <Link
             to="/"
-            className=" text-2xl text-red-950 font-semibold font-logo whitespace-nowrap"
+            className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
           >
             Pearl Art Galleries
           </Link>
@@ -82,14 +82,14 @@ const ForgotPassword = () => {
           onSubmit={submitHandler}
           className={` ${"auth"} bg-white w-[300px] pb-6 pt-3 px-3 border rounded-sm`}
         >
-          <p className=" text-lg text-red-950 font-semibold mb-3">
+          <p className=" text-xl text-red-950 font-semibold mb-3">
             Forgot Password
           </p>
           <div className=" flex-1 flex flex-col mb-3">
             <label htmlFor="email">Enter your email address</label>
             <input
               id="email"
-              className=" border outline-blue-500 rounded-sm pl-2 py-1"
+              className=" border outline-blue-500 rounded-sm pl-2 py-1.5"
               type="email"
               placeholder="Enter email address"
               disabled={submitted || loading}
@@ -120,7 +120,7 @@ const ForgotPassword = () => {
 
           <button
             disabled={loading || submitted}
-            className=" w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
+            className=" w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md"
           >
             {loading ? "Submitting..." : "Continue"}
           </button>
