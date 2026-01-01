@@ -74,7 +74,7 @@ const Navbar = () => {
                 onClick={() => setDisplayProfile(!displayProfile)}
                 className="border-b-2 border-white cursor-pointer hover:text-blue-600 flex items-center gap-1"
               >
-                <PersonIcon className=" " />
+                <PersonIcon className=" text-xl" />
                 <span className=" sm:block hidden">Account</span>
                 {clientEmail && (
                   <p className=" absolute text-[12px] top-2 left-2 bg-white rounded-full">
@@ -95,7 +95,7 @@ const Navbar = () => {
               to="cart"
               className="text-xl cursor-pointer hover:text-blue-600 p-1 rounded-full flex items-center gap-1 capitalize relative"
             >
-              <CartIcon />
+              <CartIcon className=" text-2xl" />
               <span className="text-base sm:block hidden">cart</span>
               {cart.length > 0 && (
                 <div className="absolute left-3 bottom-4 bg-red-600 border border-white w-[18px] h-[18px] rounded-full flex justify-center items-center">
