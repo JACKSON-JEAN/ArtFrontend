@@ -209,6 +209,7 @@ const Collection = () => {
                 key={item.id}
                 id={item.id}
                 title={item.title}
+                description={item.description}
                 imageHash={item.imageHash}
                 heightCm={item.heightCm}
                 widthCm={item.widthCm}

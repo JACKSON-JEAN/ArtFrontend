@@ -47,6 +47,7 @@ const FeaturedArtwork = () => {
               key={item.id}
               media={item.media || img1}
               title={item.title}
+              description={item.description}
               category={item.category}
               imageHash={item.imageHash}
               material={item.material}

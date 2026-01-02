@@ -14,6 +14,7 @@ export type CartItem = {
   image: string;
   imageHash?: string;
   title: string;
+  description: string;
   category: string;
   material?: string;
   heightCm?: number;
@@ -51,6 +52,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           image: item.artwork.media[0]?.url,
           imageHash: item.imageHash,
           title: item.artwork.title,
+          description: item.artwork.description,
           category: item.artwork.category,
           material: item.artwork.material,
           heightCm: item.artwork.heightCm,

@@ -8,6 +8,7 @@ const Cart = () => {
   const { cart, total } = useCart();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  console.log(cart)
 
   return (
     <div
@@ -29,8 +30,10 @@ const Cart = () => {
                     <CartItem
                       key={item.id}
                       id={item.id}
+                      artworkId={item.artworkId}
                       image={item.image ? item.image : cartImage}
-                      description={item.title}
+                      title={item.title}
+                      description={item.description}
                       category={item.category}
                       material={item.material}
                       widthCm={item.widthCm}
@@ -61,9 +64,8 @@ const Cart = () => {
               <p className=" font-semibold text-lg">Your cart is empty!</p>
               <p>Browse our collections and discover our best deals.</p>
             </div>
-            <button className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm">
-              <Link to="/collection">Start Shopping</Link>
-            </button>
+            
+            <Link to="/collection" className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm">Start Shopping</Link>
           </div>
         )}
       </div>

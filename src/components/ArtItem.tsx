@@ -10,6 +10,7 @@ import ImageComponent from "./ImageComponent";
 type ArtItemProps = {
   id: number;
   title: string;
+  description: string;
   material?: string;
   imageHash?: string;
   heightCm?: number;
@@ -29,6 +30,7 @@ type ArtItemProps = {
 const ArtItem: React.FC<ArtItemProps> = ({
   id,
   title,
+  description,
   material,
   imageHash,
   heightCm,
@@ -63,6 +65,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
       id: id, 
       image: primaryMedia?.url,
       title: title,
+      description: description,
       category: category,
       material: material,
       heightCm: heightCm,

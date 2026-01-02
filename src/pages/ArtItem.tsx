@@ -42,6 +42,7 @@ const ArtItem = () => {
       id: artwork.id,
       image: artwork.media[0]?.url,
       title: artwork.title,
+      description: artwork.description,
       category: artwork.category,
       heightCm: artwork.heightCm,
       widthCm: artwork.widthCm,
