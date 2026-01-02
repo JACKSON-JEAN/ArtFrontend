@@ -42,25 +42,32 @@ const CartItem: React.FC<cartItemProps> = ({
     <div className=" w-full flex pb-2 mb-3 border-b">
       <div className={`${"cartItem"} w-full flex`}>
         <div className=" w-[200px] rounded-sm overflow-hidden">
-          <Link to={`/collection/${artworkId}`}>
             <ImageComponent
               src={image}
               name={description}
               imageHash={imageHash ? imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
             />
-          </Link>
         </div>
         <section className=" flex gap-1 flex-col w-full ">
           <div className={`${"price_title"}`}>
             <p className=" text-base">{title}</p>
             <p className=" hidden lg:block text-slate-500">{description}</p>
-            
-              <p className=" block lg:hidden text-slate-500">
-                {description.length > 50
-                  ? description.slice(0, 47) + "..."
-                  : description}
-              </p>
-            
+
+            <p className="block lg:hidden text-slate-500">
+              {description.length > 50 ? (
+                <>
+                  {description.slice(0, 47)}…{" "}
+                  <Link
+                    to={`/collection/${artworkId}`}
+                    className="text-blue-600 hover:text-blue-700 cursor-pointer"
+                  >
+                    Learn more
+                  </Link>
+                </>
+              ) : (
+                description
+              )}
+            </p>
           </div>
           {material && (
             <p>
