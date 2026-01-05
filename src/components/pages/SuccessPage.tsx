@@ -133,7 +133,7 @@ const PaymentSuccessPage: React.FC = () => {
     doc.text("Email: pearlartgalleries@gmail.com", 105, 22, {
       align: "center",
     });
-    doc.text("Phone: +256 776 286 452", 105, 27, { align: "center" });
+    doc.text("Phone: +256 776 286 453", 105, 27, { align: "center" });
 
     doc.line(15, 35, 195, 35);
 
@@ -221,8 +221,69 @@ const PaymentSuccessPage: React.FC = () => {
     });
     doc.setFont("helvetica", "normal");
 
-    // Footer
     const pageHeight = doc.internal.pageSize.getHeight();
+    if (y > pageHeight - 90) {
+      doc.addPage();
+      y = 20;
+    }
+
+    // -------------------------------
+    // SHIPPING & FRAMING NOTES
+    // -------------------------------
+    y += 12;
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("Shipping Information", startX, y);
+
+    doc.setFont("helvetica", "normal");
+    y += 6;
+    doc.setFontSize(10);
+    doc.setTextColor(60);
+
+    doc.text(
+      "Thank you for your order! Your artwork will be securely packaged in a protective poster tube\n" +
+        "and shipped within 72 hours via DHL. Once shipped, tracking information will be shared.",
+      startX,
+      y
+    );
+
+    y += 14;
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0);
+    doc.text("Framing Suggestion", startX, y);
+
+    doc.setFont("helvetica", "normal");
+    y += 6;
+    doc.setFontSize(10);
+    doc.setTextColor(60);
+
+    doc.text(
+      "We recommend using a quality frame with acid-free backing. This helps keep your artwork\n" +
+        "flat and stable over time, preventing warping or bending—especially for larger pieces\n" +
+        "or artwork on thinner paper.",
+      startX,
+      y
+    );
+
+    y += 16;
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0);
+    doc.text("Need Help?", startX, y);
+
+    doc.setFont("helvetica", "normal");
+    y += 6;
+    doc.setFontSize(10);
+    doc.setTextColor(60);
+    doc.text(
+      "Email: pearlartgalleries@gmail.com\nCall us on WhatsApp: +256 776 286 453",
+      startX,
+      y
+    );
+
+    doc.setTextColor(0);
+
+    // Footer
+
     const footerY = pageHeight - 20;
     doc.setFontSize(9);
     doc.setTextColor(120);
