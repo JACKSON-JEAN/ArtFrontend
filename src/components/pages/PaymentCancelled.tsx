@@ -5,7 +5,7 @@ const PaymentCancelled = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-[1/4]">
       <div className="max-w-md w-full bg-white rounded-md shadow-sm border p-6 text-center">
         {/* Icon */}
         <div className="flex justify-center mb-4">
@@ -41,17 +41,17 @@ const PaymentCancelled = () => {
         {/* Actions */}
         <div className="flex flex-col gap-2">
           <button
-            onClick={() => navigate("/address")}
+            onClick={() => navigate("/collection")}
             className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-sm font-medium transition"
           >
-            Try Payment Again
+            Return to Shopping
           </button>
 
           <button
-            onClick={() => navigate("/cart")}
+            onClick={() => navigate("/")}
             className="border border-gray-300 hover:bg-gray-100 text-gray-700 py-2 rounded-sm font-medium transition"
           >
-            Return to Cart
+            Back Home
           </button>
         </div>
 
