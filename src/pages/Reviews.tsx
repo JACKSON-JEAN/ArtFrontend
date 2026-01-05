@@ -66,7 +66,7 @@ const Reviews = () => {
       <div
         className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
       >
-        <h1 className=" text-xl text-red-950 font-semibold pb-3">
+        <h1 className=" text-center text-xl text-red-950 font-semibold pb-3">
           Our Clients' Reviews.
         </h1>
         {loading && <p>Loading...</p>}

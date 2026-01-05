@@ -1,11 +1,12 @@
-import { useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SIGN_IN_MUTATION } from "../graphql/users";
-import { GET_CLIENT_CART } from "../graphql/cart";
+// import { GET_CLIENT_CART } from "../graphql/cart";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { getUserId, getUserRole } from "../utils/decodeToken";
 import { useToast } from "../context/ToastContext";
+import { useCart } from "../context/cart.context";
 
 const Signin = () => {
   const OpenEye = FaEye as React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -26,15 +27,22 @@ const Signin = () => {
     errorMessage: "",
   });
 
-  const userId = getUserId();
+  const client = useApolloClient();
+
+  // const userId = getUserId();
   const navigate = useNavigate();
   const {success} = useToast()
+  const { setUserId } = useCart();
 
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
-    onCompleted: (data) => {
+    onCompleted: async (data) => {
       const { accessToken, refreshToken } = data.signIn;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+
+      await client.resetStore()
+
+      setUserId(Number(getUserId()))
 
       const role = getUserRole();
 
@@ -94,11 +102,11 @@ const Signin = () => {
         signInData: {
           email: userInput.email,
           password: userInput.password,
-        },
+        },  //changes start here
       },
-      refetchQueries: [
-        { query: GET_CLIENT_CART, variables: { clientId: userId } },
-      ],
+      // refetchQueries: [
+      //   { query: GET_CLIENT_CART, variables: { clientId: userId } },
+      // ],
     });
     
   };

@@ -98,7 +98,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
         onClick={onClose}
         className="fixed left-0 top-0 w-full h-screen bg-black bg-opacity-10 z-10 ease-in-out duration-700"
       ></div>
-      <div className="absolute bg-red-300 left-[50%] right-[50%] top-20 sm:top-28 z-20 flex justify-center">
+      <div className="absolute bg-red-300 left-[50%] right-[50%] top-15 sm:top-15 z-20 flex justify-center">
         <form
           onSubmit={submitHandler}
           className="w-96 bg-white rounded-sm shadow-lg relative"

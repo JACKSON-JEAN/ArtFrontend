@@ -37,7 +37,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
 
   const { success } = useToast();
   const client = useApolloClient();
-  const { clearCart } = useCart();
+  const { clearCart, setUserId } = useCart();
 
   const logoutHandler = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
@@ -53,6 +53,7 @@ const ProfileSettings: React.FC<ProfileProps> = ({ onClose }) => {
       });
     }
     clearCart();
+    setUserId(null)
     await client.resetStore();
     success("Signed out successfully!");
   } catch (error) {
