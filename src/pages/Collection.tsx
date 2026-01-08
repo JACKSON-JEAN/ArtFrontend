@@ -1,211 +1,219 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { Artwork } from "../types/artwork";
 import ArtItem from "../components/ArtItem";
 import { Helmet } from "@dr.pogodin/react-helmet";
+import ArtFilters, { ArtFilterState } from "../components/FilterSelection";
+import { AnimatePresence, motion } from "framer-motion";
+import { MdOutlineFilterList } from "react-icons/md";
+
+const defaultFilters: ArtFilterState = {
+  category: "all",
+  availability: "all",
+  material: "all",
+  price: "all",
+};
 
 const Collection = () => {
-  const FilterIcon = IoIosArrowDown as React.ComponentType<
+  const [search, setSearch] = useState("");
+  const [openFilters, setOpenFilters] = useState(false);
+  const [filters, setFilters] = useState<ArtFilterState>(defaultFilters);
+
+  const FilterIcon = MdOutlineFilterList as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
-  const SearchIcon = IoIosSearch as React.ComponentType<
-    React.SVGProps<SVGSVGElement>
-  >;
-
-  const [openFilter, setOpenFilter] = useState(false);
-  const [filter, setFilter] = useState<string>("All");
-  const [search, setSearch] = useState<string>("");
-
-  const filterRef = useRef<HTMLDivElement>(null);
 
   const { loading, error, data } = useQuery(GET_ARTWORK, {
-    variables: {
-      searchInput: {
-        keyword: search,
-      },
-    },
+    variables: { searchInput: { keyword: search } },
   });
 
-  const artwork = data?.getArtwork || [];
-  // const displayedArtwork = limit ? artwork.slice(0, limit) : artwork;
+ const artwork: Artwork[] = useMemo(
+  () => data?.getArtwork ?? [],
+  [data]
+);
 
-  const filteredCategory = artwork.filter((item: Artwork) => {
-    if (filter === "All") {
-      return artwork;
+  /* ---------------- RESET ---------------- */
+  const canReset =
+    filters.category !== "all" ||
+    filters.availability !== "all" ||
+    filters.material !== "all" ||
+    filters.price !== "all";
+
+  /* ---------------- FILTER CHANGE (CLOSE DRAWER) ---------------- */
+  const handleFilterChange = (newFilters: ArtFilterState) => {
+    setFilters(newFilters);
+    setOpenFilters(false); // 👈 CLOSE AFTER SELECTION
+  };
+
+  /* ---------------- FILTERING ---------------- */
+  const filteredArtwork = artwork.filter((item) => {
+    if (
+      filters.category !== "all" &&
+      item.category?.toLowerCase() !== filters.category
+    )
+      return false;
+
+    if (
+      filters.availability !== "all" &&
+      item.isAvailable !== (filters.availability === "available")
+    )
+      return false;
+
+    if (
+      filters.material !== "all" &&
+      item.material?.toLowerCase() !== filters.material
+    )
+      return false;
+
+    if (filters.price !== "all") {
+      const price = item.price;
+      if (filters.price === "under-300" && price >= 300) return false;
+      if (filters.price === "300-500" && (price < 300 || price > 499))
+        return false;
+      if (filters.price === "500-800" && (price < 500 || price > 799))
+        return false;
+      if (filters.price === "800-1000" && (price < 800 || price > 999))
+        return false;
+      if (filters.price === "1000-plus" && price < 1000) return false;
     }
 
-    return item.category?.toUpperCase() === filter?.toUpperCase();
+    return true;
   });
 
-  const toggleFilter = () => {
-    setOpenFilter(!openFilter);
-  };
-
-  const handleSelectFilter = (filter: string) => {
-    setFilter(filter);
-    console.log(filter.toUpperCase());
-    setOpenFilter(false);
-  };
-
-  const searchHandler = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(search);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        filterRef.current &&
-        !filterRef.current.contains(event.target as Node)
-      ) {
-        setOpenFilter(false);
-      }
+  /* ---------------- COUNTS ---------------- */
+  const counts = useMemo(() => {
+    return {
+      category: {
+        all: artwork.length,
+        painting: artwork.filter(
+          (a) => a.category?.toLowerCase() === "painting"
+        ).length,
+        drawing: artwork.filter(
+          (a) => a.category?.toLowerCase() === "drawing"
+        ).length,
+        sculpture: artwork.filter(
+          (a) => a.category?.toLowerCase() === "sculpture"
+        ).length,
+        textile: artwork.filter(
+          (a) => a.category?.toLowerCase() === "textile"
+        ).length,
+        jewelry: artwork.filter(
+          (a) => a.category?.toLowerCase() === "jewelry"
+        ).length,
+      },
+      availability: {
+        all: artwork.length,
+        available: artwork.filter((a) => a.isAvailable).length,
+        sold: artwork.filter((a) => !a.isAvailable).length,
+      },
+      material: {
+        all: artwork.length,
+        "acrylic on canvas": artwork.filter(
+          (a) => a.material?.toLowerCase() === "acrylic on canvas"
+        ).length,
+        "oil on canvas": artwork.filter(
+          (a) => a.material?.toLowerCase() === "oil on canvas"
+        ).length,
+      },
+      price: {
+        all: artwork.length,
+        "under-300": artwork.filter((a) => a.price < 300).length,
+        "300-500": artwork.filter(
+          (a) => a.price >= 300 && a.price <= 499
+        ).length,
+        "500-800": artwork.filter(
+          (a) => a.price >= 500 && a.price <= 799
+        ).length,
+        "800-1000": artwork.filter(
+          (a) => a.price >= 800 && a.price <= 999
+        ).length,
+        "1000-plus": artwork.filter((a) => a.price >= 1000).length,
+      },
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  }, [artwork]);
 
   return (
     <>
       <Helmet>
         <title>Shop Original African Artwork | Pearl Art Galleries</title>
-        <meta
-          name="description"
-          content="Browse our curated collection of original African paintings, sculptures, and handmade crafts. Discover original artwork from African artists."
-        />
-        <link
-          rel="canonical"
-          href="https://www.pearlartgalleries.com/collection"
-        />
-
-        {/* Open Graph */}
-        <meta
-          property="og:title"
-          content="Shop Original African Artwork | Pearl Art Galleries"
-        />
-        <meta
-          property="og:description"
-          content="Explore African paintings, sculptures, and textiles crafted by talented artists across the continent."
-        />
-        <meta
-          property="og:image"
-          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760267152/kampala_1_jltha2.jpg"
-        />
-        <meta
-          property="og:url"
-          content="https://www.pearlartgalleries.com/collection"
-        />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Shop Original African Artwork | Pearl Art Galleries"
-        />
-        <meta
-          name="twitter:description"
-          content="Browse and buy original African paintings, sculptures, and crafts by talented African artists."
-        />
-        <meta
-          name="twitter:image"
-          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760267152/kampala_1_jltha2.jpg"
-        />
-
-        <meta
-          name="keywords"
-          content="African art collection, buy African paintings, African sculptures, original African artwork, handmade African crafts, online art gallery Africa, Pearl Art Galleries"
-        />
       </Helmet>
 
-      <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-3 bg-slate-50`}
-      >
-        <div className=" w-full flex items-center gap-10">
-          <div className={`${"paintings"} w-full flex justify-between`}>
-            <h1
-              className={`${"heading"} text-xl text-red-950 font-semibold whitespace-nowrap`}
-            >
-              Original Artwork.
-            </h1>
-            <div className={`${"paintingsFilters"} flex items-center gap-2`}>
-              <form onSubmit={searchHandler} className=" flex items-center">
-                <input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  type="text"
-                  placeholder="Search for anything..."
-                  className=" border outline-blue-600 rounded-sm py-1 pl-2"
-                />
-                <button className=" bg-blue-600 hover:bg-blue-700 text-white text-2xl py-1 px-2 rounded-sm shadow-sm hover:shadow-md border cursor-pointer ml-1">
-                  <SearchIcon />
-                </button>
-              </form>
-              <div className=" relative">
-                <div
-                  onClick={toggleFilter}
-                  className=" border py-1 px-2 w-[105px] bg-white flex items-center justify-between cursor-pointer !z-10"
-                >
-                  <p className=" text-base text-gray-700">{filter}</p>
-                  <p
-                    className={`text-base text-gray-700 ease-in-out duration-500 ${
-                      openFilter && "rotate-180"
-                    }`}
-                  >
-                    <FilterIcon />
-                  </p>
-                </div>
-                <div
-                  ref={filterRef}
-                  className={`absolute left-0 bg-white ${
-                    openFilter ? " block" : "hidden"
-                  } w-full border shadow-md rounded-sm text-gray-700 ease-in-out duration-700`}
-                >
-                  <p
-                    onClick={() => handleSelectFilter("All")}
-                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                  >
-                    All
-                  </p>
-                  <p
-                    onClick={() => handleSelectFilter("Painting")}
-                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                  >
-                    Paintings
-                  </p>
-                  <p
-                    onClick={() => handleSelectFilter("Sculpture")}
-                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                  >
-                    Sculptures
-                  </p>
-                  <p
-                    onClick={() => handleSelectFilter("Textile")}
-                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                  >
-                    Textile
-                  </p>
-                  <p
-                    onClick={() => handleSelectFilter("Jewelry")}
-                    className=" text-base py-1 px-2 border-b hover:text-blue-700 hover:bg-blue-50 cursor-pointer"
-                  >
-                    Jewelry
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}>
+        {/* Top bar */}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <button
+            onClick={() => setOpenFilters(true)}
+            className="font-medium hover:text-blue-500 flex items-center gap-1"
+          >
+            <FilterIcon className="text-lg" />
+            <span>Filters</span>
+          </button>
+
+          <form className="flex items-center">
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for anything..."
+              className="border rounded-sm outline-blue-500 py-1.5 pl-2 sm:w-64"
+            />
+            <button className="bg-blue-500 text-white px-3 py-1.5 ml-1 rounded-sm">
+              Search
+            </button>
+          </form>
         </div>
-        {error && <p className=" text-center">{error.message}</p>}
-        {loading && <p>Loading...</p>}
-        <div className=" w-full py-4">
-          <div className=" columns-2 sm:columns-3 md:columns-4 [column-fill:balance]">
-            {filteredCategory.map((item: Artwork) => (
-              <ArtItem
+
+        {/* FILTER DRAWER */}
+        <AnimatePresence>
+          {openFilters && (
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/40 cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpenFilters(false)}
+            >
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "tween", duration: 0.25 }}
+                className="fixed left-0 top-0 h-full w-[280px] bg-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ArtFilters
+                  filters={filters}
+                  onChange={handleFilterChange} // 👈 HERE
+                  onReset={() => {
+                    setFilters(defaultFilters);
+                    setOpenFilters(false);
+                  }}
+                  canReset={canReset}
+                  counts={counts}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* CONTENT */}
+        <div>
+          {error && <p className="text-center">{error.message}</p>}
+          {loading && <p>Loading...</p>}
+
+          {filteredArtwork.length === 0 && !loading && (
+            <div className="w-full text-center py-20 text-slate-500">
+              <p className="text-lg font-medium">No artworks found</p>
+              <p className="text-sm mt-1">
+                Try adjusting or resetting your filters.
+              </p>
+            </div>
+          )}
+
+          {filteredArtwork.length > 0 && (
+            <div className="columns-2 sm:columns-3 md:columns-4 gap-4 [column-fill:balance]">
+              {filteredArtwork.map((item) => (
+                <ArtItem
                 key={item.id}
                 id={item.id}
                 title={item.title}
@@ -220,8 +228,9 @@ const Collection = () => {
                 artworkId={item.id}
                 media={item.media}
               />
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

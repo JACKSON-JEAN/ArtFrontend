@@ -55,14 +55,15 @@ const ArtItem: React.FC<ArtItemProps> = ({
   >;
   const primaryMedia = media[0];
   const { addToCart, removeFromCart, cart } = useCart();
-  const [isLiked, setIsLiked] = useState(false)
-  const {success} = useToast()
+  const [isLiked, setIsLiked] = useState(false);
+  const { success } = useToast();
 
   const cartItem = cart.find((item) => item.artworkId === artworkId);
 
   const addHandler = () => {
-    addToCart({
-      id: id, 
+    try {
+      addToCart({
+      id: id,
       image: primaryMedia?.url,
       title: title,
       description: description,
@@ -75,17 +76,21 @@ const ArtItem: React.FC<ArtItemProps> = ({
       quantity: 1,
     });
 
-    success("Item added to the cart successfully!")
+    success("Item added to the cart successfully!");
+    console.log("Added")
+    } catch (error) {
+      console.log(error)
+    }
   };
 
-  const removeHandler = (itemId: number) =>{
-    removeFromCart(itemId)
-    success("Item removed successfully!")
-  }
+  const removeHandler = (itemId: number) => {
+    removeFromCart(itemId);
+    success("Item removed successfully!");
+  };
 
-  const likeHandler = (itemId: number) =>{
-    setIsLiked(!isLiked)
-  }
+  const likeHandler = (itemId: number) => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div
@@ -93,7 +98,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
       className=" w-full break-inside-avoid mb-4 border shadow-sm rounded-sm overflow-hidden"
     >
       <Link to={`/collection/${id}`}>
-        <ImageComponent 
+        <ImageComponent
           src={primaryMedia?.url ? primaryMedia?.url : img1}
           name={title}
           imageHash={imageHash ? imageHash : "LMGHq}E3w[nOuhm-jFrrGaiwt6iw"}
@@ -102,7 +107,9 @@ const ArtItem: React.FC<ArtItemProps> = ({
 
       <div className=" px-2 py-2">
         <div className=" flex items-center justify-between">
-          {isAvailable && <p className=" font-semibold text-lg">${price.toLocaleString()}</p>}
+          {isAvailable && (
+            <p className=" font-semibold text-lg">${price.toLocaleString()}</p>
+          )}
           {!isAvailable && (
             <p className={`${"soldItem"} uppercase font-semibold`}>
               ${price} - Sold
@@ -110,8 +117,17 @@ const ArtItem: React.FC<ArtItemProps> = ({
           )}
           {isAvailable && (
             <div className=" flex items-center gap-2">
-              <p onClick={() =>likeHandler(id)} className=" text-xl cursor-pointer">
-                {isLiked ? <p className=" text-red-500"><FavoriteFullIcon/></p> : <FavoriteIcon />}
+              <p
+                onClick={() => likeHandler(id)}
+                className=" text-xl cursor-pointer"
+              >
+                {isLiked ? (
+                  <p className=" text-red-500">
+                    <FavoriteFullIcon />
+                  </p>
+                ) : (
+                  <FavoriteIcon />
+                )}
               </p>
               <p className=" text-lg cursor-pointer">
                 {cartItem ? (
@@ -130,12 +146,14 @@ const ArtItem: React.FC<ArtItemProps> = ({
               {category.toLowerCase()}
             </p>
           )}
-          {material && <p className=" text-base text-gray-600">{material}</p>}
-          {widthCm && (
-            <p className=" text-gray-600 text-sm">
-              {widthCm} X {heightCm} in
-            </p>
-          )}
+          <div className=" flex gap-1 flex-wrap items-center justify-between w-full">
+            {material && <p className=" text-base text-gray-600">{material}</p>}
+            {widthCm && (
+              <p className=" text-gray-600 text-sm">
+                {widthCm} X {heightCm} in
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
