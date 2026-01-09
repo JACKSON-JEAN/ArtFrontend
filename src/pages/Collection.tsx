@@ -165,7 +165,7 @@ const Collection = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
-              className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-52 sm:w-96"
+              className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
             />
             {search && <div onClick={() => setSearch("")}
               className=" flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
