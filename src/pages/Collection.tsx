@@ -7,6 +7,7 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import ArtFilters, { ArtFilterState } from "../components/FilterSelection";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdOutlineFilterList } from "react-icons/md";
+import { RiCloseLine } from "react-icons/ri";
 
 const defaultFilters: ArtFilterState = {
   category: "all",
@@ -21,6 +22,10 @@ const Collection = () => {
   const [filters, setFilters] = useState<ArtFilterState>(defaultFilters);
 
   const FilterIcon = MdOutlineFilterList as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
+
+  const EmptySearchIcon = RiCloseLine as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
 
@@ -151,12 +156,19 @@ const Collection = () => {
           </button>
 
           <form className="flex items-center">
-            <input
+            <div className=" relative">
+              <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search for anything..."
               className="border rounded-sm outline-blue-500 py-1.5 pl-2 sm:w-64"
             />
+            {search && <p onClick={() => setSearch("")}
+              className=" absolute right-2.5 bottom-2.5 text-gray-500 text-base cursor-pointer"
+            >
+              <EmptySearchIcon />
+            </p>}
+            </div>
             <button className="bg-blue-500 text-white px-3 py-1.5 ml-1 rounded-sm">
               Search
             </button>

@@ -106,7 +106,7 @@ const Signup = () => {
   return (
     <div className="w-full flex justify-center px-10 sm:px-20 min-h-screen py-4 bg-slate-50">
       <div className=" flex items-center flex-col">
-        <p className=" w-[400px] text-center mb-6">
+        <p className=" text-center mb-6">
           <Link
             to="/"
             className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
@@ -116,7 +116,7 @@ const Signup = () => {
         </p>
         <form
           onSubmit={submitHandler}
-          className={`${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm relative`}
+          className={`${"auth"} bg-white w-[350px] py-2 px-3 border rounded-sm relative`}
         >
           <p className=" text-xl text-red-950 font-semibold mb-3">Create account or sign in</p>
 

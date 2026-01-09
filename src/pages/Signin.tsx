@@ -31,7 +31,7 @@ const Signin = () => {
 
   // const userId = getUserId();
   const navigate = useNavigate();
-  const {success} = useToast()
+  const { success } = useToast();
   const { setUserId } = useCart();
 
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
@@ -40,9 +40,9 @@ const Signin = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      await client.resetStore()
+      await client.resetStore();
 
-      setUserId(Number(getUserId()))
+      setUserId(Number(getUserId()));
 
       const role = getUserRole();
 
@@ -57,7 +57,7 @@ const Signin = () => {
         email: "",
         password: "",
       });
-      success("Signed in successfully!")
+      success("Signed in successfully!");
     },
     onError: (error) => {
       const message = error.message.includes("credentials")
@@ -102,19 +102,18 @@ const Signin = () => {
         signInData: {
           email: userInput.email,
           password: userInput.password,
-        },  //changes start here
+        }, //changes start here
       },
       // refetchQueries: [
       //   { query: GET_CLIENT_CART, variables: { clientId: userId } },
       // ],
     });
-    
   };
 
   return (
-    <div className=" w-full flex justify-center px-10 sm:px-20 min-h-screen py-4 bg-slate-50">
+    <div className=" w-full flex justify-center px-10 sm:px-20 min-h-screen py-4">
       <div className=" flex items-center flex-col">
-        <p className=" w-[400px] text-center mb-6">
+        <p className=" text-center mb-6">
           <Link
             to="/"
             className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
@@ -124,11 +123,15 @@ const Signin = () => {
         </p>
         <form
           onSubmit={submitHandler}
-          className={` ${"auth"} bg-white w-[300px] py-2 px-3 border rounded-sm`}
+          className={` ${"auth"} bg-white w-[350px] py-2 px-3 border rounded-sm`}
         >
-          <p className=" text-xl text-red-950 font-semibold mb-3">Sign in or create account</p>
+          <p className=" text-xl text-red-950 font-semibold mb-3">
+            Sign in or create account
+          </p>
           <div className=" flex-1 flex flex-col mb-3">
-            <label className=" text-base" htmlFor="email">Email</label>
+            <label className=" text-base" htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               className=" text-base border outline-blue-500 rounded-sm pl-2 py-1.5"
@@ -139,8 +142,10 @@ const Signin = () => {
             />
           </div>
 
-          <div className=" flex-1 flex flex-col relative">
-            <label className=" text-base" htmlFor="password">Password</label>
+          <div className=" flex-1 flex flex-col relative mb-4">
+            <label className=" text-base" htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               className=" text-base border outline-blue-500 rounded-sm pl-2 py-1.5"
@@ -156,25 +161,40 @@ const Signin = () => {
               {showPassword ? <OpenEye /> : <ClosedEye />}
             </p>
           </div>
-          <div className=" mb-4 text-right text-sm">
-            <p className=" text-base">Forgot your <Link className="text-blue-500 hover:text-blue-600" to="/forgot-password">password?</Link></p>
-          </div>
-          
+
           {error.isError && (
             <p className=" text-xs text-red-700 bg-red-100 rounded-sm mb-2 p-1">
               {error.errorMessage}
             </p>
           )}
-          <button disabled={loading} className=" text-base w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md">
+          <button
+            disabled={loading}
+            className=" text-base w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-sm shadow-sm hover:shadow-md"
+          >
             {loading ? "Signing in..." : "SIGN IN"}
           </button>
-          <div className=" mt-4 py-2 border-t">
-            <p>
-              Don't have account?{" "}
-              <Link to="/signup" className=" text-blue-500 hover:text-blue-600 cursor-pointer">
+          <div className=" mt-4 py-2 border-t flex justify-center gap-1">
+            <p className=" text-base whitespace-nowrap ">
+              Have no account?{" "}
+              <Link
+                to="/signup"
+                className=" text-blue-500 hover:text-blue-600 cursor-pointer"
+              >
                 Sign up
               </Link>
             </p>
+            <p>|</p>
+            <div>
+              <p className=" text-base whitespace-nowrap">
+                Forgot{" "}
+                <Link
+                  className="text-blue-500 hover:text-blue-600"
+                  to="/forgot-password"
+                >
+                  password?
+                </Link>
+              </p>
+            </div>
           </div>
         </form>
       </div>
