@@ -6,6 +6,7 @@ import { CartProvider } from "./context/cart.context";
 import { ToastProvider } from "./context/ToastContext";
 
 function App() {
+
   return (
     <CartProvider>
       <ToastProvider>

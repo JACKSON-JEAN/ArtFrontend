@@ -27,11 +27,19 @@ const ArtItem = () => {
 
   const existing = cart.find((item) => item.artworkId === artworkId);
 
-  const { loading, error, data } = useQuery(GET_ARTWORK_BYID, {
+  const { loading, error, data, refetch } = useQuery(GET_ARTWORK_BYID, {
     variables: {
       artworkId: artworkId,
     },
   });
+
+  useEffect(() => {
+    const handleOnline = () => refetch();
+    window.addEventListener("online", handleOnline);
+    return () => window.removeEventListener("online", handleOnline);
+  }, [refetch]);
+
+  const isOffline = !navigator.onLine;
 
   const artwork = data?.getArtworkById;
 
@@ -75,7 +83,7 @@ const ArtItem = () => {
     return <p>Invalid art ID. Please check the URL and try again.</p>;
   }
 
-  if (loading)
+  if (loading && !error)
     return (
       <div
         className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
@@ -83,12 +91,34 @@ const ArtItem = () => {
         <p>Loading...</p>
       </div>
     );
-  if (error)
+  if (!isOffline && error) {
+    if (error.networkError) {
+      return (
+        <div className="text-center py-10 text-red-600">
+          <p className="font-medium">Network error</p>
+          <p className="text-sm mt-1">Please check your internet connection.</p>
+
+          <button
+            onClick={() => !isOffline && refetch()}
+            disabled={loading || isOffline}
+            className="mt-3 text-blue-500 underline disabled:opacity-50"
+          >
+            Retry
+          </button>
+        </div>
+      );
+    }
+    return <p className="text-sm">{error.message}</p>;
+  }
+
+  if (isOffline) {
     return (
-      <div className=" w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50">
-        <p className=" text-center font-semibold">{error.message}</p>
-      </div>
+      <p className="text-center text-gray-500">
+        You’re offline. Please reconnect to the internet.
+      </p>
     );
+  }
+
   return (
     <>
       <Helmet>
@@ -264,7 +294,7 @@ const ArtItem = () => {
           </div>
         </div>
         <div>
-          <Products limit={4} subTitle="Similar Artwork" />
+          <Products limit={8} selectedArtworkId={artworkId} subTitle="Similar Artwork" />
         </div>
       </div>
     </>

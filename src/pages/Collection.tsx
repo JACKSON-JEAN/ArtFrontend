@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { Artwork } from "../types/artwork";
@@ -24,14 +24,12 @@ const Collection = () => {
     React.SVGProps<SVGSVGElement>
   >;
 
-  const { loading, error, data } = useQuery(GET_ARTWORK, {
+  const { loading, error, data, refetch } = useQuery(GET_ARTWORK, {
     variables: { searchInput: { keyword: search } },
   });
 
- const artwork: Artwork[] = useMemo(
-  () => data?.getArtwork ?? [],
-  [data]
-);
+  const isOffline = !navigator.onLine;
+  const artwork: Artwork[] = useMemo(() => data?.getArtwork ?? [], [data]);
 
   /* ---------------- RESET ---------------- */
   const canReset =
@@ -89,18 +87,15 @@ const Collection = () => {
         painting: artwork.filter(
           (a) => a.category?.toLowerCase() === "painting"
         ).length,
-        drawing: artwork.filter(
-          (a) => a.category?.toLowerCase() === "drawing"
-        ).length,
+        drawing: artwork.filter((a) => a.category?.toLowerCase() === "drawing")
+          .length,
         sculpture: artwork.filter(
           (a) => a.category?.toLowerCase() === "sculpture"
         ).length,
-        textile: artwork.filter(
-          (a) => a.category?.toLowerCase() === "textile"
-        ).length,
-        jewelry: artwork.filter(
-          (a) => a.category?.toLowerCase() === "jewelry"
-        ).length,
+        textile: artwork.filter((a) => a.category?.toLowerCase() === "textile")
+          .length,
+        jewelry: artwork.filter((a) => a.category?.toLowerCase() === "jewelry")
+          .length,
       },
       availability: {
         all: artwork.length,
@@ -119,19 +114,22 @@ const Collection = () => {
       price: {
         all: artwork.length,
         "under-300": artwork.filter((a) => a.price < 300).length,
-        "300-500": artwork.filter(
-          (a) => a.price >= 300 && a.price <= 499
-        ).length,
-        "500-800": artwork.filter(
-          (a) => a.price >= 500 && a.price <= 799
-        ).length,
-        "800-1000": artwork.filter(
-          (a) => a.price >= 800 && a.price <= 999
-        ).length,
+        "300-500": artwork.filter((a) => a.price >= 300 && a.price <= 499)
+          .length,
+        "500-800": artwork.filter((a) => a.price >= 500 && a.price <= 799)
+          .length,
+        "800-1000": artwork.filter((a) => a.price >= 800 && a.price <= 999)
+          .length,
         "1000-plus": artwork.filter((a) => a.price >= 1000).length,
       },
     };
   }, [artwork]);
+
+  useEffect(() => {
+    const handleOnline = () => refetch();
+    window.addEventListener("online", handleOnline);
+    return () => window.removeEventListener("online", handleOnline);
+  }, [refetch]);
 
   return (
     <>
@@ -139,7 +137,9 @@ const Collection = () => {
         <title>Shop Original African Artwork | Pearl Art Galleries</title>
       </Helmet>
 
-      <div className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}>
+      <div
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
+      >
         {/* Top bar */}
         <div className="flex items-center justify-between gap-3 mb-4">
           <button
@@ -198,10 +198,40 @@ const Collection = () => {
 
         {/* CONTENT */}
         <div>
-          {error && <p className="text-center">{error.message}</p>}
-          {loading && <p>Loading...</p>}
+          {!isOffline && error && (
+            <div className="text-center py-10 text-red-600">
+              {error.networkError ? (
+                <>
+                  <p className="font-medium">Network error</p>
+                  <p className="text-sm mt-1">
+                    Please check your internet connection.
+                  </p>
 
-          {filteredArtwork.length === 0 && !loading && (
+                  <button
+                    onClick={() => !isOffline && refetch()}
+                    disabled={loading || isOffline}
+                    className="mt-3 text-blue-500 underline disabled:opacity-50"
+                  >
+                    Retry
+                  </button>
+                </>
+              ) : (
+                <p className="text-sm">{error.message}</p>
+              )}
+            </div>
+          )}
+
+          {isOffline && (
+            <p className="text-center text-gray-500">
+              You’re offline. Please reconnect to the internet.
+            </p>
+          )}
+
+          {loading && !error && (
+            <p className="text-center text-slate-400">Loading artworks…</p>
+          )}
+
+          {!error && filteredArtwork.length === 0 && !loading && (
             <div className="w-full text-center py-20 text-slate-500">
               <p className="text-lg font-medium">No artworks found</p>
               <p className="text-sm mt-1">
@@ -214,20 +244,20 @@ const Collection = () => {
             <div className="columns-2 sm:columns-3 md:columns-4 gap-4 [column-fill:balance]">
               {filteredArtwork.map((item) => (
                 <ArtItem
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                description={item.description}
-                imageHash={item.imageHash}
-                heightCm={item.heightCm}
-                widthCm={item.widthCm}
-                category={item.category}
-                material={item.material}
-                price={item.price}
-                isAvailable={item.isAvailable}
-                artworkId={item.id}
-                media={item.media}
-              />
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  description={item.description}
+                  imageHash={item.imageHash}
+                  heightCm={item.heightCm}
+                  widthCm={item.widthCm}
+                  category={item.category}
+                  material={item.material}
+                  price={item.price}
+                  isAvailable={item.isAvailable}
+                  artworkId={item.id}
+                  media={item.media}
+                />
               ))}
             </div>
           )}
