@@ -8,6 +8,7 @@ import ArtFilters, { ArtFilterState } from "../components/FilterSelection";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdOutlineFilterList } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
+import { IoSearch } from "react-icons/io5";
 
 const defaultFilters: ArtFilterState = {
   category: "all",
@@ -26,6 +27,9 @@ const Collection = () => {
   >;
 
   const EmptySearchIcon = RiCloseLine as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
+  const SearchIcon = IoSearch as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
 
@@ -146,7 +150,7 @@ const Collection = () => {
         className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
       >
         {/* Top bar */}
-        <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-4 justify-between">
           <button
             onClick={() => setOpenFilters(true)}
             className="font-medium hover:text-blue-500 flex items-center gap-1"
@@ -160,18 +164,21 @@ const Collection = () => {
               <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search for anything..."
-              className="border rounded-sm outline-blue-500 py-1.5 pl-2 sm:w-64"
+              placeholder="Search..."
+              className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-52 sm:w-96"
             />
-            {search && <p onClick={() => setSearch("")}
-              className=" absolute right-2.5 bottom-2.5 text-gray-500 text-base cursor-pointer"
+            {search && <div onClick={() => setSearch("")}
+              className=" flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
             >
-              <EmptySearchIcon />
-            </p>}
+              <p className=" text-white text-lg font-semibold"><EmptySearchIcon /></p>
+            </div>}
+
+            {!search && <div
+              className=" flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
+            >
+              <p className=" text-white text-lg font-semibold"><SearchIcon /></p>
+            </div>}
             </div>
-            <button className="bg-blue-500 text-white px-3 py-1.5 ml-1 rounded-sm">
-              Search
-            </button>
           </form>
         </div>
 
