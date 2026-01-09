@@ -100,7 +100,7 @@ const Signin = () => {
     signIn({
       variables: {
         signInData: {
-          email: userInput.email,
+          email: userInput.email.trim().toLowerCase(),
           password: userInput.password,
         }, //changes start here
       },

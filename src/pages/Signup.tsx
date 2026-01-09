@@ -95,7 +95,7 @@ const Signup = () => {
       variables: {
         signUpData: {
           fullName: userInput.fullName,
-          email: userInput.email,
+          email: userInput.email.trim().toLowerCase(),
           phone: userInput.telephone,
           password: userInput.password,
         },
