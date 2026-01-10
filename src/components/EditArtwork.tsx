@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { EDIT_ARTWORK_MUTATION, GET_ARTWORK, GET_ARTWORK_BYID } from "../graphql/artwork";
+import {
+  EDIT_ARTWORK_MUTATION,
+  GET_ARTWORK,
+  GET_ARTWORK_BYID,
+} from "../graphql/artwork";
 
 interface EditArtworkProps {
   artworkId: number;
@@ -32,10 +36,7 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
       }
     },
   });
-  const {
-    loading: loadingArtwork,
-    data,
-  } = useQuery(GET_ARTWORK_BYID, {
+  const { loading: loadingArtwork, data } = useQuery(GET_ARTWORK_BYID, {
     variables: {
       artworkId: artworkId,
     },
@@ -44,6 +45,7 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
   const [userInput, setUserInput] = useState({
     title: "",
     description: "",
+    imageHash: "",
     material: "",
     category: "",
     culturalOrigin: "",
@@ -62,6 +64,7 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
       setUserInput({
         title: artworkItem.title || "",
         description: artworkItem.description || "",
+        imageHash: artworkItem.imageHash || "",
         material: artworkItem.material || "",
         category: artworkItem.category || "",
         culturalOrigin: artworkItem.culturalOrigin || "",
@@ -80,6 +83,7 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
     title: userInput.title,
     description: userInput.description,
     culturalOrigin: userInput.culturalOrigin,
+    imageHash: userInput.imageHash || undefined,
     material: userInput.material || undefined,
     yearCreated: Number(userInput.yearCreated) || undefined,
     category: userInput.category,
@@ -116,18 +120,18 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
       return;
     }
 
-    await updateArtwork ({
-        variables: {
-            artworkId: Number(artworkId),
-            updateArtworkInput: artworkData
-        },
-        refetchQueries: [
-            {query: GET_ARTWORK},
-            {query: GET_ARTWORK_BYID, variables: {artworkId: artworkId}}
-        ]
-    })
+    await updateArtwork({
+      variables: {
+        artworkId: Number(artworkId),
+        updateArtworkInput: artworkData,
+      },
+      refetchQueries: [
+        { query: GET_ARTWORK },
+        { query: GET_ARTWORK_BYID, variables: { artworkId: artworkId } },
+      ],
+    });
 
-    onCloseEdit()
+    onCloseEdit();
   };
 
   const today = new Date();
@@ -137,7 +141,7 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
     <div className="absolute top-0 left-0 z-50 w-full h-full flex pt-1 justify-center bg-black bg-opacity-15">
       <div className=" bg-white p-4 rounded-sm relative">
         <p className=" text-xl text-red-950 font-semibold mb-1">
-          Edit Artwork: {loadingArtwork && "Loading..."}
+          Edit Artwork {loadingArtwork && "Loading..."}
         </p>
         <button onClick={onCloseEdit} className=" absolute right-4 top-4">
           X
@@ -171,6 +175,17 @@ const EditArtwork: React.FC<EditArtworkProps> = ({
               value={userInput.culturalOrigin}
               onChange={(e) => changeHandler("culturalOrigin", e.target.value)}
             ></textarea>
+          </div>
+          <div className=" flex-1 flex flex-col mb-3">
+            <label htmlFor="imageHash">Image Hash</label>
+            <input
+              id="imageHash"
+              className=" border outline-blue-500 rounded-sm pl-2 py-1"
+              type="text"
+              placeholder="imageHash..."
+              value={userInput.imageHash}
+              onChange={(e) => changeHandler("imageHash", e.target.value)}
+            />
           </div>
           <div className=" flex gap-2 mb-3">
             <div className=" flex-1 flex flex-col mb-3">
