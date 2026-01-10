@@ -55,7 +55,7 @@ const ImageComponent: React.FC<ImageProps> = ({ src, imageHash, name, aspectRati
         src={src}
         alt={name}
         loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out transform hover:scale-105"
         style={{
           opacity: imageLoaded ? 1 : 0,
           filter: imageLoaded ? "blur(0px)" : "blur(10px)",
