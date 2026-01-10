@@ -147,7 +147,7 @@ const Collection = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100`}
       >
         {/* Top bar */}
         <div className="flex items-center gap-3 mb-4 justify-between">

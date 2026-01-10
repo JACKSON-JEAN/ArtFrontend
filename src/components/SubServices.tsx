@@ -17,7 +17,7 @@ const SubServices = () => {
     <div className=" w-full rounded-sm mb-10">
       <h2 className=" text-xl text-red-950 font-semibold pb-3">Why Buy From Pearl Art Galleries?</h2>
       <div className=' w-full grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 justify-between'>
-        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2 bg-white'>
           <div className=' flex items-center gap-1'>
             <p className=' text-2xl'><PeaceIcon/></p>
             <p className=" text-lg font-semibold mb-1">Peace of Mind.</p>
@@ -26,7 +26,7 @@ const SubServices = () => {
           <p>Free returns within 14 days of delivery.</p>
           <p>Secure checkout.</p>
         </div>
-        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2 bg-white'>
           <div className=' flex gap-1'>
             <p className=' text-2xl'><OriginalIcon/></p>
             <p className=" text-lg font-semibold mb-1">Own a True Original.</p>
@@ -34,7 +34,7 @@ const SubServices = () => {
           <p>Our collection contains art hand-picked by our curators, signed by the artist, for you.
           </p>
         </div>
-        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2'>
+        <div className=' flex-1 border shadow-sm rounded-sm px-3 py-2 bg-white'>
           <div className=' flex gap-1'>
             <p className=' text-2xl'><SupportIcon/></p>
             <p className=" text-lg font-semibold mb-1">Empowering Ugandan Artists.</p>

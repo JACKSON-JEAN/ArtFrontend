@@ -12,7 +12,7 @@ const Cart = () => {
 
   return (
     <div
-      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
+      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-100`}
     >
       <div className=" w-full flex mb-8">
         {cart.length > 0 && (
@@ -61,8 +61,10 @@ const Cart = () => {
         {cart.length < 1 && (
           <div className=" w-full text-center">
             <div className=" mb-6">
-              <p className=" font-semibold text-lg">Your cart is empty!</p>
-              <p>Browse our collections and discover our best deals.</p>
+              <p className=" font-semibold text-lg text-slate-500">
+                Your cart is empty!</p>
+              <p className="text-slate-500">
+                Browse our collections and discover our best deals.</p>
             </div>
             
             <Link to="/collection" className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm">Start Shopping</Link>

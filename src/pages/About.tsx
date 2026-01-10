@@ -77,7 +77,7 @@ const About = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-50`}
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100`}
       >
         <section className=" flex-1">
           <div className=" mb-2">

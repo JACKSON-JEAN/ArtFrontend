@@ -56,7 +56,7 @@ const Home = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper "} w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50`}
+        className={`${"wrapper "} w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-100`}
       >
         <HeroSection />
         <SubServices />

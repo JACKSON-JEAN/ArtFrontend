@@ -111,7 +111,7 @@ const Contact = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper"} w-full block md:flex flex-col md:flex-row md:gap-3 px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
+        className={`${"wrapper"} w-full block md:flex flex-col md:flex-row md:gap-3 px-10 sm:px-16 min-h-screen py-4 bg-slate-100`}
       >
         <section className=" flex-1 mb-4 md:mb-0">
           <h1 className=" text-xl text-red-950 font-semibold">

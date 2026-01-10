@@ -184,14 +184,14 @@ const ArtItem = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-50`}
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-100`}
       >
         {addReview && (
           <AddReviews artId={artwork.id} onClose={() => setAddReview(false)} />
         )}
         <div className={`${"artItem"} flex mb-6`}>
           <div className=" flex-1">
-            <div className=" w-full p-2 shadow-sm border rounded-sm">
+            <div className=" w-full p-2 shadow-sm border rounded-sm bg-white">
               <ImageComponent
                 src={artworkMedia}
                 name={artwork.title}

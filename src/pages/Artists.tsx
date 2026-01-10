@@ -117,7 +117,7 @@ const Artists = () => {
       </Helmet>
 
       <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-50`}
+        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-100`}
       >
         <h1 className=" text-xl text-red-950 font-semibold pb-1 text-center">
           Creators of original masterpieces

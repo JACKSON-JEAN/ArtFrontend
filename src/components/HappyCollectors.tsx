@@ -42,7 +42,7 @@ const HappyCollectors: React.FC = () => {
   }, [refetch]);
 
   return (
-    <div className="mb-10 border-t border-b p-4 bg-slate-100 relative">
+    <div className="mb-10 border-t border-b p-4 bg-white relative ">
       <h2 className="text-xl text-red-950 font-semibold text-center mb-1">
         Reviews from our happy collectors
       </h2>

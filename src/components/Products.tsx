@@ -154,7 +154,8 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle, selectedArtworkId 
         </div>
       )}
 
-      {filteredCategory.length < 1 && (
+      {!loading &&
+      filteredCategory.length < 1 && (
         <p className="text-lg font-semibold text-center">No artwork found!</p>
       )}
 
