@@ -2,6 +2,16 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout"; // 🟢 Import normally so Navbar/Footer load instantly
 import ScrollToTop from "../components/ScrollToTop";
+import NotFound from "../pages/NotFound";
+
+const lazyRetry = (importFn: () => Promise<any>) =>
+  lazy(() =>
+    importFn().catch(() => {
+      window.location.reload();
+      return Promise.reject();
+    })
+  );
+
 
 // Lazy-load all non-critical or heavy routes
 const ProtectedRoutes = lazy(() => import("./protectedRoutes"));
@@ -15,13 +25,12 @@ const ResetPassword = lazy(() => import("../pages/ResetPassword"))
 const Cart = lazy(() => import("../pages/Cart"));
 const Collection = lazy(() => import("../pages/Collection"));
 const ArtItem = lazy(() => import("../pages/ArtItem"));
-const ArtworkManagement = lazy(() => import("../pages/ArtworkManagement"));
-const Users = lazy(() => import("../components/pages/Users"));
+const ArtworkManagement = lazyRetry(() => import("../pages/ArtworkManagement"));
+const Users = lazyRetry(() => import("../components/pages/Users"));
 const Reviews = lazy(() => import("../pages/Reviews"));
 const Artists = lazy(() => import("../pages/Artists"));
 const Favorites = lazy(() => import("../pages/Favorites"));
 const Unauthorised = lazy(() => import("../pages/Unauthorised"));
-const NotFound = lazy(() => import("../pages/NotFound"));
 const Addresses = lazy(() => import("../pages/Addresses"));
 const Orders = lazy(() => import("../components/pages/Orders"));
 const PaymentSuccessPage = lazy(() => import("../components/pages/SuccessPage"));
@@ -69,7 +78,7 @@ export const router = createBrowserRouter([
   { path: "payment-cancelled", element: withSuspense(PaymentCancelled) },
   { path: "payment-failed", element: withSuspense(PaymentFailed) },
   { path: "unauthorised", element: withSuspense(Unauthorised) },
-  { path: "*", errorElement: withSuspense(NotFound) },
+  { path: "*", element: <NotFound/>},
 
   // Admin protected routes
   {
