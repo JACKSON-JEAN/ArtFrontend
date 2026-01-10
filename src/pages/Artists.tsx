@@ -135,7 +135,7 @@ const Artists = () => {
             {artists.map(
               ({ src, name, speciality, nationality, imageHash }, index) => (
                 <div key={index} className=" relative px-2">
-                  <ImageComponent src={src} name={name} imageHash={imageHash} />
+                  <ImageComponent src={src} name={name} imageHash={imageHash} aspectRatio={3/4} />
                   <div className=" absolute bottom-0 left-0  w-full p-2">
                     <div className=" px-2">
                       <div className=" bg-white border shadow-sm rounded-sm px-1 py-0.5 -space-y-1">

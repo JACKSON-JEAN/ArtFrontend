@@ -131,6 +131,7 @@ const About = () => {
                 src={owner.src}
                 name={owner.name}
                 imageHash={owner.imageHash}
+                aspectRatio={3/4}
               />
               <div>
                 <p className=" text-red-950">{owner.role}</p>
