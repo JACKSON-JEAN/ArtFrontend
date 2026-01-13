@@ -38,12 +38,13 @@ const Products: React.FC<ProductsProps> = ({ limit, subTitle, selectedArtworkId 
     variables: {
       searchInput: {
         keyword: query,
+        limit: 100,
       },
     },
   });
   const isOffline = !navigator.onLine;
 
-  const artwork = data?.getArtwork || [];
+  const artwork = data?.getArtwork?.artworks || [];
   const displayedArtwork = limit ? artwork.slice(0, limit) : artwork;
 
   const filteredCategory = displayedArtwork.filter((item: Artwork) =>

@@ -11,40 +11,46 @@ mutation AddArtwork($addArtworkInput: AddArtworkInput!) {
 }
 `
 
+// changes
+
 export const GET_ARTWORK = gql`
 query GetArtwork($searchInput: SearchArtworkInput!){
   getArtwork(searchInput: $searchInput){
-    id
-    title
-    description,
-    material,
-    category,
-    imageHash,
-    yearCreated,
-    culturalOrigin,
-    isUnique,
-    isAvailable,
-    isFeatured,
-    heightCm,
-    widthCm,
-    price,
-    currency,
-    media{
-      id,
-      url,
-      type
+    artworks {
+      id
+      title
+      description
+      material
+      category
+      imageHash
+      yearCreated
+      culturalOrigin
+      isUnique
+      isAvailable
+      isFeatured
+      heightCm
+      widthCm
+      price
+      currency
+      media{
+        id
+        url
+        type
+      }
+      artisan{
+        fullName
+        country
+        biography
+      }
+      reviews{
+        rating
+      }
     }
-    artisan{
-      fullName
-      country
-      biography
-    }
-    reviews{
-      rating
-    }
+    nextCursor
   }
 }
-`
+`;
+
 
 export const GET_ARTWORK_BYID = gql`
 query GetArtworkById($artworkId: Float!){

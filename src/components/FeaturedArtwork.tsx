@@ -17,9 +17,11 @@ const FeaturedArtwork = () => {
     variables: {
       searchInput: {
         keyword: query,
+        limit: 100,
       },
     },
   });
+
 
   useEffect(() => {
     const handleOnline = () => refetch();
@@ -29,7 +31,7 @@ const FeaturedArtwork = () => {
 
   const isOffline = !navigator.onLine;
 
-  const artwork = data?.getArtwork;
+  const artwork = data?.getArtwork?.artworks || [];
 
   return (
     <div className=" mb-4">

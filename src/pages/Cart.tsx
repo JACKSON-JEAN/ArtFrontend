@@ -8,7 +8,6 @@ const Cart = () => {
   const { cart, total } = useCart();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  console.log(cart)
 
   return (
     <div

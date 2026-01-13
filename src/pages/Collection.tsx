@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+//changes
+
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { Artwork } from "../types/artwork";
@@ -25,7 +27,6 @@ const Collection = () => {
   const FilterIcon = MdOutlineFilterList as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
-
   const EmptySearchIcon = RiCloseLine as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
@@ -33,12 +34,60 @@ const Collection = () => {
     React.SVGProps<SVGSVGElement>
   >;
 
-  const { loading, error, data, refetch } = useQuery(GET_ARTWORK, {
-    variables: { searchInput: { keyword: search } },
+  // --- Infinite scroll states ---
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [nextCursor, setNextCursor] = useState<number | null>(null);
+  const [fetchingMore, setFetchingMore] = useState(false);
+
+  const { loading, error, data, refetch, fetchMore } = useQuery(GET_ARTWORK, {
+    variables: { searchInput: { keyword: search, limit: 12 } },
+    notifyOnNetworkStatusChange: true,
   });
 
   const isOffline = !navigator.onLine;
-  const artwork: Artwork[] = useMemo(() => data?.getArtwork ?? [], [data]);
+
+  // --- Update artworks when data changes ---
+  useEffect(() => {
+    if (data?.getArtwork) {
+      setArtworks(data.getArtwork.artworks);
+      setNextCursor(data.getArtwork.nextCursor ?? null);
+    }
+  }, [data]);
+
+  // --- Load more artworks ---
+
+  const loadMore = useCallback(async () => {
+  if (!nextCursor || fetchingMore || isOffline) return;
+  setFetchingMore(true);
+
+  try {
+    const { data: moreData } = await fetchMore({
+      variables: {
+        searchInput: { keyword: search, limit: 12, cursor: nextCursor },
+      },
+    });
+    setArtworks((prev) => [...prev, ...moreData.getArtwork.artworks]);
+    setNextCursor(moreData.getArtwork.nextCursor ?? null);
+  } finally {
+    setFetchingMore(false);
+  }
+}, [nextCursor, fetchingMore, fetchMore, search, isOffline]);
+
+
+  // --- Intersection Observer for infinite scroll ---
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) loadMore();
+      },
+      { threshold: 0.5 }
+    );
+
+    const sentinel = document.querySelector("#scroll-sentinel");
+    if (sentinel) observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, [loadMore]);
 
   /* ---------------- RESET ---------------- */
   const canReset =
@@ -54,11 +103,8 @@ const Collection = () => {
   };
 
   /* ---------------- FILTERING ---------------- */
-  const filteredArtwork = artwork.filter((item) => {
-    if (
-      filters.category !== "all" &&
-      item.category?.toLowerCase() !== filters.category
-    )
+  const filteredArtwork = artworks.filter((item) => {
+    if (filters.category !== "all" && item.category?.toLowerCase() !== filters.category)
       return false;
 
     if (
@@ -67,21 +113,15 @@ const Collection = () => {
     )
       return false;
 
-    if (
-      filters.material !== "all" &&
-      item.material?.toLowerCase() !== filters.material
-    )
+    if (filters.material !== "all" && item.material?.toLowerCase() !== filters.material)
       return false;
 
     if (filters.price !== "all") {
       const price = item.price;
       if (filters.price === "under-300" && price >= 300) return false;
-      if (filters.price === "300-500" && (price < 300 || price > 499))
-        return false;
-      if (filters.price === "500-800" && (price < 500 || price > 799))
-        return false;
-      if (filters.price === "800-1000" && (price < 800 || price > 999))
-        return false;
+      if (filters.price === "300-500" && (price < 300 || price > 499)) return false;
+      if (filters.price === "500-800" && (price < 500 || price > 799)) return false;
+      if (filters.price === "800-1000" && (price < 800 || price > 999)) return false;
       if (filters.price === "1000-plus" && price < 1000) return false;
     }
 
@@ -92,47 +132,37 @@ const Collection = () => {
   const counts = useMemo(() => {
     return {
       category: {
-        all: artwork.length,
-        painting: artwork.filter(
-          (a) => a.category?.toLowerCase() === "painting"
-        ).length,
-        drawing: artwork.filter((a) => a.category?.toLowerCase() === "drawing")
-          .length,
-        sculpture: artwork.filter(
-          (a) => a.category?.toLowerCase() === "sculpture"
-        ).length,
-        textile: artwork.filter((a) => a.category?.toLowerCase() === "textile")
-          .length,
-        jewelry: artwork.filter((a) => a.category?.toLowerCase() === "jewelry")
-          .length,
+        all: artworks.length,
+        painting: artworks.filter((a) => a.category?.toLowerCase() === "painting").length,
+        drawing: artworks.filter((a) => a.category?.toLowerCase() === "drawing").length,
+        sculpture: artworks.filter((a) => a.category?.toLowerCase() === "sculpture").length,
+        textile: artworks.filter((a) => a.category?.toLowerCase() === "textile").length,
+        jewelry: artworks.filter((a) => a.category?.toLowerCase() === "jewelry").length,
       },
       availability: {
-        all: artwork.length,
-        available: artwork.filter((a) => a.isAvailable).length,
-        sold: artwork.filter((a) => !a.isAvailable).length,
+        all: artworks.length,
+        available: artworks.filter((a) => a.isAvailable).length,
+        sold: artworks.filter((a) => !a.isAvailable).length,
       },
       material: {
-        all: artwork.length,
-        "acrylic on canvas": artwork.filter(
+        all: artworks.length,
+        "acrylic on canvas": artworks.filter(
           (a) => a.material?.toLowerCase() === "acrylic on canvas"
         ).length,
-        "oil on canvas": artwork.filter(
+        "oil on canvas": artworks.filter(
           (a) => a.material?.toLowerCase() === "oil on canvas"
         ).length,
       },
       price: {
-        all: artwork.length,
-        "under-300": artwork.filter((a) => a.price < 300).length,
-        "300-500": artwork.filter((a) => a.price >= 300 && a.price <= 499)
-          .length,
-        "500-800": artwork.filter((a) => a.price >= 500 && a.price <= 799)
-          .length,
-        "800-1000": artwork.filter((a) => a.price >= 800 && a.price <= 999)
-          .length,
-        "1000-plus": artwork.filter((a) => a.price >= 1000).length,
+        all: artworks.length,
+        "under-300": artworks.filter((a) => a.price < 300).length,
+        "300-500": artworks.filter((a) => a.price >= 300 && a.price <= 499).length,
+        "500-800": artworks.filter((a) => a.price >= 500 && a.price <= 799).length,
+        "800-1000": artworks.filter((a) => a.price >= 800 && a.price <= 999).length,
+        "1000-plus": artworks.filter((a) => a.price >= 1000).length,
       },
     };
-  }, [artwork]);
+  }, [artworks]);
 
   useEffect(() => {
     const handleOnline = () => refetch();
@@ -146,9 +176,7 @@ const Collection = () => {
         <title>Shop Original African Artwork | Pearl Art Galleries</title>
       </Helmet>
 
-      <div
-        className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100`}
-      >
+      <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100">
         {/* Top bar */}
         <div className="flex items-center gap-3 mb-4 justify-between">
           <button
@@ -160,24 +188,31 @@ const Collection = () => {
           </button>
 
           <form className="flex items-center">
-            <div className=" relative">
+            <div className="relative">
               <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..."
-              className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
-            />
-            {search && <div onClick={() => setSearch("")}
-              className=" flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
-            >
-              <p className=" text-white text-lg font-semibold"><EmptySearchIcon /></p>
-            </div>}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search..."
+                className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
+              />
+              {search && (
+                <div
+                  onClick={() => setSearch("")}
+                  className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
+                >
+                  <p className="text-white text-lg font-semibold">
+                    <EmptySearchIcon />
+                  </p>
+                </div>
+              )}
 
-            {!search && <div
-              className=" flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
-            >
-              <p className=" text-white text-lg font-semibold"><SearchIcon /></p>
-            </div>}
+              {!search && (
+                <div className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm">
+                  <p className="text-white text-lg font-semibold">
+                    <SearchIcon />
+                  </p>
+                </div>
+              )}
             </div>
           </form>
         </div>
@@ -202,7 +237,7 @@ const Collection = () => {
               >
                 <ArtFilters
                   filters={filters}
-                  onChange={handleFilterChange} // 👈 HERE
+                  onChange={handleFilterChange}
                   onReset={() => {
                     setFilters(defaultFilters);
                     setOpenFilters(false);
@@ -246,7 +281,7 @@ const Collection = () => {
             </p>
           )}
 
-          {loading && !error && (
+          {loading && artworks.length === 0 && (
             <p className="text-center text-slate-400">Loading artworks…</p>
           )}
 
@@ -279,6 +314,12 @@ const Collection = () => {
                 />
               ))}
             </div>
+          )}
+
+          {/* Sentinel for infinite scroll */}
+          <div id="scroll-sentinel" className="h-1"></div>
+          {fetchingMore && (
+            <p className="text-center py-4 text-slate-400">Loading more artworks…</p>
           )}
         </div>
       </div>

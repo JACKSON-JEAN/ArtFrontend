@@ -12,6 +12,7 @@ const SimilarArtwork = () => {
     variables: {
       searchInput: {
         keyword: query,
+        limit: 100,
       },
     },
   });
@@ -19,7 +20,7 @@ const SimilarArtwork = () => {
   const isOffline = !navigator.onLine;
 
   const { cart } = useCart();
-  const artwork = data?.getArtwork || [];
+  const artwork = data?.getArtwork?.artworks || [];
   const artworkLimit = artwork
   .filter((item: Artwork) => item.isAvailable !== false)
   .filter((item: Artwork) => !cart.some((cartItem) => cartItem.artworkId === item.id))
