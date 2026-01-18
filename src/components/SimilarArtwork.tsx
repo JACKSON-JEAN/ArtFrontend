@@ -5,8 +5,13 @@ import { Artwork } from "../types/artwork";
 import img1 from "../images/art1.jpg";
 import ProductItem from "./ProductItem";
 import { useCart } from "../context/cart.context";
+import { Link } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
 
 const SimilarArtwork = () => {
+  const MoreIcon = IoIosArrowForward as React.ComponentType<
+      React.SVGProps<SVGSVGElement>
+    >;
   const { query } = useSearch();
   const { loading, error, data, refetch } = useQuery(GET_ARTWORK, {
     variables: {
@@ -29,9 +34,18 @@ const SimilarArtwork = () => {
 
   return (
     <div>
-      <h2 className=" text-xl text-red-950 font-semibold mb-1">
+      <div className=" flex justify-between items-center mb-2">
+        <h2 className=" text-xl text-red-950 font-semibold mb-1">
         Artwork you may like
       </h2>
+      <Link
+          className=" text-blue-600 text-sm flex items-center gap-1"
+          to="/collection"
+        >
+          <p>See All</p>
+          <MoreIcon />
+        </Link>
+      </div>
       {!isOffline && error && (
         <div className="text-center py-10 text-red-600">
           {error.networkError ? (

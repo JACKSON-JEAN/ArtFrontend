@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import img1 from "../images/art1.jpg";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
-import { BsBag, BsBagCheck } from "react-icons/bs";
+import { BsBag, BsFillBagCheckFill } from "react-icons/bs";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
@@ -44,7 +44,7 @@ const ArtItem: React.FC<ArtItemProps> = ({
   const ShoppingIcon = BsBag as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
-  const AddedIcon = BsBagCheck as React.ComponentType<
+  const AddedIcon = BsFillBagCheckFill as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
   const FavoriteIcon = IoMdHeartEmpty as React.ComponentType<
