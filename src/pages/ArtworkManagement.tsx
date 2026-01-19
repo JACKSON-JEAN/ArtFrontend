@@ -1,5 +1,6 @@
+// Infinite scroll
 import { useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GET_ARTWORK } from "../graphql/artwork";
 import { useSearch } from "../context/search.context";
 import { Artwork } from "../types/artwork";
@@ -23,12 +24,63 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   const [addImage, setAddImage] = useState(false);
   const [selectedId, setSelectedId] = useState<number>();
 
+  // 🔹 Infinite scroll state
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [nextCursor, setNextCursor] = useState<number | null>(null);
+  const [fetchingMore, setFetchingMore] = useState(false);
+
   const { query } = useSearch();
-  const { loading, error, data } = useQuery(GET_ARTWORK, {
-    variables: { searchInput: { keyword: query } },
+  const { loading, error, data, fetchMore } = useQuery(GET_ARTWORK, {
+    variables: { searchInput: { keyword: query, limit: 12 } },
+    notifyOnNetworkStatusChange: true,
   });
 
-  const artworks: Artwork[] = data?.getArtwork || [];
+  useEffect(() => {
+  if (data?.getArtwork && artworks.length === 0) {
+    setArtworks(data.getArtwork.artworks);
+    setNextCursor(data.getArtwork.nextCursor ?? null);
+  }
+}, [data, artworks.length]);
+
+  // 🔹 Load more
+  const loadMore = useCallback(async () => {
+    if (!nextCursor || fetchingMore) return;
+
+    setFetchingMore(true);
+    try {
+      const { data: moreData } = await fetchMore({
+        variables: {
+          searchInput: {
+            keyword: query,
+            limit: 12,
+            cursor: nextCursor,
+          },
+        },
+      });
+
+      setArtworks((prev) => [...prev, ...moreData.getArtwork.artworks]);
+      setNextCursor(moreData.getArtwork.nextCursor ?? null);
+    } finally {
+      setFetchingMore(false);
+    }
+  }, [nextCursor, fetchingMore, fetchMore, query]);
+
+  // 🔹 Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    const sentinel = document.querySelector("#scroll-sentinel");
+    if (sentinel) observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, [loadMore]);
 
   // Handlers
   const handleAddNew = () => setAddNew(true);
@@ -41,13 +93,13 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
     setSelectedId(id);
     setAddImage(true);
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error)
-    return <p>There was an error fetching data: {error.message}</p>;
+ //just one step
+  const initialLoading = loading && artworks.length === 0;
+  if (error) return <p>There was an error fetching data: {error.message}</p>;
 
   return (
     <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50">
+      {initialLoading && <p>Loading...</p>}
       {/* Modals */}
       {addNew && <AddArtwork onClose={handleCloseAdd} />}
       {editArtwork && (
@@ -65,9 +117,10 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
 
       {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-semibold text-gray-800">🎨 Artwork Management</h1>
+        <h1 className="text-xl font-semibold text-gray-800">
+          🎨 Artwork Management
+        </h1>
         <div className="flex gap-4">
-          
           <Link
             to="orders"
             className="text-blue-600 font-medium hover:underline"
@@ -116,7 +169,9 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
                   />
                 </td>
                 <td className="border px-2 py-1">{item.title}</td>
-                <td className="border px-2 py-1 capitalize">{item.category.toLowerCase()}</td>
+                <td className="border px-2 py-1 capitalize">
+                  {item.category.toLowerCase()}
+                </td>
                 <td className="border px-2 py-1">${item.price.toFixed(2)}</td>
                 <td className="border px-2 py-1 text-sm space-x-3">
                   <button
@@ -137,6 +192,11 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
           </tbody>
         </table>
       )}
+      {fetchingMore && (
+        <p className="text-center py-4 text-gray-500">Loading more artworks…</p>
+      )}
+
+      {nextCursor && <div id="scroll-sentinel" className="h-10" />}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Products from "../components/Products";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_ARTWORK_BYID } from "../graphql/artwork";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { useCart } from "../context/cart.context";
 import { ArrowDownIcon } from "../components/icons";
 import Rating from "../components/Rating";
@@ -17,8 +17,12 @@ const ArtItem = () => {
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
+  const FavoriteFullIcon = IoMdHeart as React.ComponentType<
+      React.SVGProps<SVGSVGElement>
+    >;
 
   const { cart, addToCart, removeFromCart } = useCart();
+  const [isLiked, setIsLiked] = useState(false);
   const [isOpenAddRating, SetIsOpenAddRating] = useState(false);
   const [addReview, setAddReview] = useState(false);
 
@@ -78,6 +82,9 @@ const ArtItem = () => {
   }, []);
 
   // const originalPrice = ((10/100) * artwork.price) + artwork.price
+  const likeHandler = (itemId: number) => {
+    setIsLiked(!isLiked);
+  };
 
   if (artworkId === 0) {
     return <p>Invalid art ID. Please check the URL and try again.</p>;
@@ -271,9 +278,9 @@ const ArtItem = () => {
                 ) : (
                   <div className=" flex gap-4">
                     <div className=" flex items-end">
-                      <button className=" bg-slate-300 hover:bg-slate-200 text-base px-3 py-2 rounded-sm shadow-sm border">
-                        <WishListIcon />
-                        {/* <FullWishListIcon className=' text-red-600'/> */}
+                      <button onClick={() => likeHandler(artwork.id)} className=" bg-slate-300 hover:bg-slate-200 text-base px-3 py-2 rounded-sm shadow-sm border">
+                        {isLiked? <WishListIcon />:
+                        <FavoriteFullIcon className=' text-red-600'/>}
                       </button>
                     </div>
                     <button

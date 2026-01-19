@@ -122,9 +122,9 @@ const ArtItem: React.FC<ArtItemProps> = ({
                 className=" text-xl cursor-pointer"
               >
                 {isLiked ? (
-                  <p className=" text-red-500">
+                  <span className=" text-red-500">
                     <FavoriteFullIcon />
-                  </p>
+                  </span>
                 ) : (
                   <FavoriteIcon />
                 )}

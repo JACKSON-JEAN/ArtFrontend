@@ -3,7 +3,7 @@ import img1 from "../images/art1.jpg";
 import { useCart } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
-import { BsBag, BsBagCheck } from "react-icons/bs";
+import { BsBag, BsFillBagCheckFill } from "react-icons/bs";
 import { useToast } from "../context/ToastContext";
 import ImageComponent from "./ImageComponent";
 
@@ -46,7 +46,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const ShoppingIcon = BsBag as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
-  const AddedIcon = BsBagCheck as React.ComponentType<
+  const AddedIcon = BsFillBagCheckFill as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
   const WishListIcon = IoMdHeartEmpty as React.ComponentType<
@@ -120,9 +120,9 @@ const ProductItem: React.FC<ProductItemProps> = ({
                   className=" text-xl cursor-pointer"
                 >
                   {isLiked ? (
-                    <p className=" text-red-500">
+                    <span className=" text-red-500">
                       <FavoriteFullIcon />
-                    </p>
+                    </span>
                   ) : (
                     <WishListIcon />
                   )}
