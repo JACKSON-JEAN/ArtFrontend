@@ -283,7 +283,7 @@ const Collection = () => {
           </div>
 
           {/* Filters */}
-          <div className=" flex gap-2">
+          <div className=" flex gap-2 mt-1.5">
             {activeFilterChips.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {activeFilterChips.map((chip) => (
@@ -295,7 +295,7 @@ const Collection = () => {
                         [chip.key]: "all",
                       }))
                     }
-                    className="flex items-end gap-1 rounded-full bg-slate-200 px-3 py-1 text-xs text-slate-700 hover:bg-slate-300 transition"
+                    className="flex items-end gap-1 rounded-full bg-slate-200 px-3 py-1 text-xs text-slate-700 hover:bg-slate-300 transition whitespace-nowrap"
                   >
                     <span className="font-medium capitalize">{chip.label}</span>
                     <span className="text-base">
@@ -307,7 +307,7 @@ const Collection = () => {
             )}
             {activeFilterChips.length > 0 && <button
               onClick={() => setFilters(defaultFilters)}
-              className="text-xs text-blue-600 hover:text-blue-500 underline ml-2"
+              className="text-xs text-blue-600 hover:text-blue-500 underline ml-2 whitespace-nowrap"
             >
               Clear all
             </button>}
