@@ -7,6 +7,13 @@ import {
   GET_ADDRESS_BYID,
   GET_ADDRESSES_BY_CUSTOMER_ID,
 } from "../graphql/addresses";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import {
+  isValidPhoneNumber,
+  parsePhoneNumberFromString,
+} from "libphonenumber-js";
+import { getCountryNameFromCode } from "../utils/countries";
 
 interface AddAddressProps {
   onClose: () => void;
@@ -49,6 +56,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
   const [updateAddress, { loading }] = useMutation(EDIT_ADDRESS_MUTATION, {
     onCompleted: () => {
       success("Address edited successfully!");
+      onClose();
     },
     onError: (error) => {
       toastError(error.message);
@@ -64,12 +72,12 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
 
   const shippingAddresses = {
     fullName: userInput.fullName || "",
-    phone: userInput.phone || "",
+    phone: userInput.phone.replace(/\s+/g, "") || "",
     country: userInput.country || "",
     state: userInput.state || "",
     city: userInput.city || "",
-    line1: userInput.address || ""
-  }
+    line1: userInput.address || "",
+  };
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,10 +92,14 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
       toastError("Please fill all fields!");
       return;
     }
+    if (!isValidPhoneNumber(userInput.phone)) {
+      toastError("Please enter a valid phone number!");
+      return;
+    }
     updateAddress({
       variables: {
         addressId: addressId,
-        updateAddressInput: shippingAddresses
+        updateAddressInput: shippingAddresses,
       },
       refetchQueries: [
         {
@@ -96,7 +108,6 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
         },
       ],
     });
-    onClose();
   };
 
   if (!userId) {
@@ -144,13 +155,22 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="phone">Phone number:</label>
-              <input
-                type="text"
-                id="phone"
-                placeholder="Phone..."
-                className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600"
+              <PhoneInput
+                international
+                defaultCountry="US"
                 value={userInput.phone}
-                onChange={(e) => changeHandler("phone", e.target.value)}
+                onChange={(value) => {
+                  changeHandler("phone", value ?? "");
+
+                  const phoneNumber = parsePhoneNumberFromString(value ?? "");
+                  const countryCode = phoneNumber?.country; // US, KE, GB, etc.
+
+                  if (countryCode) {
+                    const fullCountryName = getCountryNameFromCode(countryCode);
+                    changeHandler("country", fullCountryName);
+                  }
+                }}
+                className="w-full border rounded-sm"
               />
             </div>
             <div className="flex flex-col mb-2">
@@ -166,7 +186,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
             </div>
             <div className=" flex justify-between mb-2">
               <div className=" w-[49%] flex flex-col ">
-                <label htmlFor="name">State/Region/Province:</label>
+                <label htmlFor="state">State/Region/Province:</label>
                 <input
                   type="text"
                   id="state"
@@ -177,7 +197,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
                 />
               </div>
               <div className=" w-[49%] flex flex-col">
-                <label htmlFor="name">City/District:</label>
+                <label htmlFor="city">City/District:</label>
                 <input
                   type="text"
                   id="city"
@@ -189,7 +209,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
               </div>
             </div>
             <div className="flex flex-col mb-4">
-              <label htmlFor="name">Address:</label>
+              <label htmlFor="address">Address:</label>
               <input
                 type="text"
                 id="address"
@@ -200,6 +220,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
               />
             </div>
             <button
+              disabled={loading}
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-base text-white font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
             >

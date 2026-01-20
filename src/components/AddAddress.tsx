@@ -6,6 +6,13 @@ import {
   ADD_ADDRESS_MUTATION,
   GET_ADDRESSES_BY_CUSTOMER_ID,
 } from "../graphql/addresses";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import {
+  isValidPhoneNumber,
+  parsePhoneNumberFromString,
+} from "libphonenumber-js";
+import { getCountryNameFromCode } from "../utils/countries";
 
 interface AddAddressProps {
   onClose: () => void;
@@ -36,6 +43,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
   const [addAddress, { loading }] = useMutation(ADD_ADDRESS_MUTATION, {
     onCompleted: () => {
       success("Address added successfully!");
+      onClose();
     },
     onError: (error) => {
       toastError(error.message);
@@ -62,12 +70,16 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
       toastError("Please fill all fields!");
       return;
     }
+    if (!isValidPhoneNumber(userInput.phone)) {
+      toastError("Please enter a valid phone number!");
+      return;
+    }
     addAddress({
       variables: {
         addAddressInput: {
           customerId: userId,
           fullName: userInput.fullName,
-          phone: userInput.phone,
+          phone: userInput.phone.replace(/\s+/g, ""),
           line1: userInput.address,
           city: userInput.city,
           country: userInput.country,
@@ -81,7 +93,6 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
         },
       ],
     });
-    onClose()
   };
 
   if (!userId) {
@@ -128,13 +139,22 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="phone">Phone number:</label>
-              <input
-                type="text"
-                id="phone"
-                placeholder="Phone..."
-                className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600"
+              <PhoneInput
+                international
+                defaultCountry="US"
                 value={userInput.phone}
-                onChange={(e) => changeHandler("phone", e.target.value)}
+                onChange={(value) => {
+                  changeHandler("phone", value ?? "");
+
+                  const phoneNumber = parsePhoneNumberFromString(value ?? "");
+                  const countryCode = phoneNumber?.country; // US, KE, GB, etc.
+
+                  if (countryCode) {
+                    const fullCountryName = getCountryNameFromCode(countryCode);
+                    changeHandler("country", fullCountryName);
+                  }
+                }}
+                className="w-full border rounded-sm"
               />
             </div>
             <div className="flex flex-col mb-2">
@@ -150,7 +170,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
             </div>
             <div className=" flex justify-between mb-2">
               <div className=" w-[49%] flex flex-col ">
-                <label htmlFor="name">State/Region/Province:</label>
+                <label htmlFor="state">State/Region/Province:</label>
                 <input
                   type="text"
                   id="state"
@@ -161,7 +181,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
                 />
               </div>
               <div className=" w-[49%] flex flex-col">
-                <label htmlFor="name">City:</label>
+                <label htmlFor="city">City:</label>
                 <input
                   type="text"
                   id="city"
@@ -173,7 +193,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
               </div>
             </div>
             <div className="flex flex-col mb-4">
-              <label htmlFor="name">Address:</label>
+              <label htmlFor="address">Address:</label>
               <input
                 type="text"
                 id="address"
@@ -184,6 +204,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
               />
             </div>
             <button
+              disabled={loading}
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-base text-white font-semibold px-4 py-1 rounded-sm shadow-sm hover:shadow-md"
             >

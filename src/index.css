@@ -218,3 +218,17 @@ code {
     padding-bottom: 0.5rem 
   }
 }
+
+.PhoneInputInput {
+  outline: none !important;
+  box-shadow: none !important;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 4px;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+
+.PhoneInputInput:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
