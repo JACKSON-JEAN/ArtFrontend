@@ -11,7 +11,7 @@ const Cart = () => {
 
   return (
     <div
-      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-4 bg-slate-100`}
+      className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen py-0 md:py-4 pb-4 bg-slate-100`}
     >
       <div className=" w-full flex mb-8">
         {cart.length > 0 && (
@@ -44,7 +44,7 @@ const Cart = () => {
                 </div>
               </div>
             </section>
-            <section className=" sticky top-[60px] sm:top-[100px] w-full lg:w-[300px] order-1 md:order-2 sm:sticky lg:top-0 lg:left-0">
+            <section className=" bg-slate-100 pt-3 md:pt-0 sticky top-[53px] sm:top-[95px] md:top-[100px] w-full lg:w-[300px] order-1 md:order-2 sm:sticky lg:top-0 lg:left-0">
               <div className=" bg-white rounded-sm border px-3 py-2">
                 <p className=" mb-1">
                   {`Order summary(${totalItems} items):`}{" "}

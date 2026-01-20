@@ -23,9 +23,9 @@ const HeroSection = () => {
             
             <Link
               to="/collection"
-              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-8 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base"
+              className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-6 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base"
             >
-              Shop now
+              View Collection
             </Link>
             
           </div>
