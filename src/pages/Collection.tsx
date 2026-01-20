@@ -176,9 +176,9 @@ const Collection = () => {
         <title>Shop Original African Artwork | Pearl Art Galleries</title>
       </Helmet>
 
-      <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100">
+      <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
         {/* Top bar */}
-        <div className="flex items-center gap-3 mb-4 justify-between">
+        <div className=" bg-slate-100 py-4 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10 flex items-center gap-3 justify-between">
           <button
             onClick={() => setOpenFilters(true)}
             className="font-medium hover:text-blue-500 flex items-center gap-1"
