@@ -170,7 +170,7 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
                 </td>
                 <td className="border px-2 py-1">{item.title}</td>
                 <td className="border px-2 py-1 capitalize">
-                  {item.category.toLowerCase()}
+                  {item.material? item.material: item.category.toLowerCase()}
                 </td>
                 <td className="border px-2 py-1">${item.price.toFixed(2)}</td>
                 <td className="border px-2 py-1 text-sm space-x-3">
