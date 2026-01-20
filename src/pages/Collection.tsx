@@ -243,7 +243,7 @@ const Collection = () => {
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
         {/* Top bar */}
         <div className=" bg-slate-100 py-4 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10">
-          <div className=" flex items-center gap-3 justify-between">
+          <div className=" flex items-center gap-1.5 justify-between">
             <button
               onClick={() => setOpenFilters(true)}
               className="font-medium hover:text-blue-500 flex items-center gap-1"
@@ -263,7 +263,7 @@ const Collection = () => {
                 {search && (
                   <div
                     onClick={() => setSearch("")}
-                    className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
+                    className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-11 cursor-pointer rounded-sm shadow-sm"
                   >
                     <p className="text-white text-lg font-semibold">
                       <EmptySearchIcon />
@@ -272,7 +272,7 @@ const Collection = () => {
                 )}
 
                 {!search && (
-                  <div className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm">
+                  <div className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-11 cursor-pointer rounded-sm shadow-sm">
                     <p className="text-white text-lg font-semibold">
                       <SearchIcon />
                     </p>
