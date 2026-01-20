@@ -9,6 +9,7 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import ArtFilters, { ArtFilterState } from "../components/FilterSelection";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdOutlineFilterList } from "react-icons/md";
+import { IoIosClose } from "react-icons/io";
 import { RiCloseLine } from "react-icons/ri";
 import { IoSearch } from "react-icons/io5";
 
@@ -31,6 +32,9 @@ const Collection = () => {
     React.SVGProps<SVGSVGElement>
   >;
   const SearchIcon = IoSearch as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
+  const CloseIcon = IoIosClose as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
 
@@ -193,6 +197,43 @@ const Collection = () => {
     return () => window.removeEventListener("online", handleOnline);
   }, [refetch]);
 
+  const filterLabels: Partial<
+    Record<keyof ArtFilterState, Record<string, string>>
+  > = {
+    category: {
+      painting: "Painting",
+      drawing: "Drawing",
+      sculpture: "Sculpture",
+      textile: "Textile",
+      jewelry: "Jewelry",
+    },
+    availability: {
+      available: "Available",
+      sold: "Sold",
+    },
+    material: {
+      "acrylic on canvas": "Acrylic on canvas",
+      "oil on canvas": "Oil on canvas",
+      "oil gold and acrylic on canvas": "Oil, gold & acrylic on canvas",
+    },
+    price: {
+      "under-300": "Under $299",
+      "300-500": "$300 – $499",
+      "500-800": "$500 – $799",
+      "800-1000": "$800 – $999",
+      "1000-plus": "$1000+",
+    },
+  };
+  // stop here
+  const activeFilterChips = Object.entries(filters)
+    .filter(([_, value]) => value !== "all")
+    .map(([key, value]) => ({
+      key: key as keyof ArtFilterState,
+      value,
+      label: filterLabels[key as keyof ArtFilterState]?.[value],
+    }))
+    .filter((chip) => chip.label); // safety
+
   return (
     <>
       <Helmet>
@@ -201,43 +242,76 @@ const Collection = () => {
 
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
         {/* Top bar */}
-        <div className=" bg-slate-100 py-4 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10 flex items-center gap-3 justify-between">
-          <button
-            onClick={() => setOpenFilters(true)}
-            className="font-medium hover:text-blue-500 flex items-center gap-1"
-          >
-            <FilterIcon className="text-lg" />
-            <span>Filters</span>
-          </button>
+        <div className=" bg-slate-100 py-4 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10">
+          <div className=" flex items-center gap-3 justify-between">
+            <button
+              onClick={() => setOpenFilters(true)}
+              className="font-medium hover:text-blue-500 flex items-center gap-1"
+            >
+              <FilterIcon className="text-lg" />
+              <span>Filters</span>
+            </button>
 
-          <form className="flex items-center">
-            <div className="relative">
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search..."
-                className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
-              />
-              {search && (
-                <div
-                  onClick={() => setSearch("")}
-                  className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
-                >
-                  <p className="text-white text-lg font-semibold">
-                    <EmptySearchIcon />
-                  </p>
-                </div>
-              )}
+            <form className="flex items-center">
+              <div className="relative">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search..."
+                  className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
+                />
+                {search && (
+                  <div
+                    onClick={() => setSearch("")}
+                    className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm"
+                  >
+                    <p className="text-white text-lg font-semibold">
+                      <EmptySearchIcon />
+                    </p>
+                  </div>
+                )}
 
-              {!search && (
-                <div className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm">
-                  <p className="text-white text-lg font-semibold">
-                    <SearchIcon />
-                  </p>
-                </div>
-              )}
-            </div>
-          </form>
+                {!search && (
+                  <div className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-8 cursor-pointer rounded-sm shadow-sm">
+                    <p className="text-white text-lg font-semibold">
+                      <SearchIcon />
+                    </p>
+                  </div>
+                )}
+              </div>
+            </form>
+          </div>
+
+          {/* Filters */}
+          <div className=" flex gap-2">
+            {activeFilterChips.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {activeFilterChips.map((chip) => (
+                  <button
+                    key={`${chip.key}-${chip.value}`}
+                    onClick={() =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        [chip.key]: "all",
+                      }))
+                    }
+                    className="flex items-end gap-1 rounded-full bg-slate-200 px-3 py-1 text-xs text-slate-700 hover:bg-slate-300 transition"
+                  >
+                    <span className="font-medium capitalize">{chip.label}</span>
+                    <span className="text-base">
+                      <CloseIcon />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {activeFilterChips.length > 0 && <button
+              onClick={() => setFilters(defaultFilters)}
+              className="text-xs text-blue-600 hover:text-blue-500 underline ml-2"
+            >
+              Clear all
+            </button>}
+          </div>
         </div>
 
         {/* FILTER DRAWER */}
