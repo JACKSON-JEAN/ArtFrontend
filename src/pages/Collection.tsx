@@ -305,7 +305,7 @@ const Collection = () => {
                 ))}
               </div>
             )}
-            {activeFilterChips.length > 0 && <button
+            {activeFilterChips.length > 1 && <button
               onClick={() => setFilters(defaultFilters)}
               className="text-xs text-blue-600 hover:text-blue-500 underline ml-2 whitespace-nowrap"
             >
