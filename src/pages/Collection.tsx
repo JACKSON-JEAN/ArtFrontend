@@ -147,10 +147,10 @@ const Collection = () => {
       material: {
         all: artworks.length,
         "acrylic on canvas": artworks.filter(
-          (a) => a.material?.toLowerCase() === "acrylic on canvas"
+          (a) => a.material?.trim().toLowerCase() === "acrylic on canvas"
         ).length,
         "oil on canvas": artworks.filter(
-          (a) => a.material?.toLowerCase() === "oil on canvas"
+          (a) => a.material?.trim().toLowerCase() === "oil on canvas"
         ).length,
       },
       price: {
