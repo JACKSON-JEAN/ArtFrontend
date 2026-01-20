@@ -57,22 +57,21 @@ const Collection = () => {
   // --- Load more artworks ---
 
   const loadMore = useCallback(async () => {
-  if (!nextCursor || fetchingMore || isOffline) return;
-  setFetchingMore(true);
+    if (!nextCursor || fetchingMore || isOffline) return;
+    setFetchingMore(true);
 
-  try {
-    const { data: moreData } = await fetchMore({
-      variables: {
-        searchInput: { keyword: search, limit: 12, cursor: nextCursor },
-      },
-    });
-    setArtworks((prev) => [...prev, ...moreData.getArtwork.artworks]);
-    setNextCursor(moreData.getArtwork.nextCursor ?? null);
-  } finally {
-    setFetchingMore(false);
-  }
-}, [nextCursor, fetchingMore, fetchMore, search, isOffline]);
-
+    try {
+      const { data: moreData } = await fetchMore({
+        variables: {
+          searchInput: { keyword: search, limit: 12, cursor: nextCursor },
+        },
+      });
+      setArtworks((prev) => [...prev, ...moreData.getArtwork.artworks]);
+      setNextCursor(moreData.getArtwork.nextCursor ?? null);
+    } finally {
+      setFetchingMore(false);
+    }
+  }, [nextCursor, fetchingMore, fetchMore, search, isOffline]);
 
   // --- Intersection Observer for infinite scroll ---
   useEffect(() => {
@@ -104,7 +103,10 @@ const Collection = () => {
 
   /* ---------------- FILTERING ---------------- */
   const filteredArtwork = artworks.filter((item) => {
-    if (filters.category !== "all" && item.category?.toLowerCase() !== filters.category)
+    if (
+      filters.category !== "all" &&
+      item.category?.toLowerCase() !== filters.category
+    )
       return false;
 
     if (
@@ -113,15 +115,21 @@ const Collection = () => {
     )
       return false;
 
-    if (filters.material !== "all" && item.material?.toLowerCase() !== filters.material)
+    if (
+      filters.material !== "all" &&
+      item.material?.trim().toLowerCase() !== filters.material
+    )
       return false;
 
     if (filters.price !== "all") {
       const price = item.price;
       if (filters.price === "under-300" && price >= 300) return false;
-      if (filters.price === "300-500" && (price < 300 || price > 499)) return false;
-      if (filters.price === "500-800" && (price < 500 || price > 799)) return false;
-      if (filters.price === "800-1000" && (price < 800 || price > 999)) return false;
+      if (filters.price === "300-500" && (price < 300 || price > 499))
+        return false;
+      if (filters.price === "500-800" && (price < 500 || price > 799))
+        return false;
+      if (filters.price === "800-1000" && (price < 800 || price > 999))
+        return false;
       if (filters.price === "1000-plus" && price < 1000) return false;
     }
 
@@ -133,11 +141,18 @@ const Collection = () => {
     return {
       category: {
         all: artworks.length,
-        painting: artworks.filter((a) => a.category?.toLowerCase() === "painting").length,
-        drawing: artworks.filter((a) => a.category?.toLowerCase() === "drawing").length,
-        sculpture: artworks.filter((a) => a.category?.toLowerCase() === "sculpture").length,
-        textile: artworks.filter((a) => a.category?.toLowerCase() === "textile").length,
-        jewelry: artworks.filter((a) => a.category?.toLowerCase() === "jewelry").length,
+        painting: artworks.filter(
+          (a) => a.category?.toLowerCase() === "painting"
+        ).length,
+        drawing: artworks.filter((a) => a.category?.toLowerCase() === "drawing")
+          .length,
+        sculpture: artworks.filter(
+          (a) => a.category?.toLowerCase() === "sculpture"
+        ).length,
+        textile: artworks.filter((a) => a.category?.toLowerCase() === "textile")
+          .length,
+        jewelry: artworks.filter((a) => a.category?.toLowerCase() === "jewelry")
+          .length,
       },
       availability: {
         all: artworks.length,
@@ -149,6 +164,11 @@ const Collection = () => {
         "acrylic on canvas": artworks.filter(
           (a) => a.material?.trim().toLowerCase() === "acrylic on canvas"
         ).length,
+        "oil gold and acrylic on canvas": artworks.filter(
+          (a) =>
+            a.material?.trim().toLowerCase() ===
+            "oil gold and acrylic on canvas"
+        ).length,
         "oil on canvas": artworks.filter(
           (a) => a.material?.trim().toLowerCase() === "oil on canvas"
         ).length,
@@ -156,9 +176,12 @@ const Collection = () => {
       price: {
         all: artworks.length,
         "under-300": artworks.filter((a) => a.price < 300).length,
-        "300-500": artworks.filter((a) => a.price >= 300 && a.price <= 499).length,
-        "500-800": artworks.filter((a) => a.price >= 500 && a.price <= 799).length,
-        "800-1000": artworks.filter((a) => a.price >= 800 && a.price <= 999).length,
+        "300-500": artworks.filter((a) => a.price >= 300 && a.price <= 499)
+          .length,
+        "500-800": artworks.filter((a) => a.price >= 500 && a.price <= 799)
+          .length,
+        "800-1000": artworks.filter((a) => a.price >= 800 && a.price <= 999)
+          .length,
         "1000-plus": artworks.filter((a) => a.price >= 1000).length,
       },
     };
@@ -319,7 +342,9 @@ const Collection = () => {
           {/* Sentinel for infinite scroll */}
           <div id="scroll-sentinel" className="h-1"></div>
           {fetchingMore && (
-            <p className="text-center py-4 text-slate-400">Loading more artworks…</p>
+            <p className="text-center py-4 text-slate-400">
+              Loading more artworks…
+            </p>
           )}
         </div>
       </div>

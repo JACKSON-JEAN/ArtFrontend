@@ -124,6 +124,11 @@ const ArtFilters: React.FC<ArtFiltersProps> = ({
           count: counts.material["acrylic on canvas"],
         },
         {
+          label: "Oil gold and acrylic on canvas",
+          value: "oil gold and acrylic on canvas",
+          count: counts.material["oil gold and acrylic on canvas"],
+        },
+        {
           label: "Oil on canvas",
           value: "oil on canvas",
           count: counts.material["oil on canvas"],
