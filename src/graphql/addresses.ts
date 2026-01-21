@@ -27,6 +27,7 @@ query GetAddressById($addressId: Float!){
     country
     state
     city
+    postalCode
     line1
   }
 }
@@ -64,6 +65,7 @@ mutation UpdateAddress($addressId: Float!, $updateAddressInput: UpdateAddressInp
     country
     state,
     city
+    postalCode
     line1
   }
 }

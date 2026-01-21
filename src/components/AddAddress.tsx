@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getUserId, getUsername } from "../utils/decodeToken";
+import React, { useState } from "react";
+import { getUserId } from "../utils/decodeToken";
 import { useToast } from "../context/ToastContext";
 import { useMutation } from "@apollo/client";
 import {
@@ -22,23 +22,15 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
   const { success, error: toastError } = useToast();
   const userId = getUserId();
   const [userInput, setUserInput] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     phone: "",
     country: "",
     state: "",
     city: "",
+    zip: "",
     address: "",
   });
-
-  useEffect(() => {
-    const clientName = getUsername();
-    if (clientName) {
-      setUserInput((prev) => ({
-        ...prev,
-        fullName: clientName,
-      }));
-    }
-  }, []);
 
   const [addAddress, { loading }] = useMutation(ADD_ADDRESS_MUTATION, {
     onCompleted: () => {
@@ -57,15 +49,22 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
     }));
   };
 
+  const cleanedInput = Object.fromEntries(
+    Object.entries(userInput).map(([key, value]) => [key, value.trim()])
+  );
+
+  const { firstName, lastName, phone, zip, address, city, state, country } =
+    cleanedInput;
+
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      !userInput.address.trim() ||
-      !userInput.city.trim() ||
-      !userInput.country.trim() ||
-      !userInput.fullName.trim() ||
-      !userInput.phone.trim() ||
-      !userInput.state.trim()
+      !firstName ||
+      !phone ||
+      !address ||
+      !city ||
+      !state ||
+      !country
     ) {
       toastError("Please fill all fields!");
       return;
@@ -78,12 +77,13 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
       variables: {
         addAddressInput: {
           customerId: userId,
-          fullName: userInput.fullName,
-          phone: userInput.phone.replace(/\s+/g, ""),
-          line1: userInput.address,
-          city: userInput.city,
-          country: userInput.country,
-          state: userInput.state,
+          fullName: `${firstName.trim()} ${lastName.trim()}`,
+          phone: phone.replace(/\s+/g, ""),
+          postalCode: zip.trim(),
+          line1: address,
+          city: city,
+          country: country,
+          state: state,
         },
       },
       refetchQueries: [
@@ -93,6 +93,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
         },
       ],
     });
+    
   };
 
   if (!userId) {
@@ -126,17 +127,31 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
             </p>
           </div>
           <div className=" px-4 py-4">
-            <div className="flex flex-col mb-2">
-              <label htmlFor="name">Full name:</label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Full name..."
-                className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600 capitalize"
-                value={userInput.fullName}
-                onChange={(e) => changeHandler("fullName", e.target.value)}
-              />
+            <div className=" flex justify-between mb-2">
+              <div className=" w-[49%] flex flex-col">
+                <label htmlFor="firstName">First name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="First name..."
+                  className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600 capitalize"
+                  value={userInput.firstName}
+                  onChange={(e) => changeHandler("firstName", e.target.value)}
+                />
+              </div>
+              <div className=" w-[49%] flex flex-col">
+                <label htmlFor="lastName">Last name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Last name..."
+                  className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600 capitalize"
+                  value={userInput.lastName}
+                  onChange={(e) => changeHandler("lastName", e.target.value)}
+                />
+              </div>
             </div>
+
             <div className="flex flex-col mb-2">
               <label htmlFor="phone">Phone number:</label>
               <PhoneInput
@@ -168,8 +183,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
                 onChange={(e) => changeHandler("country", e.target.value)}
               />
             </div>
-            <div className=" flex justify-between mb-2">
-              <div className=" w-[49%] flex flex-col ">
+            <div className=" mb-2 flex flex-col ">
                 <label htmlFor="state">State/Region/Province:</label>
                 <input
                   type="text"
@@ -180,8 +194,9 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
                   onChange={(e) => changeHandler("state", e.target.value)}
                 />
               </div>
+            <div className=" flex justify-between mb-2">
               <div className=" w-[49%] flex flex-col">
-                <label htmlFor="city">City:</label>
+                <label htmlFor="city">City/Town:</label>
                 <input
                   type="text"
                   id="city"
@@ -191,17 +206,29 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
                   onChange={(e) => changeHandler("city", e.target.value)}
                 />
               </div>
+              <div className=" w-[49%] flex flex-col ">
+                <label htmlFor="zip">Zip Code:</label>
+                <input
+                  type="text"
+                  id="zip"
+                  placeholder="Zip Code..."
+                  className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600"
+                  value={userInput.zip}
+                  onChange={(e) => changeHandler("zip", e.target.value)}
+                />
+              </div>
             </div>
             <div className="flex flex-col mb-4">
               <label htmlFor="address">Address:</label>
-              <input
-                type="text"
+              <textarea 
+                rows={2}
+                name="address" 
                 id="address"
                 placeholder="Street address, apt, suit, unit, building, floor etc"
-                className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600"
+                className="border outline-blue-600 py-1.5 px-2 rounded-sm text-gray-600 resize-none"
                 value={userInput.address}
                 onChange={(e) => changeHandler("address", e.target.value)}
-              />
+              ></textarea>
             </div>
             <button
               disabled={loading}

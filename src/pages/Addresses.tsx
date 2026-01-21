@@ -18,6 +18,7 @@ import EditAddress from "../components/EditAddress";
 
 export interface ShippingAddress {
   id: number;
+  postalCode: string;
   line1: string;
   city: string;
   state?: string;
@@ -47,8 +48,6 @@ const Addresses = () => {
   const endDate = new Date(today);
   endDate.setDate(today.getDate() + 8);
 
-  
-
   // Queries and Mutations
   const { loading, error, data } = useQuery(GET_ADDRESSES_BY_CUSTOMER_ID, {
     variables: { customerId: userId },
@@ -56,7 +55,9 @@ const Addresses = () => {
   });
 
   const [createOrder] = useMutation(CREATE_ORDER);
-  const [createStripeCheckoutSession] = useMutation(CREATE_STRIPE_CHECKOUT_SESSION);
+  const [createStripeCheckoutSession] = useMutation(
+    CREATE_STRIPE_CHECKOUT_SESSION
+  );
 
   const addresses = data?.getAddressesByCustomerId || [];
 
@@ -157,7 +158,9 @@ const Addresses = () => {
         {/* Delivery Addresses */}
         <div className="border shadow-sm rounded-sm lg:w-[calc(100%-300px)] w-full">
           <section className="py-1.5 px-3 border-b">
-            <p className="text-lg text-red-950 font-semibold">Delivery Address</p>
+            <p className="text-lg text-red-950 font-semibold">
+              Delivery Address
+            </p>
           </section>
 
           {addresses.length === 0 && (
@@ -186,11 +189,27 @@ const Addresses = () => {
                     onChange={() => handleAddressSelect(item.id)}
                   />
                   <div className="flex-1">
-                    <p className="text-base capitalize font-medium">{item.fullName}</p>
-                    <p className="text-gray-600 text-sm mb-1">
-                      {item.line1} | {item.city} {item?.state && `| ${item.state}`} | {item.country}{" "}
-                      {item?.email && `| ${item.email}`} | {item.phone}
+                    <p className="text-base capitalize font-medium">
+                      {item.fullName}
                     </p>
+                    {/* <p className="text-gray-600 text-sm mb-1">
+                      {item.postalCode && item.postalCode + ' |'}  {item.line1} | {item.city} {item?.state && `| ${item.state}`} | {item.country}{" "}
+                      {item?.email && `| ${item.email}`} | {item.phone}
+                    </p> */}
+                    <p className="text-gray-600 text-sm mb-1">
+                      {[
+                        item.postalCode,
+                        item.line1,
+                        item.city,
+                        item.state,
+                        item.country,
+                        item.email,
+                        item.phone,
+                      ]
+                        .filter(Boolean)
+                        .join(" | ")}
+                    </p>
+
                     <p
                       onClick={() => editHandler(item.id)}
                       className="py-1 text-blue-600 hover:text-blue-700 text-sm cursor-pointer"
@@ -208,11 +227,13 @@ const Addresses = () => {
               </p>
 
               <div className="border-t mt-2 pt-2">
-                <p className="text-base text-red-950 font-medium">Delivery Details</p>
+                <p className="text-base text-red-950 font-medium">
+                  Delivery Details
+                </p>
                 <p className="text-gray-600 text-sm">
                   To be delivered between{" "}
-                  <span className="text-black">{formatDate(startDate)}</span> and{" "}
-                  <span className="text-black">{formatDate(endDate)}</span>
+                  <span className="text-black">{formatDate(startDate)}</span>{" "}
+                  and <span className="text-black">{formatDate(endDate)}</span>
                 </p>
               </div>
             </section>
@@ -228,13 +249,17 @@ const Addresses = () => {
             </p>
 
             {paymentError && (
-              <div className="text-red-600 text-sm mb-2 p-2 bg-red-50 rounded">{paymentError}</div>
+              <div className="text-red-600 text-sm mb-2 p-2 bg-red-50 rounded">
+                {paymentError}
+              </div>
             )}
 
             <div className="border-t pt-2">
               <button
                 onClick={handleConfirmOrder}
-                disabled={isProcessing || !selectedAddressId || addresses.length === 0}
+                disabled={
+                  isProcessing || !selectedAddressId || addresses.length === 0
+                }
                 className={`${
                   isProcessing || !selectedAddressId || addresses.length === 0
                     ? "bg-gray-400 cursor-not-allowed"
