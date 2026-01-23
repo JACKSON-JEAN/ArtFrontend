@@ -15,6 +15,7 @@ import { formatDate } from "../utils/DateFormat";
 
 import AddAddress from "../components/AddAddress";
 import EditAddress from "../components/EditAddress";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 export interface ShippingAddress {
   id: number;
@@ -56,10 +57,35 @@ const Addresses = () => {
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [createStripeCheckoutSession] = useMutation(
-    CREATE_STRIPE_CHECKOUT_SESSION
+    CREATE_STRIPE_CHECKOUT_SESSION,
   );
 
   const addresses = data?.getAddressesByCustomerId || [];
+  const selectedAddress = addresses.find(
+    (item: ShippingAddress) => item.id === selectedAddressId,
+  );
+
+  const zipInvalid =
+    !selectedAddress?.postalCode || selectedAddress.postalCode.trim() === "";
+
+  const phoneInvalid =
+    !selectedAddress?.phone || !isValidPhoneNumber(selectedAddress.phone);
+
+  const getAddressErrorMessage = () => {
+    const errors: string[] = [];
+
+    if (zipInvalid) {
+      errors.push("ZIP Code is missing");
+    }
+
+    if (phoneInvalid) {
+      errors.push("Phone number is invalid or missing a country code");
+    }
+
+    if (errors.length === 0) return "";
+
+    return `${errors.join(" and ")}. Please edit the address to continue.`;
+  };
 
   // Stripe public key
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY!);
@@ -69,6 +95,13 @@ const Addresses = () => {
       setPaymentError("Please select a delivery address");
       return;
     }
+
+    const addressError = getAddressErrorMessage();
+    if (addressError) {
+      setPaymentError(addressError);
+      return;
+    }
+
     if (cart.length === 0) {
       setPaymentError("Your cart is empty");
       return;
@@ -140,6 +173,8 @@ const Addresses = () => {
     setSelectedId(clientId);
     setEditAddresses(true);
   };
+
+  const addressHasIssues = zipInvalid || phoneInvalid;
 
   return (
     <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-3">
@@ -215,6 +250,16 @@ const Addresses = () => {
                       className="py-1 text-blue-600 hover:text-blue-700 text-sm cursor-pointer"
                     >
                       Edit address
+                      {selectedAddressId === item.id && zipInvalid && (
+                        <span className="text-red-600 font-medium px-2 py-0.5 ml-2 text-[10px] bg-red-100">
+                          ZIP required
+                        </span>
+                      )}
+                      {selectedAddressId === item.id && phoneInvalid && (
+                        <span className="text-red-600 font-medium px-2 py-0.5 ml-2 text-[10px] bg-red-100 ml-1">
+                          Invalid phone
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -261,7 +306,10 @@ const Addresses = () => {
                   isProcessing || !selectedAddressId || addresses.length === 0
                 }
                 className={`${
-                  isProcessing || !selectedAddressId || addresses.length === 0
+                  isProcessing ||
+                  !selectedAddressId ||
+                  addresses.length === 0 ||
+                  addressHasIssues
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700 hover:shadow-md"
                 } shadow-sm text-amber-50 py-1 rounded-sm w-full mt-2 transition-all font-semibold`}

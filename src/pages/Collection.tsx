@@ -242,11 +242,12 @@ const Collection = () => {
 
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
         {/* Top bar */}
-        <div className=" bg-slate-100 py-4 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10">
+        {/* here */}
+        <div className=" bg-slate-100 pt-2 pb-1 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10">
           <div className=" flex items-center gap-1.5 justify-between">
             <button
               onClick={() => setOpenFilters(true)}
-              className="font-medium hover:text-blue-500 flex items-center gap-1"
+              className=" border border-slate-300 px-3 py-1 rounded-full font-medium hover:text-blue-500 flex items-center gap-1"
             >
               <FilterIcon className="text-lg" />
               <span>Filters</span>

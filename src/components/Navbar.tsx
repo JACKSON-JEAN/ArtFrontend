@@ -127,11 +127,11 @@ const Navbar = () => {
               <CloseIcon />
             </p>
           </div>
-          <nav className=" flex flex-col sm:flex-row gap-0 sm:gap-10 ">
+          <nav className=" flex flex-col sm:flex-row gap-0 sm:gap-[34px] ">
             <NavLink
               onClick={() => setIsMenuOpen(false)}
               to="/"
-              className={({ isActive }) => linkClasses(isActive)}
+              className={ ({ isActive }) => linkClasses(isActive)}
             >
               Home
             </NavLink>

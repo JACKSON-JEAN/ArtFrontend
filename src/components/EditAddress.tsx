@@ -104,7 +104,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!address || !city || !country || !firstName || !phone || !state) {
+    if (!address || !city || !country || !firstName || !phone || !state || !zip) {
       toastError("Please fill all fields!");
       return;
     }
@@ -140,7 +140,7 @@ const EditAddress: React.FC<AddAddressProps> = ({ onClose, addressId }) => {
         onClick={onClose}
         className="fixed left-0 top-0 w-full h-screen bg-black bg-opacity-10 z-10 ease-in-out duration-700"
       ></div>
-      <div className="absolute bg-red-300 left-[50%] right-[50%] top-15 sm:top-28 z-20 flex justify-center">
+      <div className="absolute bg-red-300 left-[50%] right-[50%] top-15 sm:top-15 z-20 flex justify-center">
         <form
           onSubmit={submitHandler}
           className="w-96 bg-white rounded-sm shadow-lg relative"

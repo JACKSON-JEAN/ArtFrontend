@@ -64,7 +64,8 @@ const AddAddress: React.FC<AddAddressProps> = ({ onClose }) => {
       !address ||
       !city ||
       !state ||
-      !country
+      !country ||
+      !zip
     ) {
       toastError("Please fill all fields!");
       return;
