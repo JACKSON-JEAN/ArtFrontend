@@ -44,7 +44,7 @@ const Navbar = () => {
       <div
         className={`${"wrapper"} sticky top-0 z-40 bg-white border-b px-10 sm:px-16`}
       >
-        <section className=" flex justify-between items-center border-b sm:shadow-sm">
+        <section className=" flex justify-between items-center border-b sm:shadow-sm py-1.5">
           <div
             className={`${"logoSearchWrapper"} flex gap-4 items-center w-full`}
           >
