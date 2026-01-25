@@ -44,9 +44,9 @@ const Navbar = () => {
       <div
         className={`${"wrapper"} sticky top-0 z-40 bg-white border-b px-10 sm:px-16`}
       >
-        <section className=" flex justify-between items-center py-2 border-b sm:shadow-sm">
+        <section className=" flex justify-between items-center border-b sm:shadow-sm">
           <div
-            className={`${"logoSearchWrapper"} flex gap-2 items-center w-full`}
+            className={`${"logoSearchWrapper"} flex gap-4 items-center w-full`}
           >
             <p
               onClick={toggleMenu}
@@ -55,12 +55,27 @@ const Navbar = () => {
               <MenuIcon />
             </p>
             <h1>
+              {/* here */}
               <Link
                 onClick={() => setIsMenuOpen(false)}
                 to="/"
-                className=" text-3xl text-red-950 font-semibold font-logo whitespace-nowrap"
+                className=" text-red-900 font-logo whitespace-nowrap"
               >
-                Pearl Galleries
+                <div className="flex flex-col items-center">
+                  <p className="text-2xl -mb-2.5 font-semibold tracking-wide">
+                    PEARL ART
+                  </p>
+
+                  <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 w-full max-w-[12rem]">
+                    <span className="h-[2px] bg-red-900"></span>
+
+                    <p className="text-sm font-semibold tracking-[0.3em]">
+                      GALLERIES
+                    </p>
+
+                    <span className="h-[2px] bg-red-900"></span>
+                  </div>
+                </div>
               </Link>
             </h1>
           </div>
@@ -131,7 +146,7 @@ const Navbar = () => {
             <NavLink
               onClick={() => setIsMenuOpen(false)}
               to="/"
-              className={ ({ isActive }) => linkClasses(isActive)}
+              className={({ isActive }) => linkClasses(isActive)}
             >
               Home
             </NavLink>
