@@ -11,7 +11,7 @@ import { useCart } from "../context/cart.context";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
 import { linkClasses } from "../utils/CssUtils";
-import logo from "../images/logo.jpg"
+import logo from "../images/logo3.jpg"
 
 const Navbar = () => {
   const PersonIcon = IoPersonOutline as React.ComponentType<
@@ -45,11 +45,11 @@ const Navbar = () => {
       <div
         className={`${"wrapper"} sticky top-0 z-40 bg-white border-b px-10 sm:px-16`}
       >
-        <section className=" flex justify-between items-center border-b sm:shadow-sm py-1.5">
+        <section className=" flex justify-between items-center border-b sm:shadow-sm py-[7px]">
           <div
-            className={`${"logoSearchWrapper"} w-full`}
+            className={`${"logoSearchWrapper"}`}
           >
-            <h1>
+            <h1 className=" ">
               {/* stop */}
               <Link
                 onClick={() => setIsMenuOpen(false)}

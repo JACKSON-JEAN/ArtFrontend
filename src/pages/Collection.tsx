@@ -243,7 +243,7 @@ const Collection = () => {
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
         {/* Top bar */}
         {/* here */}
-        <div className=" bg-slate-100 pt-2 pb-1 sticky top-[53px] sm:top-[95px] md:top-[95px] z-10">
+        <div className=" bg-slate-100 pt-2 pb-1 sticky top-[50px] sm:top-[91px] md:top-[91px] z-10">
           <div className=" flex items-center gap-1.5 justify-between">
             <button
               onClick={() => setOpenFilters(true)}
@@ -286,7 +286,7 @@ const Collection = () => {
           {/* Filters */}
           <div className=" flex gap-2 mt-1.5">
             {activeFilterChips.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-1">
                 {activeFilterChips.map((chip) => (
                   <button
                     key={`${chip.key}-${chip.value}`}

@@ -44,7 +44,7 @@ const Cart = () => {
                 </div>
               </div>
             </section>
-            <section className=" bg-slate-100 pt-3 md:pt-0 sticky top-[53px] sm:top-[95px] md:top-[100px] w-full lg:w-[300px] order-1 md:order-2 sm:sticky lg:top-0 lg:left-0">
+            <section className=" bg-slate-100 pt-3 md:pt-0 sticky top-[50px] sm:top-[91px] md:top-[100px] w-full lg:w-[300px] order-1 md:order-2 sm:sticky lg:top-0 lg:left-0">
               <div className=" bg-white rounded-sm border px-3 py-2">
                 <p className=" mb-1">
                   {`Order summary(${totalItems} items):`}{" "}
