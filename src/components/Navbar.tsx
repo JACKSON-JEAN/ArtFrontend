@@ -11,6 +11,7 @@ import { useCart } from "../context/cart.context";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
 import { linkClasses } from "../utils/CssUtils";
+import logo from "../images/logo.jpg"
 
 const Navbar = () => {
   const PersonIcon = IoPersonOutline as React.ComponentType<
@@ -55,13 +56,14 @@ const Navbar = () => {
               <MenuIcon />
             </p>
             <h1>
-              {/* here */}
+              {/* stop */}
               <Link
                 onClick={() => setIsMenuOpen(false)}
                 to="/"
                 className=" text-red-900 font-logo whitespace-nowrap"
               >
-                <div className="flex flex-col items-center">
+                <img src={logo} alt="logo" className=" w-48"/>
+                {/* <div className="flex flex-col items-center">
                   <p className="text-2xl -mb-2.5 font-semibold tracking-wide">
                     PEARL ART
                   </p>
@@ -75,7 +77,7 @@ const Navbar = () => {
 
                     <span className="h-[2px] bg-red-900"></span>
                   </div>
-                </div>
+                </div> */}
               </Link>
             </h1>
           </div>
