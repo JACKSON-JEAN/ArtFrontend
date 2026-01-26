@@ -47,14 +47,8 @@ const Navbar = () => {
       >
         <section className=" flex justify-between items-center border-b sm:shadow-sm py-1.5">
           <div
-            className={`${"logoSearchWrapper"} flex gap-4 items-center w-full`}
+            className={`${"logoSearchWrapper"} w-full`}
           >
-            <p
-              onClick={toggleMenu}
-              className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}
-            >
-              <MenuIcon />
-            </p>
             <h1>
               {/* stop */}
               <Link
@@ -63,26 +57,12 @@ const Navbar = () => {
                 className=" text-red-900 font-logo whitespace-nowrap"
               >
                 <img src={logo} alt="logo" className=" w-48"/>
-                {/* <div className="flex flex-col items-center">
-                  <p className="text-2xl -mb-2.5 font-semibold tracking-wide">
-                    PEARL ART
-                  </p>
-
-                  <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 w-full max-w-[12rem]">
-                    <span className="h-[2px] bg-red-900"></span>
-
-                    <p className="text-sm font-semibold tracking-[0.3em]">
-                      GALLERIES
-                    </p>
-
-                    <span className="h-[2px] bg-red-900"></span>
-                  </div>
-                </div> */}
+                
               </Link>
             </h1>
           </div>
 
-          <div className=" flex items-center gap-4 right-4">
+          <div className=" flex items-center gap-5 right-4">
             <div
               onClick={() => setIsMenuOpen(false)}
               className={`${"profile-wrapper"} relative bg-white`}
@@ -122,6 +102,12 @@ const Navbar = () => {
                 </div>
               )}
             </NavLink>
+            <p
+              onClick={toggleMenu}
+              className={`${"open-menu"} block sm:hidden text-red-950 cursor-pointer text-2xl`}
+            >
+              <MenuIcon />
+            </p>
           </div>
         </section>
         <div
