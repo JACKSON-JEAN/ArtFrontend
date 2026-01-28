@@ -11,7 +11,7 @@ import { useCart } from "../context/cart.context";
 import { getUserEmail } from "../utils/decodeToken";
 import ProfileSettings from "./ProfileSettings";
 import { linkClasses } from "../utils/CssUtils";
-import logo from "../images/logo3.jpg"
+import logo from "../images/logo3.webp"
 
 const Navbar = () => {
   const PersonIcon = IoPersonOutline as React.ComponentType<
