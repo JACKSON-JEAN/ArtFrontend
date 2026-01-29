@@ -266,7 +266,10 @@ const Collection = () => {
                 />
                 {search && (
                   <div
-                    onClick={() => setSearch("")}
+                    onClick={() => {
+                      setSearch("")
+                      window.scrollTo({ top: 0, behavior: 'smooth'})
+                    }}
                     className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-11 cursor-pointer rounded-sm shadow-sm"
                   >
                     <p className="text-white text-lg font-semibold">
