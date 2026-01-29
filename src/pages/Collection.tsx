@@ -103,6 +103,7 @@ const Collection = () => {
   const handleFilterChange = (newFilters: ArtFilterState) => {
     setFilters(newFilters);
     setOpenFilters(false); // 👈 CLOSE AFTER SELECTION
+    window.scrollTo({ top: 0, behavior: 'smooth'})
   };
 
   /* ---------------- FILTERING ---------------- */
@@ -257,7 +258,9 @@ const Collection = () => {
               <div className="relative">
                 <input
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) =>{ setSearch(e.target.value)
+                    window.scrollTo({ top: 0, behavior: "smooth"})
+                  }}
                   placeholder="Search..."
                   className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
                 />
@@ -290,12 +293,13 @@ const Collection = () => {
                 {activeFilterChips.map((chip) => (
                   <button
                     key={`${chip.key}-${chip.value}`}
-                    onClick={() =>
+                    onClick={() =>{
                       setFilters((prev) => ({
                         ...prev,
                         [chip.key]: "all",
                       }))
-                    }
+                      window.scrollTo({ top: 0, behavior: 'smooth'})
+                    }}
                     className="flex items-end gap-1 rounded-full bg-slate-200 px-3 py-1 text-xs text-slate-700 hover:bg-slate-300 transition whitespace-nowrap"
                   >
                     <span className="font-medium capitalize">{chip.label}</span>
@@ -307,7 +311,10 @@ const Collection = () => {
               </div>
             )}
             {activeFilterChips.length > 1 && <button
-              onClick={() => setFilters(defaultFilters)}
+              onClick={() => {
+                setFilters(defaultFilters)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className="text-xs text-blue-600 hover:text-blue-500 underline ml-2 whitespace-nowrap"
             >
               Clear all
