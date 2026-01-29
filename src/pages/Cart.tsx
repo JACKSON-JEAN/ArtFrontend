@@ -51,22 +51,34 @@ const Cart = () => {
                   <span className=" font-semibold">${total.toFixed(2)}</span>
                 </p>
                 <div className=" border-t pt-0.5 w-full">
-                  <Link className=" inline-block text-center px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full" to="/address">Proceed to checkout</Link>
+                  <Link
+                    className=" inline-block text-center px-2 py-1 bg-blue-600 hover:bg-blue-700 shadow-sm hover:shadow-md text-white rounded-sm w-full"
+                    to="/address"
+                  >
+                    Proceed to checkout
+                  </Link>
                 </div>
               </div>
             </section>
           </div>
         )}
         {cart.length < 1 && (
-          <div className=" w-full text-center">
-            <div className=" mb-6">
-              <p className=" font-semibold text-lg text-slate-500">
-                Your cart is empty!</p>
+          <div className="w-full text-center py-10">
+            <div className="mb-8">
+              <p className="font-bold text-xl text-slate-600">
+                Your cart is empty!
+              </p>
               <p className="text-slate-500">
-                Browse our collections and discover our best deals.</p>
+                Discover amazing artworks and find your next masterpiece.
+              </p>
             </div>
-            
-            <Link to="/collection" className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-1.5 capitalize rounded-sm shadow-sm">Start Shopping</Link>
+
+            <Link
+              to="/collection"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-2 capitalize rounded-sm shadow-sm transition-colors"
+            >
+              Start Shopping
+            </Link>
           </div>
         )}
       </div>
