@@ -3,15 +3,18 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout"; // 🟢 Import normally so Navbar/Footer load instantly
 import ScrollToTop from "../components/ScrollToTop";
 import NotFound from "../pages/NotFound";
+import RouterError from "../components/RouterError";
 
 const lazyRetry = (importFn: () => Promise<any>) =>
   lazy(() =>
     importFn().catch(() => {
-      window.location.reload();
+      if(!sessionStorage.getItem("chunk-retry")){
+        sessionStorage.setItem("chunk-retry", "true");
+        window.location.reload();
+      }
       return Promise.reject();
-    })
+    }),
   );
-
 
 // Lazy-load all non-critical or heavy routes
 const ProtectedRoutes = lazy(() => import("./protectedRoutes"));
@@ -20,8 +23,8 @@ const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Signin = lazy(() => import("../pages/Signin"));
-const ForgotPassword = lazy(() => import("../pages/ForgotPassword"))
-const ResetPassword = lazy(() => import("../pages/ResetPassword"))
+const ForgotPassword = lazy(() => import("../pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("../pages/ResetPassword"));
 const Cart = lazy(() => import("../pages/Cart"));
 const Collection = lazy(() => import("../pages/Collection"));
 const ArtItem = lazy(() => import("../pages/ArtItem"));
@@ -33,8 +36,12 @@ const Favorites = lazy(() => import("../pages/Favorites"));
 const Unauthorised = lazy(() => import("../pages/Unauthorised"));
 const Addresses = lazy(() => import("../pages/Addresses"));
 const Orders = lazy(() => import("../components/pages/Orders"));
-const PaymentSuccessPage = lazy(() => import("../components/pages/SuccessPage"));
-const PaymentCancelled = lazy(() => import("../components/pages/PaymentCancelled"));
+const PaymentSuccessPage = lazy(
+  () => import("../components/pages/SuccessPage"),
+);
+const PaymentCancelled = lazy(
+  () => import("../components/pages/PaymentCancelled"),
+);
 const PaymentFailed = lazy(() => import("../components/Callback"));
 
 // ✨ Fade-in wrapper for better transitions
@@ -70,20 +77,26 @@ const withSuspense = (Component: React.ComponentType<any>) => (
 // 🔸 Router setup
 export const router = createBrowserRouter([
   // Public routes
-  { path: "signup", element: withSuspense(Signup) },
-  { path: "signin", element: withSuspense(Signin) },
-  { path: "forgot-password", element: withSuspense(ForgotPassword) },
-  { path: "reset-password", element: withSuspense(ResetPassword) },
-  { path: "payment-success", element: withSuspense(PaymentSuccessPage) },
-  { path: "payment-cancelled", element: withSuspense(PaymentCancelled) },
-  { path: "payment-failed", element: withSuspense(PaymentFailed) },
-  { path: "unauthorised", element: withSuspense(Unauthorised) },
-  { path: "*", element: <NotFound/>},
+  {
+    errorElement: <RouterError />,
+    children: [
+      { path: "signup", element: withSuspense(Signup) },
+      { path: "signin", element: withSuspense(Signin) },
+      { path: "forgot-password", element: withSuspense(ForgotPassword) },
+      { path: "reset-password", element: withSuspense(ResetPassword) },
+      { path: "payment-success", element: withSuspense(PaymentSuccessPage) },
+      { path: "payment-cancelled", element: withSuspense(PaymentCancelled) },
+      { path: "payment-failed", element: withSuspense(PaymentFailed) },
+      { path: "unauthorised", element: withSuspense(Unauthorised) },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
 
   // Admin protected routes
   {
     path: "dashboard",
     element: withSuspense(ProtectedRoutes),
+    errorElement: <RouterError />,
     children: [
       { index: true, element: withSuspense(ArtworkManagement) },
       { path: "users", element: withSuspense(Users) },
@@ -94,7 +107,8 @@ export const router = createBrowserRouter([
   // Main layout routes
   {
     path: "/",
-    element: <Layout />, // ✅ Normal import — renders instantly
+    element: <Layout />,
+    errorElement: <RouterError />,
     children: [
       { index: true, element: withSuspense(Home) },
       { path: "about", element: withSuspense(About) },
