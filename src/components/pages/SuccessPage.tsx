@@ -38,20 +38,23 @@ const PaymentSuccessPage: React.FC = () => {
   const clientName = getUsername();
   const clientEmail = getUserEmail();
 
-  // -------------------------------
-  // GOOGLE ADS CONVERSION TRACKING
-  // -------------------------------
-  useEffect(() => {
-    const report = data?.getClientPaymentReport;
-    if (!report) return;
+// -------------------------------
+// GOOGLE ADS CONVERSION TRACKING
+// -------------------------------
+useEffect(() => {
+  // Only run if gtag exists and report is loaded
+  if (!window.gtag || !data?.getClientPaymentReport) return;
 
-    window.gtag?.("event", "conversion", {
-      send_to: "AW-1037563441/LvKfCP2W4sEbELHs3-4D",
-      value: report.amount,
-      currency: report.currency,
-      transaction_id: report.transactionId || "",
-    });
-  }, [data]);
+  const report = data.getClientPaymentReport;
+
+  // Fire conversion event
+  window.gtag("event", "conversion", {
+    send_to: "AW-1037563441/LvKfCP2W4sEbELHs3-4D",
+    value: report.amount ?? 1.0,       // fallback to 1 if amount missing
+    currency: report.currency ?? "USD", // fallback to USD
+    transaction_id: report.transactionId || "",
+  });
+}, [data]);
 
   if (loading)
     return (
