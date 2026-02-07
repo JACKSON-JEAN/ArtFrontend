@@ -95,9 +95,7 @@ const About = () => {
               Fair Trading, and Guaranteed Satisfaction ensure every customer is
               delighted with their treasure. Pearl Art Galleries ships globally
               via DHL within 72 hours of receiving the order and the customer
-              will receive a tracking email alert. Most importantly, Pearl Art
-              Galleries payments are secured by Flutterwave’s world-class, PCI
-              DSS-compliant processing.
+              will receive a tracking email alert. Most importantly, payments at Pearl Art Galleries are secured by Stripe’s world-class, PCI DSS-compliant payment processing.
             </p>
             <p className="mb-2">
               <span>Mission:</span>{" "}
