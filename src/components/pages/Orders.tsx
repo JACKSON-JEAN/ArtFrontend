@@ -71,17 +71,17 @@ const Orders = () => {
         <h1 className="text-2xl font-semibold text-gray-800">Orders</h1>
         <div className=" flex gap-8">
           <Link
-          to="/dashboard"
-          className="text-blue-600 font-medium hover:underline"
-        >
-          Artwork
-        </Link>
-        <Link
-          to="/dashboard/users"
-          className="text-blue-600 font-medium hover:underline"
-        >
-          Users
-        </Link>
+            to="/dashboard"
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Artwork
+          </Link>
+          <Link
+            to="/dashboard/users"
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Users
+          </Link>
         </div>
       </div>
 
@@ -161,6 +161,12 @@ const Orders = () => {
                   <p>
                     🏠 <strong>Address:</strong> {order.shippingAddress.line1}
                   </p>
+                  {order.shippingAddress.postalCode && (
+                    <p>
+                      📨 <strong>ZIP:</strong>{" "}
+                      {order.shippingAddress.postalCode}
+                    </p>
+                  )}
                   <p>
                     🌆 <strong>City:</strong> {order.shippingAddress.city}
                   </p>
