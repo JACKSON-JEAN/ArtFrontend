@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ORDERS_QUERY } from "../../graphql/orders";
 import { ShippingAddress } from "../../pages/Addresses";
+import { Link } from "react-router-dom";
 
 interface Artwork {
   id: number;
@@ -62,22 +63,43 @@ const Orders = () => {
 
   const orders: Order[] = data?.getOrders || [];
 
-  if (loading) return <p className="text-center mt-6">Loading...</p>;
-  if (error)
-    return (
-      <p className="text-center text-red-600 mt-6">
-        There was an error loading orders: {error.message}
-      </p>
-    );
-  if (!loading && !error && orders.length === 0)
-    return <p className="text-center mt-6">No orders found.</p>;
-
   return (
-    <div className={` wrapper w-full px-6 sm:px-12 min-h-screen py-6 bg-slate-50`}>
-      <h1 className="text-2xl font-semibold mb-6 text-gray-700">Orders</h1>
+    <div
+      className={` wrapper w-full px-6 sm:px-12 min-h-screen py-6 bg-slate-50`}
+    >
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-semibold text-gray-800">Orders</h1>
+        <div className=" flex gap-8">
+          <Link
+          to="/dashboard"
+          className="text-blue-600 font-medium hover:underline"
+        >
+          Artwork
+        </Link>
+        <Link
+          to="/dashboard/users"
+          className="text-blue-600 font-medium hover:underline"
+        >
+          Users
+        </Link>
+        </div>
+      </div>
 
+      {loading && <p className="text-center mt-6">Loading...</p>}
 
-      <div className={`${"order"} grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
+      {!loading && error && (
+        <p className="text-center text-red-600 mt-6">
+          There was an error loading orders: {error.message}
+        </p>
+      )}
+
+      {!loading && !error && orders.length === 0 && (
+        <p className="text-center mt-6">No orders found.</p>
+      )}
+
+      <div
+        className={`${"order"} grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}
+      >
         {orders.map((order) => (
           <div
             key={order.id}
@@ -89,7 +111,7 @@ const Orders = () => {
               </h2>
               <span
                 className={`text-sm font-medium px-2 py-1 rounded ${getStatusBadge(
-                  order.status
+                  order.status,
                 )}`}
               >
                 {order.status}
@@ -126,8 +148,7 @@ const Orders = () => {
               {order.shippingAddress ? (
                 <div className="text-sm space-y-1">
                   <p>
-                    👤 <strong>Name:</strong>{" "}
-                    {order.shippingAddress.fullName}
+                    👤 <strong>Name:</strong> {order.shippingAddress.fullName}
                   </p>
                   <p>
                     📞 <strong>Phone:</strong> {order.shippingAddress.phone}
@@ -149,8 +170,7 @@ const Orders = () => {
                     </p>
                   )}
                   <p>
-                    🌍 <strong>Country:</strong>{" "}
-                    {order.shippingAddress.country}
+                    🌍 <strong>Country:</strong> {order.shippingAddress.country}
                   </p>
                 </div>
               ) : (

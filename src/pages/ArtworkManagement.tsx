@@ -36,11 +36,11 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   });
 
   useEffect(() => {
-  if (data?.getArtwork && artworks.length === 0) {
-    setArtworks(data.getArtwork.artworks);
-    setNextCursor(data.getArtwork.nextCursor ?? null);
-  }
-}, [data, artworks.length]);
+    if (data?.getArtwork && artworks.length === 0) {
+      setArtworks(data.getArtwork.artworks);
+      setNextCursor(data.getArtwork.nextCursor ?? null);
+    }
+  }, [data, artworks.length]);
 
   // 🔹 Load more
   const loadMore = useCallback(async () => {
@@ -73,7 +73,7 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
           loadMore();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const sentinel = document.querySelector("#scroll-sentinel");
@@ -93,12 +93,12 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
     setSelectedId(id);
     setAddImage(true);
   };
- //just one step
+  //just one step
   const initialLoading = loading && artworks.length === 0;
   if (error) return <p>There was an error fetching data: {error.message}</p>;
 
   return (
-    <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50">
+    <div className=" bg-gray-100 wrapper w-full px-10 sm:px-16 min-h-screen pt-3">
       {initialLoading && <p>Loading...</p>}
       {/* Modals */}
       {addNew && <AddArtwork onClose={handleCloseAdd} />}
@@ -146,51 +146,61 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
       {artworks.length === 0 ? (
         <p>No artworks found.</p>
       ) : (
-        <table className="border-collapse border w-full text-left">
-          <thead className="bg-slate-100">
-            <tr>
-              <th className="border px-2 py-1">#</th>
-              <th className="border px-2 py-1">Preview</th>
-              <th className="border px-2 py-1">Title</th>
-              <th className="border px-2 py-1">Category</th>
-              <th className="border px-2 py-1">Price ($)</th>
-              <th className="border px-2 py-1">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {artworks.map((item, index) => (
-              <tr key={item.id} className="border hover:bg-slate-50">
-                <td className="border px-2 py-1">{index + 1}</td>
-                <td className="border px-2 py-1">
-                  <img
-                    src={item?.media[0]?.url || img1}
-                    alt={item.title}
-                    className="w-12 h-12 object-cover rounded"
-                  />
-                </td>
-                <td className="border px-2 py-1">{item.title}</td>
-                <td className="border px-2 py-1 capitalize">
-                  {item.material? item.material: item.category.toLowerCase()}
-                </td>
-                <td className="border px-2 py-1">${item.price.toFixed(2)}</td>
-                <td className="border px-2 py-1 text-sm space-x-3">
-                  <button
-                    onClick={() => handleAddImage(item.id)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Add Image
-                  </button>
-                  <button
-                    onClick={() => handleEditArtwork(item.id)}
-                    className="text-green-700 hover:underline"
-                  >
-                    Edit
-                  </button>
-                </td>
+        <div className=" w-full overflow-x-auto bg-white p-2 rounded-sm">
+          <table className="border-collapse border min-w-[900px] w-full text-left">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="border px-2 py-1">#</th>
+                <th className="border px-2 py-1">Preview</th>
+                <th className="border px-2 py-1 whitespace-nowrap">Title</th>
+                <th className="border px-2 py-1 whitespace-nowrap">Category</th>
+                <th className="border px-2 py-1 whitespace-nowrap">Price ($)</th>
+                <th className="border px-2 py-1 whitespace-nowrap">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {artworks.map((item, index) => (
+                <tr key={item.id} className="border hover:bg-slate-50">
+                  <td className="border px-2 py-1">{index + 1}</td>
+                  <td className="border px-2 py-1">
+                    <img
+                      src={item?.media[0]?.url || img1}
+                      alt={item.title}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  </td>
+                  <td className="border px-2 py-1 whitespace-nowrap">{item.title}</td>
+                  <td className="border px-2 py-1 capitalize whitespace-nowrap">
+                    {item.material
+                      ? item.material
+                      : item.category.toLowerCase()}
+                  </td>
+                  <td className="border px-2 py-1 whitespace-nowrap">${item.price.toFixed(2)}</td>
+                  <td className="border px-2 py-1 text-sm space-x-3 whitespace-nowrap">
+                    <button
+                      onClick={() => handleAddImage(item.id)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      Add Image
+                    </button>
+                    <button
+                      onClick={() => handleEditArtwork(item.id)}
+                      className="text-green-700 hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => console.log("Deleted")}
+                      className="text-red-700 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {fetchingMore && (
         <p className="text-center py-4 text-gray-500">Loading more artworks…</p>

@@ -36,7 +36,7 @@ const Users = () => {
     );
 
   return (
-    <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-3 bg-slate-50">
+    <div className="wrapper w-full px-10 sm:px-16 min-h-screen pt-3 bg-gray-100">
       {/* Edit Modal */}
       {editClient && (
         <EditUser
@@ -50,17 +50,17 @@ const Users = () => {
         <h1 className="text-2xl font-semibold text-gray-800">Clients</h1>
         <div className=" flex gap-8">
           <Link
-          to="orders"
-          className="text-blue-600 font-medium hover:underline"
-        >
-          Orders
-        </Link>
-        <Link
-          to="dashboard"
-          className="text-blue-600 font-medium hover:underline"
-        >
-          Artwork
-        </Link>
+            to="/dashboard/orders"
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Orders
+          </Link>
+          <Link
+            to="/dashboard"
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Artwork
+          </Link>
         </div>
       </div>
 
@@ -72,40 +72,44 @@ const Users = () => {
 
       {/* Clients Table */}
       {clients.length > 0 && (
-        <table className="border-collapse border w-full text-left">
-          <thead className="bg-slate-100">
-            <tr>
-              <th className="border px-2 py-1">#</th>
-              <th className="border px-2 py-1">Full Name</th>
-              <th className="border px-2 py-1">Email</th>
-              <th className="border px-2 py-1">Phone</th>
-              <th className="border px-2 py-1">Role</th>
-              <th className="border px-2 py-1">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map((client, index) => (
-              <tr
-                key={client.id}
-                className="even:bg-gray-50 text-sm text-gray-800 hover:bg-gray-100"
-              >
-                <td className="border px-2 py-1">{index + 1}</td>
-                <td className="border px-2 py-1">{client.fullName}</td>
-                <td className="border px-2 py-1">{client.email}</td>
-                <td className="border px-2 py-1">{client.phone}</td>
-                <td className="border px-2 py-1 capitalize">{client.role.toLowerCase()}</td>
-                <td className="border px-2 py-1">
-                  <button
-                    onClick={() => handleEdit(client.id)}
-                    className="text-green-600 text-xs hover:underline"
-                  >
-                    Edit
-                  </button>
-                </td>
+        <div className=" w-full overflow-x-auto bg-white p-2 rounded-sm">
+          <table className="border-collapse border w-full text-left">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="border px-2 py-1">#</th>
+                <th className="border px-2 py-1">Full Name</th>
+                <th className="border px-2 py-1">Email</th>
+                <th className="border px-2 py-1">Phone</th>
+                <th className="border px-2 py-1">Role</th>
+                <th className="border px-2 py-1">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {clients.map((client, index) => (
+                <tr
+                  key={client.id}
+                  className="even:bg-gray-50 text-sm text-gray-800 hover:bg-gray-100"
+                >
+                  <td className="border px-2 py-1">{index + 1}</td>
+                  <td className="border px-2 py-1">{client.fullName}</td>
+                  <td className="border px-2 py-1">{client.email}</td>
+                  <td className="border px-2 py-1">{client.phone}</td>
+                  <td className="border px-2 py-1 capitalize">
+                    {client.role.toLowerCase()}
+                  </td>
+                  <td className="border px-2 py-1">
+                    <button
+                      onClick={() => handleEdit(client.id)}
+                      className="text-green-600 text-xs hover:underline"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
