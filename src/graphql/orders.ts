@@ -19,6 +19,7 @@ query GetOrders($searchInput: SearchOrdersInput!){
       email
       line1
       line2
+      postalCode
       city
       state
       country
