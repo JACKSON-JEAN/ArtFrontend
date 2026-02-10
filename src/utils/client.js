@@ -12,6 +12,15 @@ const uploadLink = createUploadLink({
   }
 });
 
+const setTokens = (accessToken, refreshToken) => {
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
+
+  // 🔔 Notify React auth context
+  window.dispatchEvent(new Event("auth-token-updated"));
+};
+
+
 const authLink = setContext((_, { headers }) => {
   const accessToken = localStorage.getItem("accessToken");
   return {
@@ -22,7 +31,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const refreshTokens = async () => {
+export const refreshTokens = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
 
   if (!refreshToken) {
@@ -58,9 +67,11 @@ const refreshTokens = async () => {
 
     const { accessToken, refreshToken: newRefreshToken } = data.refreshTokens;
 
-    // Update tokens in localStorage
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", newRefreshToken);
+    // // Update tokens in localStorage
+    // localStorage.setItem("accessToken", accessToken);
+    // localStorage.setItem("refreshToken", newRefreshToken);
+
+    setTokens(accessToken, newRefreshToken)
 
     return accessToken; // Return the new access token
   } catch (error) {
@@ -122,3 +133,4 @@ const client = new ApolloClient({
 });
 
 export default client;
+

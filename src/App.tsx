@@ -5,6 +5,7 @@ import { SearchContextProvider } from "./context/search.context";
 import { CartProvider } from "./context/cart.context";
 import { ToastProvider } from "./context/ToastContext";
 import React from "react";
+import { AuthProvider } from "./context/AuthContext";
 
 class ChunkErrorBoundary extends React.Component<
     { children: React.ReactNode },
@@ -45,7 +46,9 @@ function App() {
         <SearchContextProvider>
           <div className=" w-full">
             <ChunkErrorBoundary>
-              <RouterProvider router={router} />
+              <AuthProvider>
+                <RouterProvider router={router} />
+              </AuthProvider>
             </ChunkErrorBoundary>
           </div>
         </SearchContextProvider>

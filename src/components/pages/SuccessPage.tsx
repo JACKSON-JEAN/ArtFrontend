@@ -35,8 +35,8 @@ const PaymentSuccessPage: React.FC = () => {
     variables: { trackingId },
   });
 
-  const clientName = getUsername();
-  const clientEmail = getUserEmail();
+  const clientName = getUsername() ?? undefined;
+  const clientEmail = getUserEmail() ?? undefined;
 
 // -------------------------------
 // GOOGLE ADS CONVERSION TRACKING

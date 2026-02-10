@@ -4,6 +4,7 @@ import Layout from "./Layout"; // 🟢 Import normally so Navbar/Footer load ins
 import ScrollToTop from "../components/ScrollToTop";
 import NotFound from "../pages/NotFound";
 import RouterError from "../components/RouterError";
+import ProtectedRoutes from "./protectedRoutes";
 
 const lazyRetry = (importFn: () => Promise<any>) =>
   lazy(() =>
@@ -17,7 +18,6 @@ const lazyRetry = (importFn: () => Promise<any>) =>
   );
 
 // Lazy-load all non-critical or heavy routes
-const ProtectedRoutes = lazy(() => import("./protectedRoutes"));
 const Home = lazy(() => import("../pages/Home"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));

@@ -118,7 +118,7 @@ const Addresses = () => {
       // 1️⃣ Create the order first
       const orderResult = await createOrder({
         variables: {
-          customerId: parseFloat(userId),
+          customerId: userId,
           addOrderInput: {
             shippingAddressId: selectedAddressId,
             totalAmount: total,

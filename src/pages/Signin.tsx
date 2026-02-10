@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SIGN_IN_MUTATION } from "../graphql/users";
 // import { GET_CLIENT_CART } from "../graphql/cart";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { getUserId, getUserRole } from "../utils/decodeToken";
+import { decodeToken } from "../utils/decodeToken";
 import { useToast } from "../context/ToastContext";
 import { useCart } from "../context/cart.context";
 
@@ -42,9 +42,9 @@ const Signin = () => {
 
       await client.resetStore();
 
-      setUserId(Number(getUserId()));
-
-      const role = getUserRole();
+      const decoded = decodeToken(accessToken);
+      const role = decoded?.role;
+      setUserId(Number(decoded?.sub));
 
       if (role === "CUSTOMER") navigate("/");
       if (role === "ADMIN") navigate("/dashboard");
