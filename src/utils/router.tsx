@@ -8,7 +8,7 @@ import RouterError from "../components/RouterError";
 const lazyRetry = (importFn: () => Promise<any>) =>
   lazy(() =>
     importFn().catch(() => {
-      if(!sessionStorage.getItem("chunk-retry")){
+      if (!sessionStorage.getItem("chunk-retry")) {
         sessionStorage.setItem("chunk-retry", "true");
         window.location.reload();
       }
@@ -95,7 +95,9 @@ export const router = createBrowserRouter([
   // Admin protected routes
   {
     path: "dashboard",
-    element: withSuspense(ProtectedRoutes),
+    element: withSuspense(() =>(
+    <ProtectedRoutes allowedRoles={["ADMIN"]} />
+  )),
     errorElement: <RouterError />,
     children: [
       { index: true, element: withSuspense(ArtworkManagement) },

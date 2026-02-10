@@ -73,51 +73,48 @@ const refreshTokens = async () => {
 };
 
 const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-    if (graphQLErrors) {
-      for (const err of graphQLErrors) {
-        // Handle token expiration errors
-        if (err.extensions?.code === 'UNAUTHENTICATED' && err.message === 'Token expired') {
-          // Return an observable to handle the token refresh and retry the operation
-          return new Observable((observer) => {
-            refreshTokens()
-              .then((newAccessToken) => {
-                // Update the operation headers with the new token
-                const oldHeaders = operation.getContext().headers;
-                operation.setContext({
-                  headers: {
-                    ...oldHeaders,
-                    authorization: `Bearer ${newAccessToken}`,
-                  },
-                });
-  
-                // Retry the request with the new token
-                const subscriber = {
-                  next: observer.next.bind(observer),
-                  error: observer.error.bind(observer),
-                  complete: observer.complete.bind(observer),
-                };
-  
-                forward(operation).subscribe(subscriber);
-              })
-              .catch((error) => {
-                // Redirect to login if refresh fails
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                window.location.href = '/';
-                observer.error(error);
+  if (graphQLErrors) {
+    for (const err of graphQLErrors) {
+      // Only handle token expiration
+      if (err.extensions?.code === "UNAUTHENTICATED" && err.message === "Token expired") {
+        return new Observable((observer) => {
+          refreshTokens()
+            .then((newAccessToken) => {
+              // Merge old headers and update Authorization
+              const oldHeaders = operation.getContext().headers || {};
+              operation.setContext({
+                headers: {
+                  ...oldHeaders,
+                  authorization: `Bearer ${newAccessToken}`,
+                },
               });
-          });
-        }
-  
-        // Handle unauthorized access errors
-        if (err.extensions?.code === 'FORBIDDEN' || err.message === 'Unauthorized: Insufficient permissions') {
-          // Redirect to unauthorized page
-          window.location.href = '/unauthorized';
-          return;
-        }
+
+              // Retry the operation
+              forward(operation).subscribe({
+                next: observer.next.bind(observer),
+                error: observer.error.bind(observer),
+                complete: observer.complete.bind(observer),
+              });
+            })
+            .catch((error) => {
+              // Redirect to login if refresh fails
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("refreshToken");
+              window.location.href = "/";
+              observer.error(error);
+            });
+        });
+      }
+
+      // Unauthorized access (role issue)
+      if (err.extensions?.code === "FORBIDDEN" || err.message.includes("Unauthorized")) {
+        window.location.href = "/unauthorised";
+        return;
       }
     }
+  }
 });
+
 
 const client = new ApolloClient({
     link: errorLink.concat(authLink.concat(uploadLink)), // Chain the links
