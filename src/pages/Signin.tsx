@@ -37,17 +37,22 @@ const Signin = () => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (data) => {
       const { accessToken, refreshToken } = data.signIn;
+
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
+      const decoded = decodeToken(accessToken);
+      if (!decoded) return;
+      
+      const role = decoded?.role;
+      const userId = Number(decoded?.sub);
+
       await client.resetStore();
 
-      const decoded = decodeToken(accessToken);
-      const role = decoded?.role;
-      setUserId(Number(decoded?.sub));
+      setUserId(userId);
 
-      if (role === "CUSTOMER") navigate("/");
-      if (role === "ADMIN") navigate("/dashboard");
+      if (role === "CUSTOMER") navigate("/", { replace: true});
+      if (role === "ADMIN") navigate("/dashboard", {replace: true});
 
       setError({
         isError: false,
