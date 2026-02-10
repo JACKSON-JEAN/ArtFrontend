@@ -50,6 +50,43 @@ query GetArtwork($searchInput: SearchArtworkInput!){
   }
 }
 `;
+export const GET_ADMIN_ARTWORK = gql`
+query GetArtwork($searchInput: SearchArtworkInput!){
+  getAdminArtwork(searchInput: $searchInput){
+    artworks {
+      id
+      title
+      description
+      material
+      category
+      imageHash
+      yearCreated
+      culturalOrigin
+      isUnique
+      isAvailable
+      isFeatured
+      heightCm
+      widthCm
+      price
+      currency
+      media{
+        id
+        url
+        type
+      }
+      artisan{
+        fullName
+        country
+        biography
+      }
+      reviews{
+        rating
+      }
+    }
+    nextCursor
+  }
+}
+`;
 
 
 export const GET_ARTWORK_BYID = gql`

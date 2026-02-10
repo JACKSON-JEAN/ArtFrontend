@@ -1,7 +1,7 @@
 // Infinite scroll
 import { useQuery } from "@apollo/client";
 import React, { useCallback, useEffect, useState } from "react";
-import { GET_ARTWORK } from "../graphql/artwork";
+import { GET_ADMIN_ARTWORK } from "../graphql/artwork";
 import { useSearch } from "../context/search.context";
 import { Artwork } from "../types/artwork";
 import img1 from "../images/art1.jpg";
@@ -30,15 +30,15 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   const [fetchingMore, setFetchingMore] = useState(false);
 
   const { query } = useSearch();
-  const { loading, error, data, fetchMore } = useQuery(GET_ARTWORK, {
+  const { loading, error, data, fetchMore } = useQuery(GET_ADMIN_ARTWORK, {
     variables: { searchInput: { keyword: query, limit: 12 } },
     notifyOnNetworkStatusChange: true,
   });
 
   useEffect(() => {
-    if (data?.getArtwork && artworks.length === 0) {
-      setArtworks(data.getArtwork.artworks);
-      setNextCursor(data.getArtwork.nextCursor ?? null);
+    if (data?.getAdminArtwork && artworks.length === 0) {
+      setArtworks(data.getAdminArtwork.artworks);
+      setNextCursor(data.getAdminArtwork.nextCursor ?? null);
     }
   }, [data, artworks.length]);
 
@@ -58,8 +58,8 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
         },
       });
 
-      setArtworks((prev) => [...prev, ...moreData.getArtwork.artworks]);
-      setNextCursor(moreData.getArtwork.nextCursor ?? null);
+      setArtworks((prev) => [...prev, ...moreData.getAdminArtwork.artworks]);
+      setNextCursor(moreData.getAdminArtwork.nextCursor ?? null);
     } finally {
       setFetchingMore(false);
     }
