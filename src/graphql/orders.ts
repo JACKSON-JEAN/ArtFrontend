@@ -1,64 +1,69 @@
 import { gql } from "@apollo/client";
 
-export const GET_ORDERS_QUERY=gql`
-query GetOrders($searchInput: SearchOrdersInput!){
-  getOrders(searchInput: $searchInput){
-    id
-    items{
+export const GET_ORDERS_QUERY = gql`
+  query GetOrders($searchInput: SearchOrdersInput!) {
+    getOrders(searchInput: $searchInput) {
       id
-      price
-      quantity
-      artwork{
+      items {
         id
-        title
+        price
+        quantity
+        artwork {
+          id
+          title
+        }
       }
+      shippingAddress {
+        fullName
+        phone
+        email
+        line1
+        line2
+        postalCode
+        city
+        state
+        country
+      }
+      customer {
+        fullName
+      }
+      status
     }
-    shippingAddress{
-      fullName
-      phone
-      email
-      line1
-      line2
-      postalCode
-      city
-      state
-      country
-    }
-    customer{
-      fullName
-    }
-    status
   }
-}
-`
-export const GET_ADMIN_ORDERS_QUERY=gql`
-query GetOrders($searchInput: SearchOrdersInput!){
-  getAdminOrders(searchInput: $searchInput){
-    id
-    items{
+`;
+export const GET_ADMIN_ORDERS_QUERY = gql`
+  query GetOrders($searchInput: SearchOrdersInput!) {
+    getAdminOrders(searchInput: $searchInput) {
       id
-      price
-      quantity
-      artwork{
+      items {
         id
-        title
+        price
+        quantity
+        artwork {
+          id
+          title
+          media {
+            id
+            url
+            type
+          }
+        }
       }
+      shippingAddress {
+        fullName
+        phone
+        email
+        line1
+        line2
+        postalCode
+        city
+        state
+        country
+      }
+      customer {
+        fullName
+      }
+      status
     }
-    shippingAddress{
-      fullName
-      phone
-      email
-      line1
-      line2
-      postalCode
-      city
-      state
-      country
-    }
-    customer{
-      fullName
-    }
-    status
   }
-}
-`
+`;

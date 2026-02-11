@@ -3,10 +3,16 @@ import { useQuery } from "@apollo/client";
 import { GET_ADMIN_ORDERS_QUERY } from "../../graphql/orders";
 import { ShippingAddress } from "../../pages/Addresses";
 import { Link } from "react-router-dom";
+import img1 from "../../images/img1.jpeg";
 
 interface Artwork {
   id: number;
   title: string;
+  media: {
+    id: number;
+    url: string;
+    type: "IMAGE" | "VIDEO";
+  }[];
 }
 
 interface OrderItem {
@@ -123,20 +129,29 @@ const Orders = () => {
               {order.items.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-slate-50 rounded-sm p-2 text-sm border"
+                  className="bg-slate-50 rounded-sm p-2 text-sm border flex gap-1"
                 >
-                  <p>
-                    💰 <strong>Price:</strong> ${item.price}
-                  </p>
-                  <p>
-                    📦 <strong>Quantity:</strong> {item.quantity}
-                  </p>
-                  <p>
-                    🖼️ <strong>Artwork:</strong>{" "}
-                    {item.artwork
-                      ? `${item.artwork.title} (ID: ${item.artwork.id})`
-                      : "No artwork"}
-                  </p>
+                  <div>
+                    <img 
+                      src={item?.artwork?.media[0]?.url || img1} 
+                      alt={item?.artwork?.title}
+                      className="w-16 object-cover rounded"
+                    />
+                  </div>
+                  <div>
+                    <p>
+                      💰 <strong>Price:</strong> ${item.price}
+                    </p>
+                    <p>
+                      📦 <strong>Quantity:</strong> {item.quantity}
+                    </p>
+                    <p>
+                      🖼️ <strong>Artwork:</strong>{" "}
+                      {item.artwork
+                        ? `${item.artwork.title} (ID: ${item.artwork.id})`
+                        : "No artwork"}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
