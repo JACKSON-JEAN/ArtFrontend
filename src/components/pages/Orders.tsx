@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ORDERS_QUERY } from "../../graphql/orders";
+import { GET_ADMIN_ORDERS_QUERY } from "../../graphql/orders";
 import { ShippingAddress } from "../../pages/Addresses";
 import { Link } from "react-router-dom";
 
@@ -53,7 +53,7 @@ const getStatusBadge = (status: Order["status"]) => {
 
 const Orders = () => {
   const searchTerm = "";
-  const { loading, error, data } = useQuery(GET_ORDERS_QUERY, {
+  const { loading, error, data } = useQuery(GET_ADMIN_ORDERS_QUERY, {
     variables: {
       searchInput: {
         customerName: searchTerm,
@@ -61,7 +61,7 @@ const Orders = () => {
     },
   });
 
-  const orders: Order[] = data?.getOrders || [];
+  const orders: Order[] = data?.getAdminOrders || [];
 
   return (
     <div
