@@ -1,7 +1,7 @@
 // Infinite scroll
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useCallback, useEffect, useState } from "react";
-import { GET_ADMIN_ARTWORK } from "../graphql/artwork";
+import { GET_ADMIN_ARTWORK, DELETE_ARTWORK_MUTATION } from "../graphql/artwork";
 import { useSearch } from "../context/search.context";
 import { Artwork } from "../types/artwork";
 import img1 from "../images/art1.jpg";
@@ -9,6 +9,8 @@ import AddArtwork from "../components/AddProduct";
 import { Link } from "react-router-dom";
 import AddImage from "../dashboard/components/AddImage";
 import EditArtwork from "../components/EditArtwork";
+import DeleteArtwork from "../components/DeleteArtwork";
+import { useToast } from "../context/ToastContext";
 
 type ProductsProps = {
   limit?: number;
@@ -23,6 +25,8 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   const [editId, setEditId] = useState<number>();
   const [addImage, setAddImage] = useState(false);
   const [selectedId, setSelectedId] = useState<number>();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [selectedTitle, setSelectedTitle] = useState<string>("");
 
   // 🔹 Infinite scroll state
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -30,9 +34,19 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   const [fetchingMore, setFetchingMore] = useState(false);
 
   const { query } = useSearch();
+  const { success, error: toastError } = useToast();
   const { loading, error, data, fetchMore } = useQuery(GET_ADMIN_ARTWORK, {
     variables: { searchInput: { keyword: query, limit: 12 } },
     notifyOnNetworkStatusChange: true,
+  });
+
+  const [deleteArtwork] = useMutation(DELETE_ARTWORK_MUTATION, {
+    onCompleted: async (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
   });
 
   useEffect(() => {
@@ -97,8 +111,48 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
   const initialLoading = loading && artworks.length === 0;
   if (error) return <p>There was an error fetching data: {error.message}</p>;
 
+  const handleDeleteClick = (id: number, title: string) => {
+    setSelectedId(id);
+    setSelectedTitle(title);
+    setDeleteOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedId === undefined) return;
+
+    // Remove from local state (important for infinite scroll)
+    try {
+      await deleteArtwork({
+        variables: { artworkId: Number(selectedId) },
+      });
+
+      setArtworks((prev: Artwork[]) => prev.filter((a) => a.id !== selectedId));
+
+      success("Item deleted successfully!");
+    } catch (error: any) {
+      toastError(error.message);
+    }
+
+    setDeleteOpen(false);
+    setSelectedId(undefined);
+    setSelectedTitle("");
+  };
+
   return (
     <div className=" bg-gray-100 wrapper w-full px-10 sm:px-16 min-h-screen pt-3">
+      {deleteOpen && selectedId !== undefined && (
+        <DeleteArtwork
+          selectedId={selectedId}
+          artworkTitle={selectedTitle}
+          onDelete={handleConfirmDelete}
+          onCancel={() => {
+            setDeleteOpen(false);
+            setSelectedId(undefined);
+            setSelectedTitle("");
+          }}
+        />
+      )}
+
       {initialLoading && <p>Loading...</p>}
       {/* Modals */}
       {addNew && <AddArtwork onClose={handleCloseAdd} />}
@@ -117,10 +171,8 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
 
       {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-semibold text-gray-800">
-          🎨 Artwork Management
-        </h1>
-        <div className="flex gap-4">
+        <h1 className="text-xl font-semibold text-gray-800">Artwork</h1>
+        <div className="flex items-center gap-4">
           <Link
             to="orders"
             className="text-blue-600 font-medium hover:underline"
@@ -135,9 +187,10 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
           </Link>
           <button
             onClick={handleAddNew}
-            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition flex items-center gap-1"
           >
-            + Add Artwork
+            <span className=" text-xl">+</span>{" "}
+            <span className=" hidden sm:block">Add Artwork</span>
           </button>
         </div>
       </div>
@@ -154,7 +207,9 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
                 <th className="border px-2 py-1">Preview</th>
                 <th className="border px-2 py-1 whitespace-nowrap">Title</th>
                 <th className="border px-2 py-1 whitespace-nowrap">Category</th>
-                <th className="border px-2 py-1 whitespace-nowrap">Price ($)</th>
+                <th className="border px-2 py-1 whitespace-nowrap">
+                  Price ($)
+                </th>
                 <th className="border px-2 py-1 whitespace-nowrap">Actions</th>
               </tr>
             </thead>
@@ -169,32 +224,38 @@ const ArtworkManagement: React.FC<ProductsProps> = () => {
                       className="w-12 h-12 object-cover rounded"
                     />
                   </td>
-                  <td className="border px-2 py-1 whitespace-nowrap">{item.title}</td>
+                  <td className="border px-2 py-1 whitespace-nowrap">
+                    {item.title}
+                  </td>
                   <td className="border px-2 py-1 capitalize whitespace-nowrap">
                     {item.material
                       ? item.material
                       : item.category.toLowerCase()}
                   </td>
-                  <td className="border px-2 py-1 whitespace-nowrap">${item.price.toFixed(2)}</td>
-                  <td className="border px-2 py-1 text-sm space-x-3 whitespace-nowrap">
-                    <button
-                      onClick={() => handleAddImage(item.id)}
-                      className="text-blue-600 hover:underline"
-                    >
-                      Add Image
-                    </button>
-                    <button
-                      onClick={() => handleEditArtwork(item.id)}
-                      className="text-green-700 hover:underline"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => console.log("Deleted")}
-                      className="text-red-700 hover:underline"
-                    >
-                      Delete
-                    </button>
+                  <td className="border px-2 py-1 whitespace-nowrap">
+                    ${item.price.toFixed(2)}
+                  </td>
+                  <td className=" border px-2 py-1 text-sm space-x-3 whitespace-nowrap">
+                    <div className=" flex gap-4">
+                      <button
+                        onClick={() => handleAddImage(item.id)}
+                        className="text-blue-600 hover:underline hidden sm:block"
+                      >
+                        Add Image
+                      </button>
+                      <button
+                        onClick={() => handleEditArtwork(item.id)}
+                        className="text-green-700 hover:underline hidden sm:block"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(item.id, item.title)}
+                        className="text-red-700 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
