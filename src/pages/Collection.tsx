@@ -83,7 +83,7 @@ const Collection = () => {
       (entries) => {
         if (entries[0].isIntersecting) loadMore();
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const sentinel = document.querySelector("#scroll-sentinel");
@@ -103,7 +103,7 @@ const Collection = () => {
   const handleFilterChange = (newFilters: ArtFilterState) => {
     setFilters(newFilters);
     setOpenFilters(false); // 👈 CLOSE AFTER SELECTION
-    window.scrollTo({ top: 0, behavior: 'smooth'})
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   /* ---------------- FILTERING ---------------- */
@@ -147,12 +147,12 @@ const Collection = () => {
       category: {
         all: artworks.length,
         painting: artworks.filter(
-          (a) => a.category?.toLowerCase() === "painting"
+          (a) => a.category?.toLowerCase() === "painting",
         ).length,
         drawing: artworks.filter((a) => a.category?.toLowerCase() === "drawing")
           .length,
         sculpture: artworks.filter(
-          (a) => a.category?.toLowerCase() === "sculpture"
+          (a) => a.category?.toLowerCase() === "sculpture",
         ).length,
         textile: artworks.filter((a) => a.category?.toLowerCase() === "textile")
           .length,
@@ -167,15 +167,15 @@ const Collection = () => {
       material: {
         all: artworks.length,
         "acrylic on canvas": artworks.filter(
-          (a) => a.material?.trim().toLowerCase() === "acrylic on canvas"
+          (a) => a.material?.trim().toLowerCase() === "acrylic on canvas",
         ).length,
         "oil gold and acrylic on canvas": artworks.filter(
           (a) =>
             a.material?.trim().toLowerCase() ===
-            "oil gold and acrylic on canvas"
+            "oil gold and acrylic on canvas",
         ).length,
         "oil on canvas": artworks.filter(
-          (a) => a.material?.trim().toLowerCase() === "oil on canvas"
+          (a) => a.material?.trim().toLowerCase() === "oil on canvas",
         ).length,
       },
       price: {
@@ -238,7 +238,47 @@ const Collection = () => {
   return (
     <>
       <Helmet>
+        {/* Primary SEO */}
         <title>Shop Original African Artwork | Pearl Art Galleries</title>
+        <meta
+          name="description"
+          content="Explore and shop original African artwork from talented artisans. Discover paintings, sculptures, and handcrafted pieces curated by Pearl Art Galleries."
+        />
+        <link rel="canonical" href="https://pearlartgalleries.com/collection" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Shop Original African Artwork | Pearl Art Galleries"
+        />
+        <meta
+          property="og:description"
+          content="Browse our curated collection of original African art. Support African artists and discover unique handmade artworks."
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760269340/jean_bhijkx.webp"
+        />
+        <meta
+          property="og:url"
+          content="https://pearlartgalleries.com/collection"
+        />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Shop Original African Artwork | Pearl Art Galleries"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover and shop original African artwork from skilled artisans across the continent."
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760269340/jean_bhijkx.webp"
+        />
       </Helmet>
 
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
@@ -258,8 +298,9 @@ const Collection = () => {
               <div className="relative">
                 <input
                   value={search}
-                  onChange={(e) =>{ setSearch(e.target.value)
-                    window.scrollTo({ top: 0, behavior: "smooth"})
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   placeholder="Search..."
                   className="border rounded-sm outline-blue-500 py-1.5 pl-2 w-64 sm:w-96"
@@ -267,8 +308,8 @@ const Collection = () => {
                 {search && (
                   <div
                     onClick={() => {
-                      setSearch("")
-                      window.scrollTo({ top: 0, behavior: 'smooth'})
+                      setSearch("");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className="flex justify-center items-center absolute right-0.5 top-0.5 bg-blue-500 h-[calc(100%-4px)] w-11 cursor-pointer rounded-sm shadow-sm"
                   >
@@ -296,12 +337,12 @@ const Collection = () => {
                 {activeFilterChips.map((chip) => (
                   <button
                     key={`${chip.key}-${chip.value}`}
-                    onClick={() =>{
+                    onClick={() => {
                       setFilters((prev) => ({
                         ...prev,
                         [chip.key]: "all",
-                      }))
-                      window.scrollTo({ top: 0, behavior: 'smooth'})
+                      }));
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className="flex items-end gap-1 rounded-full bg-slate-200 px-3 py-1 text-xs text-slate-700 hover:bg-slate-300 transition whitespace-nowrap"
                   >
@@ -313,15 +354,17 @@ const Collection = () => {
                 ))}
               </div>
             )}
-            {activeFilterChips.length > 1 && <button
-              onClick={() => {
-                setFilters(defaultFilters)
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-xs text-blue-600 hover:text-blue-500 underline ml-2 whitespace-nowrap"
-            >
-              Clear all
-            </button>}
+            {activeFilterChips.length > 1 && (
+              <button
+                onClick={() => {
+                  setFilters(defaultFilters);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="text-xs text-blue-600 hover:text-blue-500 underline ml-2 whitespace-nowrap"
+              >
+                Clear all
+              </button>
+            )}
           </div>
         </div>
 

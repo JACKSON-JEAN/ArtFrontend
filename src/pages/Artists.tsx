@@ -78,7 +78,7 @@ const Artists = () => {
         />
         <link
           rel="canonical"
-          href="https://www.pearlartgalleries.com/artists"
+          href="https://pearlartgalleries.com/artists"
         />
 
         {/* Open Graph */}
@@ -96,7 +96,7 @@ const Artists = () => {
         />
         <meta
           property="og:url"
-          content="https://www.pearlartgalleries.com/artists"
+          content="https://pearlartgalleries.com/artists"
         />
         <meta property="og:type" content="website" />
 

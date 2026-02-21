@@ -45,7 +45,7 @@ const About = () => {
           name="description"
           content="Learn about Pearl Art Galleries — a global platform connecting African artisans with the world. Discover our story, mission, and dedicated team."
         />
-        <link rel="canonical" href="https://www.pearlartgalleries.com/about" />
+        <link rel="canonical" href="https://pearlartgalleries.com/about" />
 
         {/* Open Graph */}
         <meta property="og:title" content="About Us | Pearl Art Galleries" />
@@ -59,7 +59,7 @@ const About = () => {
         />
         <meta
           property="og:url"
-          content="https://www.pearlartgalleries.com/about"
+          content="https://pearlartgalleries.com/about"
         />
         <meta property="og:type" content="website" />
 

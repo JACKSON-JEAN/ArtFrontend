@@ -21,11 +21,11 @@ const Reviews = () => {
         <title>Customer Reviews | Pearl Art Galleries</title>
         <meta
           name="description"
-          content="Read what our customers say about their experience with Pearl Art Galleries. Discover why collectors around the world trust us for authentic African art."
+          content="Read what our customers say about their experience with Pearl Art Galleries. Discover why collectors around the world trust us for original African art."
         />
         <link
           rel="canonical"
-          href="https://www.pearlartgalleries.com/reviews"
+          href="https://pearlartgalleries.com/reviews"
         />
 
         {/* Open Graph */}
@@ -35,7 +35,7 @@ const Reviews = () => {
         />
         <meta
           property="og:description"
-          content="See why collectors trust Pearl Art Galleries for authentic African art."
+          content="See why collectors trust Pearl Art Galleries for original African art."
         />
         <meta
           property="og:image"
@@ -43,7 +43,7 @@ const Reviews = () => {
         />
         <meta
           property="og:url"
-          content="https://www.pearlartgalleries.com/reviews"
+          content="https://pearlartgalleries.com/reviews"
         />
         <meta property="og:type" content="website" />
 
@@ -55,7 +55,7 @@ const Reviews = () => {
         />
         <meta
           name="twitter:description"
-          content="Read customer reviews of Pearl Art Galleries for authentic African art."
+          content="Read customer reviews of Pearl Art Galleries for original African art."
         />
         <meta
           name="twitter:image"

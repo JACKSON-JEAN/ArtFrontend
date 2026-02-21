@@ -73,7 +73,7 @@ const Contact = () => {
         />
         <link
           rel="canonical"
-          href="https://www.pearlartgalleries.com/contact"
+          href="https://pearlartgalleries.com/contact"
         />
 
         {/* Open Graph */}
@@ -88,7 +88,7 @@ const Contact = () => {
         />
         <meta
           property="og:url"
-          content="https://www.pearlartgalleries.com/contact"
+          content="https://pearlartgalleries.com/contact"
         />
         <meta property="og:type" content="website" />
 

@@ -15,7 +15,7 @@ const Home = () => {
           name="description"
           content="Discover and buy original African art, paintings, and sculptures from talented artists across Africa. Explore unique collections and support African creativity."
         />
-        <link rel="canonical" href="https://www.pearlartgalleries.com/" />
+        <link rel="canonical" href="https://pearlartgalleries.com/" />
 
         {/* Open Graph */}
         <meta
@@ -30,7 +30,7 @@ const Home = () => {
           property="og:image"
           content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760267152/kampala_1_jltha2.jpg"
         />
-        <meta property="og:url" content="https://www.pearlartgalleries.com/" />
+        <meta property="og:url" content="https://pearlartgalleries.com/" />
         <meta property="og:type" content="website" />
 
         {/* Twitter */}
