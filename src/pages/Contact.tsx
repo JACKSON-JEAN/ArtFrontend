@@ -71,10 +71,7 @@ const Contact = () => {
           name="description"
           content="Have a question or collaboration idea? Contact Pearl Art Galleries for inquiries, partnerships, or support."
         />
-        <link
-          rel="canonical"
-          href="https://pearlartgalleries.com/contact"
-        />
+        <link rel="canonical" href="https://pearlartgalleries.com/contact" />
 
         {/* Open Graph */}
         <meta property="og:title" content="Contact Us | Pearl Art Galleries" />
@@ -125,12 +122,22 @@ const Contact = () => {
             <div>
               <p>
                 Email:{" "}
-                <span className=" font-light">
+                <a
+                  className="font-light text-blue-600 underline"
+                  href="mailto:pearlartgalleries@gmail.com?subject=Artwork%20Inquiry&body=Hello%20Pearl%20Art%20Galleries,"
+                >
                   pearlartgalleries@gmail.com
-                </span>{" "}
+                </a>
               </p>
+
               <p>
-                Call us: <span className=" font-light">+256 776 286 453</span>
+                Call / WhatsApp:{" "}
+                <a
+                  href="tel:+256776286453"
+                  className="font-light text-blue-600 underline"
+                >
+                  +256 776 286 453
+                </a>
               </p>
             </div>
           </div>
