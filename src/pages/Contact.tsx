@@ -112,18 +112,21 @@ const Contact = () => {
       >
         <section className=" flex-1 mb-4 md:mb-0">
           <h1 className=" text-xl text-red-950 font-semibold">
-            We'd Love to hear from you.
+            Contact Pearl Art Galleries – African Art Inquiries & Support
           </h1>
+          <h2 className="sr-only">
+            Contact Pearl Art Galleries – African Art Inquiries, Collaborations
+            & Customer Support
+          </h2>
           <p className=" font-light mb-2">
-            Questions, collaborations, or just want to chat about African Art?
-            Reach out, we're here to connect.
+            Have questions about buying original African artworks, collaborating with our artists, or exploring unique paintings and sculptures? Contact Pearl Art Galleries today and our team will assist you promptly.
           </p>
           <div className=" ">
             <div>
               <p>
                 Email:{" "}
                 <a
-                  className="font-light text-blue-600 underline"
+                  className="font-light text-blue-600"
                   href="mailto:pearlartgalleries@gmail.com?subject=Artwork%20Inquiry&body=Hello%20Pearl%20Art%20Galleries,"
                 >
                   pearlartgalleries@gmail.com
@@ -134,7 +137,7 @@ const Contact = () => {
                 Call / WhatsApp:{" "}
                 <a
                   href="tel:+256776286453"
-                  className="font-light text-blue-600 underline"
+                  className="font-light text-blue-600"
                 >
                   +256 776 286 453
                 </a>

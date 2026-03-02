@@ -57,10 +57,7 @@ const About = () => {
           property="og:image"
           content="https://res.cloudinary.com/dsawd9eso/image/upload/v1760269340/jean_bhijkx.webp"
         />
-        <meta
-          property="og:url"
-          content="https://pearlartgalleries.com/about"
-        />
+        <meta property="og:url" content="https://pearlartgalleries.com/about" />
         <meta property="og:type" content="website" />
 
         {/* Twitter */}
@@ -81,7 +78,11 @@ const About = () => {
       >
         <section className=" flex-1">
           <div className=" mb-2">
-            <h1 className=" text-xl text-red-950 font-semibold">Our story</h1>
+            <h1 className="sr-only">
+              About Pearl Art Galleries – African Art, Paintings & Sculptures
+              Online
+            </h1>
+            <h2 className=" text-xl text-red-950 font-semibold">Our story</h2>
             <p className=" font-light mb-4">
               Pearl Art Galleries was born from a deep friendship between U.S.
               Christian businessmen and Jackson Uwizeye, their Ugandan partner.
@@ -90,12 +91,14 @@ const About = () => {
               program from age 10 until his university graduation. United by a
               love for original art, Jackson now leads this Kampala-based,
               locally owned online business. Together, they curate unique,
-              original Ugandan art—distinct from mainstream offerings—sourced
-              at fair trade prices. Our values of Quality Art, Reliable Service,
+              original Ugandan art—distinct from mainstream offerings—sourced at
+              fair trade prices. Our values of Quality Art, Reliable Service,
               Fair Trading, and Guaranteed Satisfaction ensure every customer is
               delighted with their treasure. Pearl Art Galleries ships globally
               via DHL within 72 hours of receiving the order and the customer
-              will receive a tracking email alert. Most importantly, payments at Pearl Art Galleries are secured by Stripe’s world-class, PCI DSS-compliant payment processing.
+              will receive a tracking email alert. Most importantly, payments at
+              Pearl Art Galleries are secured by Stripe’s world-class, PCI
+              DSS-compliant payment processing.
             </p>
             <p className="mb-2">
               <span>Mission:</span>{" "}
@@ -106,7 +109,7 @@ const About = () => {
             </p>
           </div>
           <div className=" mb-4">
-            <h2 className=" text-lg text-red-950 font-semibold">How we work</h2>
+            <h3 className=" text-lg text-red-950 font-semibold">How we work</h3>
             <p>Direct partnerships</p>
             <p className=" font-light mb-2">
               We travel to villages, build relationships with artists, and
@@ -129,7 +132,7 @@ const About = () => {
                 src={owner.src}
                 name={owner.name}
                 imageHash={owner.imageHash}
-                aspectRatio={3/4}
+                aspectRatio={3 / 4}
               />
               <div>
                 <p className=" text-red-950">{owner.role}</p>

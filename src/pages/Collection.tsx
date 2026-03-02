@@ -282,7 +282,12 @@ const Collection = () => {
       </Helmet>
 
       <div className="wrapper w-full px-10 sm:px-16 min-h-screen pb-10 bg-slate-100">
-        {/* Top bar */}
+        <h1 className="sr-only">
+          Original African Art, Paintings, Sculptures & Contemporary Artworks
+        </h1>
+        <h2 className="sr-only">
+          Buy Original African Art Online | Pearl Art Galleries
+        </h2>
         {/* here */}
         <div className=" bg-slate-100 pt-2 pb-1 sticky top-[50px] sm:top-[91px] md:top-[91px] z-10">
           <div className=" flex items-center gap-1.5 justify-between">

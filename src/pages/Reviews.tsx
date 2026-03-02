@@ -23,10 +23,7 @@ const Reviews = () => {
           name="description"
           content="Read what our customers say about their experience with Pearl Art Galleries. Discover why collectors around the world trust us for original African art."
         />
-        <link
-          rel="canonical"
-          href="https://pearlartgalleries.com/reviews"
-        />
+        <link rel="canonical" href="https://pearlartgalleries.com/reviews" />
 
         {/* Open Graph */}
         <meta
@@ -66,9 +63,18 @@ const Reviews = () => {
       <div
         className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-4 pb-10 bg-slate-100`}
       >
-        <h1 className=" text-center text-xl text-red-950 font-semibold pb-3">
-          Our Clients' Reviews.
+        <h1 className="text-center text-xl text-red-950 font-semibold">
+          Reviews from our happy clients
         </h1>
+        <h2 className="sr-only">
+          Discover what our clients say about buying original African artworks
+        </h2>
+        <p className="text-center text-gray-700 mb-6 max-w-xl mx-auto">
+          Hear from our satisfied customers who purchased original African
+          paintings, sculptures, and contemporary artworks from Pearl Art Galleries. Their experiences
+          highlight our commitment to quality, authenticity, and excellent
+          service.
+        </p>
         {loading && <p>Loading...</p>}
         {error && <p>{error.message}</p>}
         <div className=" columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-2 sm:gap-4">

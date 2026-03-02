@@ -76,10 +76,7 @@ const Artists = () => {
           name="description"
           content="Discover talented African artists behind every masterpiece. Learn their stories, explore their artwork, and experience original creativity from the heart of Africa."
         />
-        <link
-          rel="canonical"
-          href="https://pearlartgalleries.com/artists"
-        />
+        <link rel="canonical" href="https://pearlartgalleries.com/artists" />
 
         {/* Open Graph */}
         <meta
@@ -120,13 +117,18 @@ const Artists = () => {
         className={`${"wrapper"} w-full px-10 sm:px-16 min-h-screen pt-2 pb-10 bg-slate-100`}
       >
         <h1 className=" text-xl text-red-950 font-semibold pb-1 text-center">
-          Creators of original masterpieces
+          Creators of original paintings, sculptures & artworks
         </h1>
+        <h2 className="sr-only">
+          Explore original African art by talented painters, sculptors, and
+          creators
+        </h2>
         <div className=" ">
           <p className=" text-base text-gray-700 max-w-[600px] mx-auto mb-8">
-            From intricate sculptures to breathtaking photography, our artists
-            bring diverse visions to life. Browse by artist, explore their
-            creations, and find the perfect piece for your space.
+            Discover our talented African artists showcasing original paintings,
+            sculptures, and contemporary artworks. Browse by artist, explore
+            unique creations, and find the perfect African art piece for your
+            home or office.
           </p>
         </div>
 
@@ -135,7 +137,12 @@ const Artists = () => {
             {artists.map(
               ({ src, name, speciality, nationality, imageHash }, index) => (
                 <div key={index} className=" relative px-2">
-                  <ImageComponent src={src} name={name} imageHash={imageHash} aspectRatio={3/4} />
+                  <ImageComponent
+                    src={src}
+                    name={name}
+                    imageHash={imageHash}
+                    aspectRatio={3 / 4}
+                  />
                   <div className=" absolute bottom-0 left-0  w-full p-2">
                     <div className=" px-2">
                       <div className=" bg-white border shadow-sm rounded-sm px-1 py-0.5 -space-y-1">
@@ -147,7 +154,7 @@ const Artists = () => {
                     </div>
                   </div>
                 </div>
-              )
+              ),
             )}
           </Slider>
         </div>
