@@ -27,7 +27,7 @@ const HeroSection = () => {
               to="/collection"
               className="bg-amber-50 hover:bg-amber-100 text-red-950 font-semibold px-6 py-2 capitalize rounded-sm shadow-sm hover:shadow-md text-base"
             >
-              Browse African Art Collection
+              View Art Collection
             </Link>
           </div>
         </section>
