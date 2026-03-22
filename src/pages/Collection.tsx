@@ -249,7 +249,7 @@ const Collection = () => {
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="Shop Original African Artwork | Pearl Art Galleries"
+          content="View Our Art Collection | Pearl Art Galleries"
         />
         <meta
           property="og:description"
